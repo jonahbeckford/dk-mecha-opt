@@ -142,10 +142,16 @@ jobs:
           mkdir -p artifacts/screenshots
           # --console keeps the app's stdout and stderr, which is where a managed crash shows up
           xcrun simctl launch --console "$UDID" com.diskuv.mechadk > artifacts/screenshots/ios-console.log 2>&1 &
-          sleep 20
-          xcrun simctl io "$UDID" screenshot artifacts/screenshots/ios-simulator.png
+          # Several screenshots, because an app that starts and then exits is easy to miss at 20 seconds.
+          sleep 3;  xcrun simctl io "$UDID" screenshot artifacts/screenshots/ios-03s.png
+          sleep 7;  xcrun simctl io "$UDID" screenshot artifacts/screenshots/ios-10s.png
+          sleep 10; xcrun simctl io "$UDID" screenshot artifacts/screenshots/ios-simulator.png
           [ "$(wc -c < artifacts/screenshots/ios-simulator.png)" -gt 1024 ]
           echo '--- app console'; cat artifacts/screenshots/ios-console.log
+          echo '--- processes in the simulator'; xcrun simctl spawn "$UDID" launchctl list | grep -i mecha || echo 'no mecha process is running'
+          echo '--- simulator log for the app'
+          xcrun simctl spawn "$UDID" log show --last 3m --style compact --predicate 'process CONTAINS[c] "mecha" OR eventMessage CONTAINS[c] "mechadk"' > artifacts/screenshots/ios-log.txt 2>&1 || true
+          tail -80 artifacts/screenshots/ios-log.txt
           echo '--- crash reports'; ls -la "$HOME/Library/Logs/DiagnosticReports" 2>/dev/null || true
           cp "$HOME"/Library/Logs/DiagnosticReports/*.ips artifacts/screenshots/ 2>/dev/null || true
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
