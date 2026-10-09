@@ -92,3 +92,12 @@ or in a cloud instance. It builds first through `build.ps1` unless `-NoBuild`.
 
 `.github/workflows/build.yml` runs `build.ps1` on a runner per platform: six desktop RIDs, web,
 Android, and an unsigned iOS simulator build.
+
+`.github/workflows/launch.yml` starts the app and saves a screenshot as a workflow artifact: the
+desktop app on Linux, Windows and macOS (through `take-screenshot.ps1`, which on macOS launches the
+`Dk.app` bundle), the Android build in an emulator, and the iOS build in a simulator. **It runs only
+on request** (Actions tab, Run workflow), because the macOS and Windows jobs are billed at a multiple
+of Linux minutes and used up a month of them when it ran on every push. A job passes when a
+screenshot file of at least 1 KB exists, so look at the images: a pass does not show the app on
+screen. The iOS simulator kills an unsigned app at startup (`Code Signature Invalid`), so that job
+signs the bundle ad hoc, with no identity, before installing it.
