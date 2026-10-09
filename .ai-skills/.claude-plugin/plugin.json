@@ -1,0 +1,6 @@
+{
+    "name": "dk-mecha-opt",
+    "description": "dk mecha optimization harness coordinator skills.",
+    "author": { "name": "Diskuv" },
+    "skills": ["."]
+}

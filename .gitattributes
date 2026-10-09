@@ -1,0 +1,7 @@
+# LF everywhere. This repo is read on Windows, Linux and in cloud sessions, and the
+# portability rule says tracked state must be identical on every machine. dksdk-coder
+# carries assumptions (values_ast_has_unix_byte_positions,
+# core_distribution_has_unix_byte_positions) that exist because CRLF changed byte offsets.
+* text=auto eol=lf
+*.png binary
+*.zip binary

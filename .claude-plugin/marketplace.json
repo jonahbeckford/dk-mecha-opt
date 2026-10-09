@@ -1,0 +1,11 @@
+{
+    "name": "dk-mecha-opt",
+    "owner": { "name": "Diskuv" },
+    "plugins": [
+        {
+            "name": "dk-mecha-opt",
+            "source": "./.ai-skills",
+            "description": "dk mecha optimization harness coordinator skills."
+        }
+    ]
+}
