@@ -54,16 +54,29 @@ jobs:
         with:
           dotnet-version: 10.0.x
       - run: dotnet workload install android
-      - name: Android NDK, platform, emulator and system image
+      # The runner died during Build with no log when the emulator image was installed first. Free disk
+      # up front, and install the emulator and system image only after the build.
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/local/.ghcup /opt/hostedtoolcache/CodeQL /usr/share/swift /usr/local/share/boost /opt/microsoft /usr/local/lib/node_modules
+          df -h /
+      - name: Android NDK and platform (versions pinned in scripts/dev-common.ps1)
         shell: pwsh
         run: |
           . ./scripts/dev-common.ps1
           $sdkmanager = Join-Path $env:ANDROID_HOME 'cmdline-tools/latest/bin/sdkmanager'
-          & $sdkmanager "ndk;$($script:NdkVersion)" "platforms;$($script:AndroidPlatform)" "build-tools;$($script:AndroidBuildTools)" emulator platform-tools $env:IMAGE
+          & $sdkmanager "ndk;$($script:NdkVersion)" "platforms;$($script:AndroidPlatform)" "build-tools;$($script:AndroidBuildTools)"
           if ($LASTEXITCODE -ne 0) { throw 'sdkmanager failed' }
       - name: Build
         shell: pwsh
         run: ./scripts/build.ps1 -Target android -Publish
+      - name: Emulator and system image
+        shell: pwsh
+        run: |
+          $sdkmanager = Join-Path $env:ANDROID_HOME 'cmdline-tools/latest/bin/sdkmanager'
+          & $sdkmanager emulator platform-tools $env:IMAGE
+          if ($LASTEXITCODE -ne 0) { throw 'sdkmanager failed' }
+          df -h /
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
