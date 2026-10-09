@@ -5,7 +5,7 @@
 
 .DESCRIPTION
   Wraps dotnet build and dotnet publish with the right target framework, runtime identifier and
-  properties. The native C function is built by CMake inside MSBuild (src/MechaDk/Native.targets), so
+  properties. The native C function is built by CMake inside MSBuild (src/MechaDK/Native.targets), so
   a bare `dotnet build` works too.
 
   Desktop is built for the HOST only, because the native library is. A desktop -Rid for another OS or
@@ -56,7 +56,7 @@ if (-not $Rid) { $Rid = $script:HostRid }
 if (-not $env:ANDROID_NDK_ROOT -and (Test-Pinned-Ndk)) { $env:ANDROID_NDK_ROOT = Get-AndroidNdkDir }
 if (-not $env:ANDROID_HOME -and (Test-Path (Get-AndroidSdkDir))) { $env:ANDROID_HOME = Get-AndroidSdkDir }
 
-$proj = Join-Path $script:ProjectDir 'MechaDk.csproj'
+$proj = Join-Path $script:ProjectDir 'MechaDK.csproj'
 $publishRoot = Join-Path $script:ArtifactsDir 'publish'
 $produced = [System.Collections.Generic.List[string]]::new()
 

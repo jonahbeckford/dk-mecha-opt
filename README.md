@@ -10,7 +10,7 @@ human. Agent instructions are in `AGENTS.md` (`CLAUDE.md` imports it).
 - `CLAUDE.md` - `@AGENTS.md`, so Claude Code loads the same index.
 - `.ai-skills/` - agent skills, also the Claude Code plugin root (see `.ai-skills/README.md`).
 - `.claude-plugin/marketplace.json` - the marketplace entry, `source: "./.ai-skills"`.
-- `src/MechaDk/` - the Uno Platform app (single project, XAML, Skia renderer).
+- `src/MechaDK/` - the Uno Platform app (single project, XAML, Skia renderer).
 - `native/` - one C function, `mechadk_make_it_so`, built by CMake. It stands in for the OCaml code
   to come, which will be built as a DLL, a static library and WebAssembly.
 - `global.json` - pins the .NET SDK floor and the Uno SDK version.
@@ -61,14 +61,14 @@ pwsh -File scripts/build.ps1 -Target all -Publish
 ```
 
 `-Target all` is every target the host can build; iOS builds only on macOS. A bare
-`dotnet build src/MechaDk -f net10.0-desktop` also works, and runs CMake.
+`dotnet build src/MechaDK -f net10.0-desktop` also works, and runs CMake.
 
 **The native library is built for the host only.** Each desktop runtime identifier is therefore
 published on its own OS and architecture: `win-*` on Windows, `osx-*` on a Mac, `linux-*` on Linux.
 Publishing another RID fails early with a message saying where to build it. CI has a runner for each.
 
 **iOS is pinned to the iOS 26.0 SDK** (`net10.0-ios26.0`). Plain `net10.0-ios` resolves to the newest
-workload pack, which needs the newest Xcode. Raise the pin in `MechaDk.csproj`, `Native.targets` and
+workload pack, which needs the newest Xcode. Raise the pin in `MechaDK.csproj`, `Native.targets` and
 `build.ps1` together. The 26.0 SDK checks the Xcode version to the minor release; CI builds with the
 image's default (newest) Xcode and `-Property ValidateXcodeVersion=false`, and that is the only combination
 verified. CI needs no Xcode setup. Measured on `macos-26`: the build passes with no `xcode-select`,

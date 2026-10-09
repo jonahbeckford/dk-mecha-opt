@@ -32,7 +32,7 @@ unless the installed Uno.Sdk already filters it out.
 `ApplicationDisplayVersion=1.0`, `ApplicationVersion=1`, `Version=1.0.0`, `Product`/`Company` assembly
 attributes ("Mecha DK", "Diskuv"), macOS bundle `Dk.app` (`CFBundleName` "Mecha DK",
 `CFBundleShortVersionString` 1.0), Android label and iOS `CFBundleDisplayName` "Mecha DK", and the
-web page `<title>`. Code names use `MechaDk` (project, namespace) and `mechadk_` (C).
+web page `<title>`. Code names use `MechaDK` (project, namespace) and `mechadk_` (C).
 
 **Executable names.** The desktop executable is `dk` on Linux and `dk.exe` on Windows
 (`AssemblyName=dk` for the desktop TFM). On macOS the bundle is `Dk.app`, with `Contents/MacOS/dk`
@@ -46,7 +46,7 @@ that the two `dk` executables must not share a `PATH` directory until MlFront's 
 1. Install pwsh, then write the setup scripts first and run `scripts/setup-dev-machine.ps1 -InstallTools`.
    That installs the .NET 10 SDK and the rest of the prerequisites in this container.
 2. Run `dotnet new install Uno.Templates` and then
-   `dotnet new unoapp -n MechaDk -o src -preset blank -platforms desktop wasm android ios -tests none -toolkit false -markup xaml -theme fluent -di false -config false -http none -log default -nav blank -server false -pwa false -vscode false`
+   `dotnet new unoapp -n MechaDK -o src -preset blank -platforms desktop wasm android ios -tests none -toolkit false -markup xaml -theme fluent -di false -config false -http none -log default -nav blank -server false -pwa false -vscode false`
    (keep only the flags the installed template version accepts).
 3. Trim to the minimum: drop generated extras the build doesn't need (sample assets beyond the
    app icon and splash, `.vscode`/`.run` folders, the README the template adds).
@@ -89,7 +89,7 @@ One C file and one CMake project, driven by an MSBuild target in the app project
   visibility elsewhere). No libc includes.
 - `native/CMakeLists.txt`: `cmake_minimum_required(3.21)`, one `add_library(mechadk_native ...)`.
   `BUILD_SHARED_LIBS` decides between shared and static.
-- `src/MechaDk/Native.targets` (imported by the `.csproj`): a `BuildMechaDkNative` target that runs
+- `src/MechaDK/Native.targets` (imported by the `.csproj`): a `BuildMechaDKNative` target that runs
   before `ResolveReferences`/`Build`. It has `Inputs`/`Outputs` on the C and CMake files, so it is
   incremental. It runs `cmake -S native -B obj/native/<tfm>/<rid-or-abi>` and then `cmake --build`,
   and hands the result to the SDK as follows:
@@ -104,10 +104,10 @@ One C file and one CMake project, driven by an MSBuild target in the app project
 - **Native toolchains mean no desktop cross-compiling.** The desktop library is built only for the
   host OS and architecture. `dotnet build` on any host works. A `dotnet publish -r <rid>` for another
   OS or architecture fails early with a clear error ("build the native library on <os>/<arch>"),
-  because the standalone app would otherwise ship without its DLL. A `MechaDkNativeCMakeArgs`
+  because the standalone app would otherwise ship without its DLL. A `MechaDKNativeCMakeArgs`
   property lets a cross toolchain file be passed later. So the Windows `.exe` is published on
   Windows, the `.app` on a Mac, and the Linux binaries on Linux.
-- C#: `src/MechaDk/NativeMethods.cs` uses `[LibraryImport]` and returns `IntPtr`, which becomes a
+- C#: `src/MechaDK/NativeMethods.cs` uses `[LibraryImport]` and returns `IntPtr`, which becomes a
   string through `Marshal.PtrToStringUTF8`. The pointer is static, so it must not be freed. The
   library name is `"mechadk_native"`, or `"__Internal"` under `#if __IOS__`. `MainPage` shows the
   returned "Make it so" under the title.
@@ -220,17 +220,17 @@ here before the commit, and `scripts/build.ps1 -Target all` (and `-Publish`) mus
 ### Resulting files (approximate)
 
 - `global.json`: pins the .NET SDK (10.0.x, `rollForward: latestFeature`) and the `Uno.Sdk` version.
-- `MechaDk.slnx` (or `.sln`, whichever the template emits) at the repo root.
-- `src/MechaDk/MechaDk.csproj`: `<Project Sdk="Uno.Sdk">`, with
+- `MechaDK.slnx` (or `.sln`, whichever the template emits) at the repo root.
+- `src/MechaDK/MechaDK.csproj`: `<Project Sdk="Uno.Sdk">`, with
   `TargetFrameworks=net10.0-desktop;net10.0-browserwasm;net10.0-android` (+ `net10.0-ios` on macOS),
   `OutputType=Exe`, `SingleProject=true`, `ApplicationId=com.diskuv.mechadk`.
-- `src/MechaDk/App.xaml(.cs)`, `MainPage.xaml(.cs)`: one page with the title "Mecha DK 1.0" and the native string.
-- `native/mechadk_native.c`, `native/CMakeLists.txt`, `src/MechaDk/Native.targets`, `src/MechaDk/NativeMethods.cs`.
-- `src/MechaDk/Platforms/Desktop/Program.cs` and `Platforms/WebAssembly/` (Program.cs, `wwwroot`,
+- `src/MechaDK/App.xaml(.cs)`, `MainPage.xaml(.cs)`: one page with the title "Mecha DK 1.0" and the native string.
+- `native/mechadk_native.c`, `native/CMakeLists.txt`, `src/MechaDK/Native.targets`, `src/MechaDK/NativeMethods.cs`.
+- `src/MechaDK/Platforms/Desktop/Program.cs` and `Platforms/WebAssembly/` (Program.cs, `wwwroot`,
   manifest).
-- `src/MechaDk/Platforms/Android/` (MainActivity, `AndroidManifest.xml`) and `Platforms/iOS/`
+- `src/MechaDK/Platforms/Android/` (MainActivity, `AndroidManifest.xml`) and `Platforms/iOS/`
   (`Main.iOS.cs`, `Info.plist`, `Entitlements.plist`), as the template emits them.
-- `src/MechaDk/Assets/` with the icon and splash only.
+- `src/MechaDK/Assets/` with the icon and splash only.
 - `Directory.Build.props`/`Directory.Packages.props` only if the template emits them.
 - `.github/workflows/build.yml`.
 - `scripts/setup-dev-machine.ps1`, `scripts/validate-dev-machine.ps1`, `scripts/setup-common.ps1`, `scripts/validate-common.ps1`.
@@ -250,7 +250,7 @@ here before the commit, and `scripts/build.ps1 -Target all` (and `-Publish`) mus
 
 ## Verification
 
-- `validate-dev-machine.ps1` passes (no builds). `scripts/build.ps1 -Target all` succeeds, which builds desktop, web and android here, and so does a bare `dotnet build src/MechaDk -f net10.0-desktop`.
+- `validate-dev-machine.ps1` passes (no builds). `scripts/build.ps1 -Target all` succeeds, which builds desktop, web and android here, and so does a bare `dotnet build src/MechaDK -f net10.0-desktop`.
 - Native: `dotnet build -f net10.0-desktop` runs CMake (the log shows it). A second build skips it
   (incremental). `libmechadk_native.so` lands in the output.
 - Desktop standalone (this Linux container, so `linux-x64`): `dotnet publish -f net10.0-desktop -r linux-x64`
@@ -308,7 +308,7 @@ iOS 27.0 workload pack, which requires Xcode 27.0. The 26.0 pack is installed to
 (`Microsoft.iOS.Sdk.net10.0_26.0`).
 
 Proposed fix, to apply once approved:
-- `MechaDk.csproj`: `net10.0-ios` becomes `net10.0-ios26.0`, which builds against the iOS 26 SDK and
+- `MechaDK.csproj`: `net10.0-ios` becomes `net10.0-ios26.0`, which builds against the iOS 26 SDK and
   Xcode 26.x.
 - `Native.targets`: the two iOS conditions change from `== 'net10.0-ios'` to
   `$(TargetFramework.StartsWith('net10.0-ios'))`.
@@ -427,8 +427,10 @@ Check first with `list_triggers` and `get_trigger`.
 > bundle is Mecha DK.app (Contents/MacOS/mecha-dk is unchanged), the window title and page heading read
 > "Mecha DK" and "Mecha DK 1.0", and the CI zip is Mecha-DK-<rid>.zip. Wherever the text above says
 > "Mecha dk" or "Mecha dk.app", read the new spelling; screenshots taken before this rename show the old
-> spelling and are historical. The code prefix MechaDk (namespace, project, MechaDk.csproj) was NOT
-> renamed. Like the first rename it carries [skip ci], so still start build.yml yourself first.
+> spelling and are historical. A THIRD change (Addendum 6) then renamed the code prefix MechaDk to MechaDK:
+> src/MechaDK/, MechaDK.csproj, MechaDK.slnx and the MechaDK namespace, so paths in older text that say
+> src/MechaDk need the new spelling (the lowercase mechadk_ names and com.diskuv.mechadk are unchanged).
+> Like the first rename it carries [skip ci], so still start build.yml yourself first.
 
 ### Recreating the artifact if the scratchpad is gone
 
@@ -495,3 +497,31 @@ parses, rename the code prefix `MechaDk` to `MechaDK` (namespace, `MechaDk.cspro
 
 Verified: the Linux Debug build shows "Mecha DK 1.0" and "Make it so". Not verified: every other
 platform, as in Addendum 4. Committed with `[skip ci]`.
+
+## Addendum 6: the code prefix is `MechaDK` (2026-10-09)
+
+The code prefix was renamed from `MechaDk` to `MechaDK`, on the condition that `MechaDK_Std` is a valid
+MlFront library id. **It is.** Checked with `@dkjs/cli` 2.4.3022 (maintainer jonahbeckford), command
+`dkjs lua -e 'm = require("modver")' -e 'r, e = m.parse("MechaDK_Std.Tested@1.0.0")' ...`:
+
+| Id | Result | vendor / qualifier / unit |
+|---|---|---|
+| `MechaDK_Std` | parses | Mecha / DK / Std |
+| `MechaDk_Std` | parses | Mecha / Dk / Std |
+| `MlFront_Std`, `CommonsBase_Std`, `DkZero_Exec`, `CommonsLang_OCaml`, `CommonsBase_GNU`, `NotMitEdu_Kerberos` | parse | controls |
+| `Mecha_Std`, `mechaDk_Std`, `MECHADK_Std`, `Mecha__Std` | rejected ("Could not parse the module id") | negative controls |
+
+Caveats: this release exposes only `modver.parse` (a module id plus version), not a library-only parser, so
+this is the module id parser splitting the library part with the `LibraryId` accessors, close to but not
+the same call as `MlFront_Core.LibraryId.parse`. The engine's Lua is version 2.5 and has no `for` loops
+and no `local` in the REPL, so use one statement per `-e`.
+
+What changed: `src/MechaDk/` to `src/MechaDK/`, `MechaDk.csproj` to `MechaDK.csproj`, `MechaDk.slnx` to
+`MechaDK.slnx`, the `MechaDk` namespace and every `MechaDk` identifier (for example `MechaDKNativeSrcArg` in
+`Native.targets`). Not changed: the lowercase `mechadk_native`, `mechadk_make_it_so`, `libmechadk_native`
+and `com.diskuv.mechadk`, and the executable names `mecha-dk` and `mecha-dk.exe`. A case-only rename of a
+directory can confuse an existing macOS checkout; a fresh clone is fine.
+
+Verified on Linux: desktop publish, desktop, web and Android debug builds all succeed, with 0 warnings; the
+desktop and web apps draw "Mecha DK 1.0" and "Make it so". Not verified: Windows, macOS, iOS, any CI run
+(committed with `[skip ci]`).

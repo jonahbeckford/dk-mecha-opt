@@ -1,7 +1,7 @@
 using UIKit;
 using Uno.UI.Hosting;
 
-namespace MechaDk.iOS;
+namespace MechaDK.iOS;
 
 public class EntryPoint
 {

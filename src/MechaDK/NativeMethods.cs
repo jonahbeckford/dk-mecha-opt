@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace MechaDk;
+namespace MechaDK;
 
 /// <summary>The C function in native/mechadk_native.c, built by CMake (see Native.targets).</summary>
 internal static partial class NativeMethods

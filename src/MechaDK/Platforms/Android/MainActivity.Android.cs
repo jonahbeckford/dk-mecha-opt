@@ -4,7 +4,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 
-namespace MechaDk.Droid;
+namespace MechaDK.Droid;
 
 [Activity(
     MainLauncher = true,

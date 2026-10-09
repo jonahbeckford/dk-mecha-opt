@@ -1,6 +1,6 @@
 using Uno.UI.Hosting;
 
-namespace MechaDk;
+namespace MechaDK;
 
 public class Program
 {

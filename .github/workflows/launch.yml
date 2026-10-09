@@ -128,7 +128,7 @@ jobs:
       - name: Boot a simulator, install, launch, screenshot
         run: |
           set -eu
-          APP="$(find src/MechaDk/bin/Debug/net10.0-ios26.0/iossimulator-arm64 -maxdepth 1 -type d -name '*.app' | head -1)"
+          APP="$(find src/MechaDK/bin/Debug/net10.0-ios26.0/iossimulator-arm64 -maxdepth 1 -type d -name '*.app' | head -1)"
           echo "App: $APP"
           UDID="$(xcrun simctl list devices available -j | jq -r '[.devices[][] | select(.name | startswith("iPhone"))][0].udid')"
           echo "Simulator: $UDID"

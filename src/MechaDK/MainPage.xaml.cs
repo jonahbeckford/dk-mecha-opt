@@ -1,4 +1,4 @@
-namespace MechaDk;
+namespace MechaDK;
 
 public sealed partial class MainPage : Page
 {

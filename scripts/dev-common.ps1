@@ -8,7 +8,7 @@
 Set-StrictMode -Off
 
 $script:RepoRoot = Split-Path -Parent $PSScriptRoot
-$script:ProjectDir = Join-Path $script:RepoRoot 'src/MechaDk'
+$script:ProjectDir = Join-Path $script:RepoRoot 'src/MechaDK'
 $script:ArtifactsDir = Join-Path $script:RepoRoot 'artifacts'
 
 # Minimum versions. Raise one here and setup and validate both move.
