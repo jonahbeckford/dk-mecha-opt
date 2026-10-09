@@ -19,7 +19,7 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        MainWindow = new Window();
+        MainWindow = new Window { Title = "Mecha dk" };
 #if DEBUG
         MainWindow.UseStudio();
 #endif

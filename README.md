@@ -84,6 +84,7 @@ pwsh -File scripts/take-screenshot.ps1                  # desktop; on Linux with
 pwsh -File scripts/take-screenshot.ps1 -Target web
 ```
 
+On macOS the desktop screenshot launches the `Dk.app` bundle that `build.ps1 -Publish` assembles, with `open`, not `dotnet run`.
 Writes `artifacts/screenshots/<target>-<os>.png` and prints the path, so it works over Remote Control
 or in a cloud instance. It builds first through `build.ps1` unless `-NoBuild`.
 
