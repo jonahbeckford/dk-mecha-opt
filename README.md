@@ -103,4 +103,5 @@ on request** (Actions tab, Run workflow), because the macOS and Windows jobs are
 of Linux minutes and used up a month of them when it ran on every push. A job passes when a
 screenshot file of at least 1 KB exists, so look at the images: a pass does not show the app on
 screen. The iOS simulator kills an unsigned app at startup (`Code Signature Invalid`), so that job
-signs the bundle ad hoc, with no identity, before installing it.
+signs every Mach-O file and then the bundle ad hoc, with no identity, before installing it (`codesign
+--deep` alone left a loose dylib unsigned).

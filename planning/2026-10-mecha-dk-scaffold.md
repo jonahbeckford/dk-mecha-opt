@@ -2,7 +2,8 @@
 
 This is the plan of record. It lives in the repository so it survives a lost session. Update this file,
 not a copy. The sections run in order of writing: the original plan, then addenda for what changed.
-The current state and the scheduled follow-up are in "Addendum 3" at the end.
+**Status: the CI verification is complete** (Addendum 7). Addenda 3 to 6 record how it got there; no
+scheduled follow-up remains.
 
 ## Context
 
@@ -381,9 +382,12 @@ Never add attribution or session trailers to commit messages (AGENTS.md; the `co
 
 ### Scheduled: finish the CI verification on Nov 1
 
+**Superseded.** This routine was deleted on 2026-10-09 because the work finished early (Addendum 7). The text
+below is kept as history. Do not recreate it.
+
 The Actions limit resets on Nov 1. A one-time routine fires on **2026-11-01T12:00:00Z**, bound to
 this session (trigger `trig_01WbCKuGsyTCvUFuphuthBea`, name "Finish dk-mecha-opt CI verification after
-the Actions limit resets"). If that routine is gone, recreate it with `create_trigger`
+the Actions limit resets"). (Historical) To recreate it, `create_trigger`
 (`run_once_at: 2026-11-01T12:00:00Z`, `initiation: human_request`, default self-bound) and this prompt.
 Check first with `list_triggers` and `get_trigger`.
 
@@ -525,3 +529,48 @@ directory can confuse an existing macOS checkout; a fresh clone is fine.
 Verified on Linux: desktop publish, desktop, web and Android debug builds all succeed, with 0 warnings; the
 desktop and web apps draw "Mecha DK 1.0" and "Make it so". Not verified: Windows, macOS, iOS, any CI run
 (committed with `[skip ci]`).
+
+## Addendum 7: the CI verification is complete (2026-10-09)
+
+The repository was made public by the maintainer to get free Actions minutes after the monthly limit was
+reached (it must be set back to private by the maintainer; the proxy blocks visibility changes from the
+agent). The testing finished the same day, so the Nov 1 routine was deleted.
+
+**Builds.** `build.yml` run 37996597989 on `d638977`: all 9 jobs green (linux-x64, linux-arm64, win-x64,
+win-arm64, osx-x64, osx-arm64, web, android, ios).
+
+**Launch.** `launch.yml` (manual only) run 37996601022 on `d638977`; every launch screenshot was viewed and
+shows "Mecha DK 1.0" and "Make it so":
+
+| Platform | Evidence |
+|---|---|
+| Linux (ubuntu-24.04, Xvfb) | the window; no title bar under Xvfb |
+| Windows (windows-2025) | title bar "Mecha DK" |
+| macOS (macos-15) | `Mecha DK.app` started with `open`; menu bar and window title "Mecha DK" |
+| Android (emulator, API 34 x86_64) | the app on the emulator screen |
+| iOS (macos-26 simulator) | the app on the simulator screen, console log shows Uno startup |
+| Web | container screenshot (Playwright, earlier commit; same code) |
+
+**What the last failures were and what fixed them.**
+- Android emulator: `avdmanager` created the AVD under `~/.config/.android/avd` and the emulator searched
+  `~/.android/avd`; fixed by setting `ANDROID_AVD_HOME` (`a3a4384`). An earlier hang came from `adb
+  wait-for-device` with no timeout (`64da909`), and an earlier failure from a cleanup step that deleted
+  `/opt/microsoft`, where `pwsh` lives (`ec85ba9`).
+- iOS simulator: the unsigned app was killed at startup with `SIGKILL (Code Signature Invalid)` inside dyld
+  loading a dependent dylib. `codesign --deep` left a loose dylib unsigned; signing every Mach-O file and
+  then the bundle fixed it (`d638977`). A fresh simulator also needs about 45 seconds to settle (`64da909`).
+- Windows title: the window said "Uno Platform"; fixed by setting the window title (`06d674e`).
+
+**Not verified.** Say so rather than assume.
+- `win-arm64`, `osx-x64`, `linux-arm64` were built, not launched. The published single-file `mecha-dk.exe`
+  and `mecha-dk` were not launched in CI (launch uses the debug build; macOS uses the published bundle).
+  A single-file `mecha-dk` was run locally before the `MechaDK` rename only.
+- Signing: `Mecha DK.app`, `mecha-dk.exe` and the iOS build are unsigned, by choice. The iOS simulator app
+  is signed ad hoc only inside the launch job.
+- The Android launch job was green on the public repo's larger runners. The earlier runner deaths happened on
+  the private repo's smaller runners (probably out of memory), so it may die again once the repo is private.
+- Documentation commits after `d638977` carry `[skip ci]`, so there is no `build.yml` run on the final head.
+  They change only `planning/` and `README.md`.
+
+**Open items that are the maintainer's choice:** signing and notarizing, launching the other RIDs, the UI
+design (started in a separate session), and the Mecha DK command line tool name `dk`.
