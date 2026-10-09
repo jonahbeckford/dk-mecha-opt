@@ -1,9 +1,9 @@
 {
   "background_color": "#ffffff",
-  "description": "Mecha dk",
+  "description": "Mecha DK",
   "display": "standalone",
-  "name": "Mecha dk",
-  "short_name": "Mecha dk",
+  "name": "Mecha DK",
+  "short_name": "Mecha DK",
   "start_url": "/index.html",
   "theme_color": "#ffffff",
   "scope": "/"

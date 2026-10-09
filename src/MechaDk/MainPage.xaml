@@ -10,7 +10,7 @@
         VerticalAlignment="Center"
         Spacing="12">
         <TextBlock AutomationProperties.AutomationId="TitleTextBlock"
-          Text="Mecha dk 1.0"
+          Text="Mecha DK 1.0"
           FontSize="32"
           HorizontalAlignment="Center" />
         <TextBlock x:Name="NativeTextBlock"

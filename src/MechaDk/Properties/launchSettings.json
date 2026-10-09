@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Mecha dk (WebAssembly)": {
+    "Mecha DK (WebAssembly)": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
@@ -9,7 +9,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Mecha dk (Desktop)": {
+    "Mecha DK (Desktop)": {
       "commandName": "Project",
       "compatibleTargetFramework": "desktop"
     }

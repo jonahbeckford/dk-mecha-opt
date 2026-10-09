@@ -1,4 +1,4 @@
-# Minimal Uno Platform scaffold for Mecha dk 1.0
+# Minimal Uno Platform scaffold for Mecha DK 1.0
 
 This is the plan of record. It lives in the repository so it survives a lost session. Update this file,
 not a copy. The sections run in order of writing: the original plan, then addenda for what changed.
@@ -8,7 +8,7 @@ The current state and the scheduled follow-up are in "Addendum 3" at the end.
 
 dk-mecha-opt (branch `jumping-jack`) holds only the agent scaffolding: `AGENTS.md`, `CLAUDE.md`,
 `.ai-skills/`, `.claude-plugin/`, `README.md` and `.gitattributes`. The maintainer wants the smallest
-.NET project that builds the dk mecha GUI, product name **Mecha dk 1.0**, for Windows, macOS, Linux, the web and mobile (Android, iOS). They chose
+.NET project that builds the dk mecha GUI, product name **Mecha DK 1.0**, for Windows, macOS, Linux, the web and mobile (Android, iOS). They chose
 **Uno Platform** on **.NET 10 LTS**. Desktop ships as standalone single-file executables named **`dk`** (Linux) and **`dk.exe`** (Windows), and as a signable **`Dk.app`** bundle on macOS. A one-function C file, built by CMake as part of `dotnet build`, stands in for the OCaml code
 that will later come as a DLL, a static library and WASM.
 
@@ -28,15 +28,15 @@ unless the installed Uno.Sdk already filters it out.
 
 ### Product identity
 
-**Mecha dk 1.0** everywhere a user sees it: `ApplicationTitle`/window title "Mecha dk",
+**Mecha DK 1.0** everywhere a user sees it: `ApplicationTitle`/window title "Mecha DK",
 `ApplicationDisplayVersion=1.0`, `ApplicationVersion=1`, `Version=1.0.0`, `Product`/`Company` assembly
-attributes ("Mecha dk", "Diskuv"), macOS bundle `Dk.app` (`CFBundleName` "Mecha dk",
-`CFBundleShortVersionString` 1.0), Android label and iOS `CFBundleDisplayName` "Mecha dk", and the
+attributes ("Mecha DK", "Diskuv"), macOS bundle `Dk.app` (`CFBundleName` "Mecha DK",
+`CFBundleShortVersionString` 1.0), Android label and iOS `CFBundleDisplayName` "Mecha DK", and the
 web page `<title>`. Code names use `MechaDk` (project, namespace) and `mechadk_` (C).
 
 **Executable names.** The desktop executable is `dk` on Linux and `dk.exe` on Windows
 (`AssemblyName=dk` for the desktop TFM). On macOS the bundle is `Dk.app`, with `Contents/MacOS/dk`
-inside. `CFBundleName` stays "Mecha dk", so Finder and the Dock still show the product name. MlFront
+inside. `CFBundleName` stays "Mecha DK", so Finder and the Dock still show the product name. MlFront
 already produces a `dk` executable. This GUI is meant to absorb that OCaml code through the C
 binding, so the name collision is deliberate. The README says so, so nobody "fixes" it, and it warns
 that the two `dk` executables must not share a `PATH` directory until MlFront's `dk` is retired.
@@ -70,7 +70,7 @@ Single-file is turned off for `osx-*` RIDs (codesign has to see each Mach-O file
 Instead the publish uses Uno.Sdk's desktop packaging,
 `dotnet publish -f net10.0-desktop -r osx-arm64 -p:PackageFormat=app` (and `osx-x64`). That
 produces a self-contained **`Dk.app`** (bundle name set explicitly, not derived from the project name) with `Contents/MacOS`, `Contents/Resources` and an
-`Info.plist` (`CFBundleIdentifier=com.diskuv.mechadk`, display name "Mecha dk", icon from
+`Info.plist` (`CFBundleIdentifier=com.diskuv.mechadk`, display name "Mecha DK", icon from
 `Assets`). Signing is left as a property for later, passed only on a Mac with a real identity
 (`-p:CodesignKey=...`, plus the hardened-runtime entitlements Uno documents for notarization). The
 scaffold commits no identity or certificate.
@@ -224,7 +224,7 @@ here before the commit, and `scripts/build.ps1 -Target all` (and `-Publish`) mus
 - `src/MechaDk/MechaDk.csproj`: `<Project Sdk="Uno.Sdk">`, with
   `TargetFrameworks=net10.0-desktop;net10.0-browserwasm;net10.0-android` (+ `net10.0-ios` on macOS),
   `OutputType=Exe`, `SingleProject=true`, `ApplicationId=com.diskuv.mechadk`.
-- `src/MechaDk/App.xaml(.cs)`, `MainPage.xaml(.cs)`: one page with the title "Mecha dk 1.0" and the native string.
+- `src/MechaDk/App.xaml(.cs)`, `MainPage.xaml(.cs)`: one page with the title "Mecha DK 1.0" and the native string.
 - `native/mechadk_native.c`, `native/CMakeLists.txt`, `src/MechaDk/Native.targets`, `src/MechaDk/NativeMethods.cs`.
 - `src/MechaDk/Platforms/Desktop/Program.cs` and `Platforms/WebAssembly/` (Program.cs, `wwwroot`,
   manifest).
@@ -263,7 +263,7 @@ here before the commit, and `scripts/build.ps1 -Target all` (and `-Publish`) mus
 - Android: needs the NDK as well (`sdkmanager "ndk;<ver>"`). The debug APK has
   `lib/arm64-v8a/libmechadk_native.so` (`unzip -l`).
 - Web: `dotnet publish -f net10.0-browserwasm`, serve `wwwroot` locally and take a Playwright
-  screenshot with the preinstalled Chromium (`/opt/pw-browsers`) to confirm "Mecha dk 1.0" renders.
+  screenshot with the preinstalled Chromium (`/opt/pw-browsers`) to confirm "Mecha DK 1.0" renders.
 - Android: `dotnet workload install android`, then
   `dotnet build -f net10.0-android -t:InstallAndroidDependencies -p:AcceptAndroidSDKLicenses=true`
   to fetch the SDK into the container, then `dotnet build -f net10.0-android` produces a debug APK.
@@ -285,9 +285,9 @@ Artifacts**. They are not described in chat, and they are not committed.
 1. Install PowerShell 7 in the container (Microsoft's tarball into `~/.local/pwsh`, since `pwsh`
    is not installed), then run `scripts/take-screenshot.ps1 -Target desktop` and
    `-Target web`. That also proves the script works on Linux.
-2. Publish one private Artifact, "Mecha dk 1.0 verification" (load `artifact-design` first). It
+2. Publish one private Artifact, "Mecha DK 1.0 verification" (load `artifact-design` first). It
    embeds both PNGs as data URIs, one per section: desktop (Linux, Xvfb) and web (Chromium). Under
-   each image: the commit SHA, the exact command, and whether "Make it so" and "Mecha dk 1.0" are
+   each image: the commit SHA, the exact command, and whether "Make it so" and "Mecha DK 1.0" are
    visible. Give the link in the reply.
 3. Android, iOS, Windows and macOS have no display here, so they are verified by CI build results
    only. The artifact lists them with their CI job status and says that no screenshot was taken for them.
@@ -317,7 +317,7 @@ Proposed fix, to apply once approved:
 - Push, then re-read the run. If `-p:EnableCodeSigning=false` or the simulator RID needs further
   adjustment, fix that in the same loop until all nine jobs are green.
 
-Then publish the private "Mecha dk 1.0 verification" artifact from
+Then publish the private "Mecha DK 1.0 verification" artifact from
 `scratchpad/art/make.py` (screenshots at `a9328db`, final CI statuses in its table) and give the link.
 
 ## Addendum 2: the Xcode settings question (2026-10-09)
@@ -422,6 +422,13 @@ Check first with `list_triggers` and `get_trigger`.
 > green, and fix red jobs with normal pushes. Likely suspects: the macOS app path now has a space (the
 > ditto zip step in build.yml, and take-screenshot.ps1 with open, pgrep and pkill), and the hyphen in the
 > assembly name on Windows and macOS. Only Linux was run after the rename.
+>
+> SECOND RENAME (Addendum 5 in the same plan file): the product name is now spelled Mecha DK, so the macOS
+> bundle is Mecha DK.app (Contents/MacOS/mecha-dk is unchanged), the window title and page heading read
+> "Mecha DK" and "Mecha DK 1.0", and the CI zip is Mecha-DK-<rid>.zip. Wherever the text above says
+> "Mecha dk" or "Mecha dk.app", read the new spelling; screenshots taken before this rename show the old
+> spelling and are historical. The code prefix MechaDk (namespace, project, MechaDk.csproj) was NOT
+> renamed. Like the first rename it carries [skip ci], so still start build.yml yourself first.
 
 ### Recreating the artifact if the scratchpad is gone
 
@@ -460,3 +467,31 @@ so **no `build.yml` run exists on the branch head**. The Nov 1 routine must star
 (`run_workflow` on `build.yml`, ref `jumping-jack`) and fix anything red before the launch checks.
 Whether a hyphen in the assembly name breaks anything on the other platforms (resource names, the
 macOS bundle) is open until then.
+
+## Addendum 5: product spelling is "Mecha DK" (2026-10-09)
+
+The product is spelled **Mecha DK**, not "Mecha dk". This changes every user-visible string: the window
+title, the page heading ("Mecha DK 1.0"), `ApplicationTitle`, `Product`, the macOS `CFBundleName`, the
+Android label, the web manifest, the macOS bundle (`Mecha DK.app`, executable still
+`Contents/MacOS/mecha-dk`) and the CI zip (`Mecha-DK-<rid>.zip`). The executable names `mecha-dk` and
+`mecha-dk.exe` stay lowercase. Earlier sections and Addenda 2 to 4 keep the old spelling where they
+describe what was observed at the time.
+
+**`MechaDk` was not renamed to `MechaDK`.** The condition was that `MechaDK` must work as a MlFront
+library id prefix such as `MechaDK_Std`. That could not be confirmed:
+- The rule found says a library id is "a double camel cased string followed by an underscore and another
+  camel cased string, like `XyzAbc_Def`" (SPECIFICATION.md:1471, quoted in `dk-engine-opt`
+  `state/spec-anchor-review.md`). Whether a trailing `DK` counts as camel cased is not stated.
+- Real ids all use plain camel case in the first term: `CommonsBase_Std`, `DkZero_Exec`, `MlFront_Std`,
+  `DkExe_Std`. The first term spells acronyms in title case (`NotMitEdu_Kerberos`, not `NotMIT...`).
+  Acronyms do appear in the second term (`CommonsBase_GNU`, `CommonsBase_LLVM`, `CommonsLang_OCaml`).
+  That is weak evidence against `MechaDK` as a first term, not proof.
+- The parser (`MlFront_Core.LibraryId.parse`) is in `dksdk-coder`, which is not checked out here and was
+  not reachable from this session.
+
+To settle it, run `MlFront_Core.LibraryId.parse` on `MechaDK_Std` and on `MechaDk_Std`. If `MechaDK_Std`
+parses, rename the code prefix `MechaDk` to `MechaDK` (namespace, `MechaDk.csproj`, `MechaDk.slnx`,
+`src/MechaDk/`, `Native.targets`, scripts); until then it stays `MechaDk`.
+
+Verified: the Linux Debug build shows "Mecha DK 1.0" and "Make it so". Not verified: every other
+platform, as in Addendum 4. Committed with `[skip ci]`.

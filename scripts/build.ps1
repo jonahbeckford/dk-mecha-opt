@@ -1,7 +1,7 @@
 #Requires -Version 7
 <#
 .SYNOPSIS
-  Build Mecha dk 1.0. The one entry point for building: people, take-screenshot.ps1 and CI all use it.
+  Build Mecha DK 1.0. The one entry point for building: people, take-screenshot.ps1 and CI all use it.
 
 .DESCRIPTION
   Wraps dotnet build and dotnet publish with the right target framework, runtime identifier and
@@ -19,7 +19,7 @@
 
 .PARAMETER Publish
   Produce the deliverable under artifacts/publish/<target>/...:
-    desktop  mecha-dk (Linux), mecha-dk.exe (Windows), Mecha dk.app (macOS), single file except macOS
+    desktop  mecha-dk (Linux), mecha-dk.exe (Windows), Mecha DK.app (macOS), single file except macOS
     web      the published wwwroot
     android  the APK
     ios      a simulator build, unsigned (macOS only)
@@ -86,8 +86,8 @@ function New-MacApp([string]$PublishDir, [string]$AppPath) {
 <dict>
   <key>CFBundleExecutable</key><string>mecha-dk</string>
   <key>CFBundleIdentifier</key><string>com.diskuv.mechadk</string>
-  <key>CFBundleName</key><string>Mecha dk</string>
-  <key>CFBundleDisplayName</key><string>Mecha dk</string>
+  <key>CFBundleName</key><string>Mecha DK</string>
+  <key>CFBundleDisplayName</key><string>Mecha DK</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>1.0</string>
   <key>CFBundleVersion</key><string>1</string>
@@ -109,7 +109,7 @@ function Build-Desktop {
   Invoke-Dotnet @('publish', $proj, '-f', 'net10.0-desktop', (Get-TfmArg 'net10.0-desktop'), '-r', $Rid, '-c', 'Release', '-o', $stage)
   $out = Join-Path $publishRoot "desktop/$Rid"
   if ($Rid.StartsWith('osx')) {
-    $app = Join-Path $out 'Mecha dk.app'
+    $app = Join-Path $out 'Mecha DK.app'
     New-MacApp -PublishDir $stage -AppPath $app
     $produced.Add($app)
   } else {

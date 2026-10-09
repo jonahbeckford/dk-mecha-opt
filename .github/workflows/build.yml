@@ -39,7 +39,7 @@ jobs:
         run: tar -C artifacts/publish/desktop/${{ matrix.rid }} -czf mecha-dk-${{ matrix.rid }}.tar.gz mecha-dk
       - name: Package (macOS)
         if: startsWith(matrix.rid, 'osx')
-        run: ditto -c -k --keepParent "artifacts/publish/desktop/${{ matrix.rid }}/Mecha dk.app" Mecha-dk-${{ matrix.rid }}.zip
+        run: ditto -c -k --keepParent "artifacts/publish/desktop/${{ matrix.rid }}/Mecha DK.app" Mecha-DK-${{ matrix.rid }}.zip
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: startsWith(matrix.rid, 'linux')
         with:
@@ -55,8 +55,8 @@ jobs:
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: startsWith(matrix.rid, 'osx')
         with:
-          name: Mecha-dk-${{ matrix.rid }}
-          path: Mecha-dk-${{ matrix.rid }}.zip
+          name: Mecha-DK-${{ matrix.rid }}
+          path: Mecha-DK-${{ matrix.rid }}.zip
           if-no-files-found: error
 
   web:

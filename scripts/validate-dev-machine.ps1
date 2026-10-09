@@ -1,7 +1,7 @@
 #Requires -Version 7
 <#
 .SYNOPSIS
-  Prove this machine can build and screenshot Mecha dk 1.0. Fails loud (non-zero exit).
+  Prove this machine can build and screenshot Mecha DK 1.0. Fails loud (non-zero exit).
 
 .DESCRIPTION
   Checks the machine and NEVER builds: it does not compile, publish or launch anything. Building is

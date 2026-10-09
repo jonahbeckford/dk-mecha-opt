@@ -1,3 +1,3 @@
 var UnoAppManifest = {
-    displayName: "Mecha dk"
+    displayName: "Mecha DK"
 }

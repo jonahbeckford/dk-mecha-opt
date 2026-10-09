@@ -1,7 +1,7 @@
 #Requires -Version 7
 <#
 .SYNOPSIS
-  Build, start Mecha dk 1.0, take a screenshot of it, stop it. Runs on Windows, macOS and Linux.
+  Build, start Mecha DK 1.0, take a screenshot of it, stop it. Runs on Windows, macOS and Linux.
 
 .DESCRIPTION
   For checking a change visually from Remote Control or a cloud instance, where nobody is looking at
@@ -59,9 +59,9 @@ if ($Target -eq 'desktop' -and $IsLinux -and -not $env:DISPLAY) {
   exit $LASTEXITCODE
 }
 
-# On a Mac the desktop app is the Mecha dk.app bundle that build.ps1 -Publish assembles, started the way a
+# On a Mac the desktop app is the Mecha DK.app bundle that build.ps1 -Publish assembles, started the way a
 # person starts it, not through dotnet. That is the artifact that will be signed, so that is the one to look at.
-$macApp = Join-Path $script:ArtifactsDir "publish/desktop/$($script:HostRid)/Mecha dk.app"
+$macApp = Join-Path $script:ArtifactsDir "publish/desktop/$($script:HostRid)/Mecha DK.app"
 $useBundle = $Target -eq 'desktop' -and $IsMacOS
 
 if (-not $NoBuild) {

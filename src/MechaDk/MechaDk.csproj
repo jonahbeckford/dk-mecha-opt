@@ -10,7 +10,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
     <!-- Display name -->
-    <ApplicationTitle>Mecha dk</ApplicationTitle>
+    <ApplicationTitle>Mecha DK</ApplicationTitle>
     <!-- App Identifier -->
     <ApplicationId>com.diskuv.mechadk</ApplicationId>
     <!-- Versions -->
@@ -20,9 +20,9 @@
     <!-- Package Publisher -->
     <ApplicationPublisher>Diskuv</ApplicationPublisher>
     <Company>Diskuv</Company>
-    <Product>Mecha dk</Product>
+    <Product>Mecha DK</Product>
     <!-- Package Description -->
-    <Description>Mecha dk 1.0</Description>
+    <Description>Mecha DK 1.0</Description>
 
     <!--
       UnoFeatures are used to quickly add and manage features enabled for your app.
@@ -33,14 +33,14 @@
     </UnoFeatures>
   </PropertyGroup>
 
-  <!-- The desktop executable is `mecha-dk` (Linux), `mecha-dk.exe` (Windows) and `Mecha dk.app` (macOS, with
+  <!-- The desktop executable is `mecha-dk` (Linux), `mecha-dk.exe` (Windows) and `Mecha DK.app` (macOS, with
        Contents/MacOS/mecha-dk). `dk` is left for the command line tool. -->
   <!-- scripts/build.ps1 builds one target framework at a time with -p:TargetFrameworks=<tfm>. -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-desktop'">
     <AssemblyName>mecha-dk</AssemblyName>
   </PropertyGroup>
 
-  <!-- Standalone desktop builds: one self-contained file. macOS is a `Mecha dk.app` bundle instead,
+  <!-- Standalone desktop builds: one self-contained file. macOS is a `Mecha DK.app` bundle instead,
        because codesign has to see each Mach-O file. -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-desktop' and '$(RuntimeIdentifier)' != ''">
     <SelfContained>true</SelfContained>

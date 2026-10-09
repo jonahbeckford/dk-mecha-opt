@@ -1,6 +1,6 @@
 # dk-mecha-opt
 
-Coordinator's record for the dk mecha optimization harness, and the **Mecha dk 1.0** app it works on.
+Coordinator's record for the dk mecha optimization harness, and the **Mecha DK 1.0** app it works on.
 dk mecha is a .NET GUI for submitting and solving problems with a "mecha": an assistant guided by a
 human. Agent instructions are in `AGENTS.md` (`CLAUDE.md` imports it).
 
@@ -25,15 +25,15 @@ Script names are lowercase kebab-case (`scripts/*.ps1`).
 
 | Target | Framework | Output |
 |---|---|---|
-| Windows, macOS, Linux | `net10.0-desktop` | `mecha-dk.exe`, `Mecha dk.app`, `mecha-dk` |
+| Windows, macOS, Linux | `net10.0-desktop` | `mecha-dk.exe`, `Mecha DK.app`, `mecha-dk` |
 | Web | `net10.0-browserwasm` | `wwwroot` |
 | Android | `net10.0-android` | APK |
 | iOS | `net10.0-ios26.0` | app (macOS only) |
 
 Desktop publishes to a self-contained single file: **`mecha-dk`** on Linux, **`mecha-dk.exe`** on Windows. On
-macOS it is the bundle **`Mecha dk.app`**, with `Contents/MacOS/mecha-dk` (not a single file, so it can be signed); `build.ps1` assembles
+macOS it is the bundle **`Mecha DK.app`**, with `Contents/MacOS/mecha-dk` (not a single file, so it can be signed); `build.ps1` assembles
 the bundle itself, because Uno.Sdk has no packaging step for the desktop head. The app is shown to
-people as "Mecha dk".
+people as "Mecha DK".
 
 **The GUI is `mecha-dk`, so that `dk` stays free for the command line tool.** MlFront already produces a
 `dk` executable, and this app is meant to absorb that OCaml code through the C binding. A GUI and a CLI
@@ -56,7 +56,7 @@ ImageMagick. Xcode is only reported, never installed. Versions are pinned in `sc
 
 ```sh
 pwsh -File scripts/build.ps1 -Target desktop            # also: web, android, ios, all
-pwsh -File scripts/build.ps1 -Target desktop -Publish   # mecha-dk, mecha-dk.exe or Mecha dk.app under artifacts/publish/
+pwsh -File scripts/build.ps1 -Target desktop -Publish   # mecha-dk, mecha-dk.exe or Mecha DK.app under artifacts/publish/
 pwsh -File scripts/build.ps1 -Target all -Publish
 ```
 
@@ -77,7 +77,7 @@ together. It fails if `xcode-select` is pointed at the alias `Xcode_26.6.0.app` 
 `Xcode_26.6.app`): the asset catalog step then cannot locate the SDK under the alias path. Selecting
 `Xcode_26.0.app` also failed in the probe; its error was not read.
 
-**Signing and notarizing are not done.** `Mecha dk.app`, the Windows executable and the iOS build are
+**Signing and notarizing are not done.** `Mecha DK.app`, the Windows executable and the iOS build are
 unsigned, and no certificate or identity is committed.
 
 ## Look at it
@@ -87,7 +87,7 @@ pwsh -File scripts/take-screenshot.ps1                  # desktop; on Linux with
 pwsh -File scripts/take-screenshot.ps1 -Target web
 ```
 
-On macOS the desktop screenshot launches the `Mecha dk.app` bundle that `build.ps1 -Publish` assembles, with `open`, not `dotnet run`.
+On macOS the desktop screenshot launches the `Mecha DK.app` bundle that `build.ps1 -Publish` assembles, with `open`, not `dotnet run`.
 Writes `artifacts/screenshots/<target>-<os>.png` and prints the path, so it works over Remote Control
 or in a cloud instance. It builds first through `build.ps1` unless `-NoBuild`.
 
@@ -98,7 +98,7 @@ Android, and an unsigned iOS simulator build.
 
 `.github/workflows/launch.yml` starts the app and saves a screenshot as a workflow artifact: the
 desktop app on Linux, Windows and macOS (through `take-screenshot.ps1`, which on macOS launches the
-`Mecha dk.app` bundle), the Android build in an emulator, and the iOS build in a simulator. **It runs only
+`Mecha DK.app` bundle), the Android build in an emulator, and the iOS build in a simulator. **It runs only
 on request** (Actions tab, Run workflow), because the macOS and Windows jobs are billed at a multiple
 of Linux minutes and used up a month of them when it ran on every push. A job passes when a
 screenshot file of at least 1 KB exists, so look at the images: a pass does not show the app on

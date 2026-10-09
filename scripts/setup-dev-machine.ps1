@@ -1,7 +1,7 @@
 #Requires -Version 7
 <#
 .SYNOPSIS
-  Prepare a machine to build Mecha dk 1.0 for Windows, macOS, Linux, the web, Android and iOS.
+  Prepare a machine to build Mecha DK 1.0 for Windows, macOS, Linux, the web, Android and iOS.
 
 .DESCRIPTION
   Idempotent and re-runnable. By default it REPORTS what is missing and prints the exact install
