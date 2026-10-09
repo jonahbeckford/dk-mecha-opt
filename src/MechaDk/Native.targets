@@ -9,6 +9,8 @@
   -->
   <PropertyGroup>
     <MechaDkNativeSrc>$([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)', '..', '..', 'native'))</MechaDkNativeSrc>
+    <!-- No trailing separator: on Windows a quoted "dir\" is read as an escaped quote. -->
+    <MechaDkNativeSrcArg>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../native'))</MechaDkNativeSrcArg>
     <MechaDkNativeObj>$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)', 'obj', 'native'))</MechaDkNativeObj>
     <MechaDkNativeBuildType Condition="'$(Configuration)' == 'Debug'">Debug</MechaDkNativeBuildType>
     <MechaDkNativeBuildType Condition="'$(MechaDkNativeBuildType)' == ''">Release</MechaDkNativeBuildType>
@@ -51,7 +53,7 @@
       <_OsxArch Condition="$(_MechaDkDesktopRid.EndsWith('arm64'))">arm64</_OsxArch>
       <_OsxArg Condition="'$(_MechaDkHostOs)' == 'osx'">-DCMAKE_OSX_ARCHITECTURES=$(_OsxArch)</_OsxArg>
     </PropertyGroup>
-    <Exec Command="cmake -S &quot;$(MechaDkNativeSrc)&quot; -B &quot;$(_MechaDkDesktopDir)&quot; -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=$(MechaDkNativeBuildType) -DMECHADK_OUTPUT_DIR=&quot;$(_MechaDkDesktopDir)out&quot; $(_OsxArg) $(MechaDkNativeCMakeArgs)" />
+    <Exec Command="cmake -S &quot;$(MechaDkNativeSrcArg)&quot; -B &quot;$(_MechaDkDesktopDir)&quot; -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=$(MechaDkNativeBuildType) -DMECHADK_OUTPUT_DIR=&quot;$(_MechaDkDesktopDir)out&quot; $(_OsxArg) $(MechaDkNativeCMakeArgs)" />
     <Exec Command="cmake --build &quot;$(_MechaDkDesktopDir)&quot; --config $(MechaDkNativeBuildType)" />
     <Touch Files="$(_MechaDkDesktopDir)stamp" AlwaysCreate="true" />
   </Target>
@@ -88,7 +90,7 @@
     <ItemGroup>
       <_Abi Include="$(MechaDkAndroidAbis)" />
     </ItemGroup>
-    <Exec Command="cmake -S &quot;$(MechaDkNativeSrc)&quot; -B &quot;$(MechaDkNativeObj)android/%(_Abi.Identity)&quot; -G Ninja -DCMAKE_TOOLCHAIN_FILE=&quot;$(_Ndk)/build/cmake/android.toolchain.cmake&quot; -DANDROID_ABI=%(_Abi.Identity) -DANDROID_PLATFORM=android-21 -DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=$(MechaDkNativeBuildType) -DMECHADK_OUTPUT_DIR=&quot;$(MechaDkNativeObj)android/%(_Abi.Identity)/out&quot; $(MechaDkNativeCMakeArgs)" />
+    <Exec Command="cmake -S &quot;$(MechaDkNativeSrcArg)&quot; -B &quot;$(MechaDkNativeObj)android/%(_Abi.Identity)&quot; -G Ninja -DCMAKE_TOOLCHAIN_FILE=&quot;$(_Ndk)/build/cmake/android.toolchain.cmake&quot; -DANDROID_ABI=%(_Abi.Identity) -DANDROID_PLATFORM=android-21 -DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=$(MechaDkNativeBuildType) -DMECHADK_OUTPUT_DIR=&quot;$(MechaDkNativeObj)android/%(_Abi.Identity)/out&quot; $(MechaDkNativeCMakeArgs)" />
     <Exec Command="cmake --build &quot;$(MechaDkNativeObj)android/%(_Abi.Identity)&quot;" />
     <Touch Files="$(MechaDkNativeObj)android/stamp" AlwaysCreate="true" />
   </Target>
@@ -115,7 +117,7 @@
       <_IosArch>arm64</_IosArch>
       <_IosArch Condition="$(RuntimeIdentifier.EndsWith('x64'))">x86_64</_IosArch>
     </PropertyGroup>
-    <Exec Command="cmake -S &quot;$(MechaDkNativeSrc)&quot; -B &quot;$(MechaDkNativeObj)ios&quot; -G Ninja -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=$(_IosSdk) -DCMAKE_OSX_ARCHITECTURES=$(_IosArch) -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=$(MechaDkNativeBuildType) -DMECHADK_OUTPUT_DIR=&quot;$(MechaDkNativeObj)ios/out&quot; $(MechaDkNativeCMakeArgs)" />
+    <Exec Command="cmake -S &quot;$(MechaDkNativeSrcArg)&quot; -B &quot;$(MechaDkNativeObj)ios&quot; -G Ninja -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=$(_IosSdk) -DCMAKE_OSX_ARCHITECTURES=$(_IosArch) -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=$(MechaDkNativeBuildType) -DMECHADK_OUTPUT_DIR=&quot;$(MechaDkNativeObj)ios/out&quot; $(MechaDkNativeCMakeArgs)" />
     <Exec Command="cmake --build &quot;$(MechaDkNativeObj)ios&quot;" />
     <Touch Files="$(MechaDkNativeObj)ios/stamp" AlwaysCreate="true" />
   </Target>
@@ -148,7 +150,7 @@
       <_EmEnv Include="EM_CACHE=$(EmscriptenCacheSdkCacheDir)" />
       <_EmEnv Include="EM_FROZEN_CACHE=1" />
     </ItemGroup>
-    <Exec Command="cmake -S &quot;$(MechaDkNativeSrc)&quot; -B &quot;$(_Dir)&quot; -G Ninja -DCMAKE_TOOLCHAIN_FILE=&quot;$(_EmCmake)&quot; -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DMECHADK_OUTPUT_DIR=&quot;$(_Dir)out&quot; $(MechaDkNativeCMakeArgs)"
+    <Exec Command="cmake -S &quot;$(MechaDkNativeSrcArg)&quot; -B &quot;$(_Dir)&quot; -G Ninja -DCMAKE_TOOLCHAIN_FILE=&quot;$(_EmCmake)&quot; -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DMECHADK_OUTPUT_DIR=&quot;$(_Dir)out&quot; $(MechaDkNativeCMakeArgs)"
           EnvironmentVariables="@(_EmEnv)" />
     <Exec Command="cmake --build &quot;$(_Dir)&quot;" EnvironmentVariables="@(_EmEnv)" />
     <ItemGroup>
