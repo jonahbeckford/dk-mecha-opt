@@ -4,9 +4,9 @@ name: launch
 # showed its window. build.yml only builds. Desktop is checked on one runner per OS; the Android and
 # iOS builds run in an emulator and a simulator. Each job fails when no usable screenshot is written.
 # A screenshot is a record, not an assertion: someone looks at it.
+# Manual only: the macOS and Windows jobs are billed at a multiple of Linux minutes, and these jobs
+# ran on every push. Start it from the Actions tab (Run workflow) when a launch check is wanted.
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 permissions:
