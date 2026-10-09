@@ -413,6 +413,15 @@ Check first with `list_triggers` and `get_trigger`.
 > results, and republish to https://claude.ai/artifact/BatBdzVGn2ngcM9pUac93A. Report to the user:
 > per platform whether the app was seen running, what failed and what fixed it, the commit shas, and
 > anything still unverified. Say plainly if a platform could not be verified.
+>
+> RENAME, added after the text above was written (see Addendum 4 in planning/2026-10-mecha-dk-scaffold.md,
+> the plan of record in the repo; read it first): the GUI is now mecha-dk (Linux), mecha-dk.exe (Windows)
+> and Mecha dk.app with Contents/MacOS/mecha-dk (macOS), replacing dk and Dk.app wherever the text above
+> says so. The rename commit 69b44a2 carries [skip ci], so NO build.yml run exists on the branch head.
+> Before the launch steps, start build.yml with run_workflow on ref jumping-jack, confirm all 9 jobs are
+> green, and fix red jobs with normal pushes. Likely suspects: the macOS app path now has a space (the
+> ditto zip step in build.yml, and take-screenshot.ps1 with open, pgrep and pkill), and the hyphen in the
+> assembly name on Windows and macOS. Only Linux was run after the rename.
 
 ### Recreating the artifact if the scratchpad is gone
 
