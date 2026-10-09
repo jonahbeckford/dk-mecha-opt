@@ -1,0 +1,13 @@
+# Build output
+bin/
+obj/
+artifacts/
+
+# Visual Studio, Rider, user files
+.vs/
+.idea/
+*.user
+*.suo
+
+# Environment files
+.env

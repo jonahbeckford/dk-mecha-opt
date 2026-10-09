@@ -1,0 +1,120 @@
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Every job builds with scripts/build.ps1, the same entry point people use, on its own OS. The
+# native C library is built for the host only, so each desktop RID needs its own runner.
+# Signing and notarizing are not done here: no secret is assumed.
+jobs:
+  desktop:
+    name: desktop ${{ matrix.rid }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { rid: linux-x64, os: ubuntu-24.04 }
+          - { rid: linux-arm64, os: ubuntu-24.04-arm }
+          - { rid: win-x64, os: windows-2025 }
+          - { rid: win-arm64, os: windows-11-arm }
+          - { rid: osx-arm64, os: macos-15 }
+          - { rid: osx-x64, os: macos-15-intel }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+      - name: Build
+        shell: pwsh
+        run: ./scripts/build.ps1 -Target desktop -Publish -Rid ${{ matrix.rid }}
+      - name: Package (Linux)
+        if: startsWith(matrix.rid, 'linux')
+        run: tar -C artifacts/publish/desktop/${{ matrix.rid }} -czf dk-${{ matrix.rid }}.tar.gz dk
+      - name: Package (macOS)
+        if: startsWith(matrix.rid, 'osx')
+        run: ditto -c -k --keepParent artifacts/publish/desktop/${{ matrix.rid }}/Dk.app Dk-${{ matrix.rid }}.zip
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: startsWith(matrix.rid, 'linux')
+        with:
+          name: dk-${{ matrix.rid }}
+          path: dk-${{ matrix.rid }}.tar.gz
+          if-no-files-found: error
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: startsWith(matrix.rid, 'win')
+        with:
+          name: dk-${{ matrix.rid }}
+          path: artifacts/publish/desktop/${{ matrix.rid }}/dk.exe
+          if-no-files-found: error
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: startsWith(matrix.rid, 'osx')
+        with:
+          name: Dk-${{ matrix.rid }}
+          path: Dk-${{ matrix.rid }}.zip
+          if-no-files-found: error
+
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet workload install wasm-tools
+      - name: Build
+        shell: pwsh
+        run: ./scripts/build.ps1 -Target web -Publish
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mechadk-web
+          path: artifacts/publish/web/wwwroot
+          if-no-files-found: error
+
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: microsoft
+          java-version: 17
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet workload install android
+      - name: Android NDK and platform (versions pinned in scripts/dev-common.ps1)
+        shell: pwsh
+        run: |
+          . ./scripts/dev-common.ps1
+          $sdkmanager = Join-Path $env:ANDROID_HOME 'cmdline-tools/latest/bin/sdkmanager'
+          & $sdkmanager "ndk;$($script:NdkVersion)" "platforms;$($script:AndroidPlatform)" "build-tools;$($script:AndroidBuildTools)"
+          if ($LASTEXITCODE -ne 0) { throw 'sdkmanager failed' }
+      - name: Build
+        shell: pwsh
+        run: ./scripts/build.ps1 -Target android -Publish
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mechadk-android
+          path: artifacts/publish/android/*.apk
+          if-no-files-found: error
+
+  ios:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet workload install ios
+      - name: Build (simulator, unsigned)
+        shell: pwsh
+        run: ./scripts/build.ps1 -Target ios

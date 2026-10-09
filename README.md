@@ -1,8 +1,8 @@
 # dk-mecha-opt
 
-Coordinator's record for the dk mecha optimization harness. dk mecha is a .NET GUI for submitting
-and solving problems with a "mecha": an assistant guided by a human. Agent instructions are in `AGENTS.md`
-(`CLAUDE.md` imports it).
+Coordinator's record for the dk mecha optimization harness, and the **Mecha dk 1.0** app it works on.
+dk mecha is a .NET GUI for submitting and solving problems with a "mecha": an assistant guided by a
+human. Agent instructions are in `AGENTS.md` (`CLAUDE.md` imports it).
 
 ## Layout
 
@@ -10,3 +10,74 @@ and solving problems with a "mecha": an assistant guided by a human. Agent instr
 - `CLAUDE.md` - `@AGENTS.md`, so Claude Code loads the same index.
 - `.ai-skills/` - agent skills, also the Claude Code plugin root (see `.ai-skills/README.md`).
 - `.claude-plugin/marketplace.json` - the marketplace entry, `source: "./.ai-skills"`.
+- `src/MechaDk/` - the Uno Platform app (single project, XAML, Skia renderer).
+- `native/` - one C function, `mechadk_make_it_so`, built by CMake. It stands in for the OCaml code
+  to come, which will be built as a DLL, a static library and WebAssembly.
+- `global.json` - pins the .NET SDK floor and the Uno SDK version.
+- `scripts/` - setup, validation, build and screenshot scripts, all PowerShell 7.
+- `.github/workflows/build.yml` - builds every platform.
+
+Script names are lowercase kebab-case (`scripts/*.ps1`).
+
+## Targets
+
+| Target | Framework | Output |
+|---|---|---|
+| Windows, macOS, Linux | `net10.0-desktop` | `dk.exe`, `Dk.app`, `dk` |
+| Web | `net10.0-browserwasm` | `wwwroot` |
+| Android | `net10.0-android` | APK |
+| iOS | `net10.0-ios` | app (macOS only) |
+
+Desktop publishes to a self-contained single file: **`dk`** on Linux, **`dk.exe`** on Windows. On
+macOS it is the bundle **`Dk.app`** (not a single file, so it can be signed); `build.ps1` assembles
+the bundle itself, because Uno.Sdk has no packaging step for the desktop head. The app is shown to
+people as "Mecha dk".
+
+**The `dk` name is deliberate.** MlFront already produces a `dk` executable. This app is meant to
+absorb that OCaml code through the C binding, so the names meet on purpose. Do not rename either to
+avoid it, and do not put both on the same `PATH` directory until MlFront's `dk` is retired.
+
+## Set up a machine
+
+```sh
+pwsh -File scripts/setup-dev-machine.ps1                 # reports what is missing, installs nothing
+pwsh -File scripts/setup-dev-machine.ps1 -InstallTools   # installs it
+pwsh -File scripts/validate-dev-machine.ps1              # proves the machine is ready; never builds
+```
+
+It covers the .NET SDK, the `android` and `wasm-tools` workloads (`ios` on macOS), CMake, Ninja and a
+C compiler, JDK 17, the Android SDK and NDK, Node and a Playwright Chromium, and on Linux `xvfb` and
+ImageMagick. Xcode is only reported, never installed. Versions are pinned in `scripts/dev-common.ps1`.
+
+## Build
+
+```sh
+pwsh -File scripts/build.ps1 -Target desktop            # also: web, android, ios, all
+pwsh -File scripts/build.ps1 -Target desktop -Publish   # dk, dk.exe or Dk.app under artifacts/publish/
+pwsh -File scripts/build.ps1 -Target all -Publish
+```
+
+`-Target all` is every target the host can build; iOS builds only on macOS. A bare
+`dotnet build src/MechaDk -f net10.0-desktop` also works, and runs CMake.
+
+**The native library is built for the host only.** Each desktop runtime identifier is therefore
+published on its own OS and architecture: `win-*` on Windows, `osx-*` on a Mac, `linux-*` on Linux.
+Publishing another RID fails early with a message saying where to build it. CI has a runner for each.
+
+**Signing and notarizing are not done.** `Dk.app`, the Windows executable and the iOS build are
+unsigned, and no certificate or identity is committed.
+
+## Look at it
+
+```sh
+pwsh -File scripts/take-screenshot.ps1                  # desktop; on Linux with no display it uses xvfb
+pwsh -File scripts/take-screenshot.ps1 -Target web
+```
+
+Writes `artifacts/screenshots/<target>-<os>.png` and prints the path, so it works over Remote Control
+or in a cloud instance. It builds first through `build.ps1` unless `-NoBuild`.
+
+## CI
+
+`.github/workflows/build.yml` runs `build.ps1` on a runner per platform: six desktop RIDs, web,
+Android, and an unsigned iOS simulator build.

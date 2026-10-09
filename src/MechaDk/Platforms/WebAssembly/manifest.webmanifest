@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "Mecha dk",
+  "display": "standalone",
+  "name": "Mecha dk",
+  "short_name": "Mecha dk",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

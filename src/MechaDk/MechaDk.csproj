@@ -1,0 +1,53 @@
+<Project Sdk="Uno.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0-android;net10.0-browserwasm;net10.0-desktop</TargetFrameworks>
+    <!-- iOS builds only on macOS. -->
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(TargetFrameworks);net10.0-ios</TargetFrameworks>
+
+    <OutputType>Exe</OutputType>
+    <UnoSingleProject>true</UnoSingleProject>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <!-- Display name -->
+    <ApplicationTitle>Mecha dk</ApplicationTitle>
+    <!-- App Identifier -->
+    <ApplicationId>com.diskuv.mechadk</ApplicationId>
+    <!-- Versions -->
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <Version>1.0.0</Version>
+    <!-- Package Publisher -->
+    <ApplicationPublisher>Diskuv</ApplicationPublisher>
+    <Company>Diskuv</Company>
+    <Product>Mecha dk</Product>
+    <!-- Package Description -->
+    <Description>Mecha dk 1.0</Description>
+
+    <!--
+      UnoFeatures are used to quickly add and manage features enabled for your app.
+      https://aka.platform.uno/singleproject-features
+    -->
+    <UnoFeatures>
+      SkiaRenderer;
+    </UnoFeatures>
+  </PropertyGroup>
+
+  <!-- The desktop executable is `dk` (Linux), `dk.exe` (Windows) and Dk.app (macOS). -->
+  <!-- scripts/build.ps1 builds one target framework at a time with -p:TargetFrameworks=<tfm>. -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-desktop'">
+    <AssemblyName>dk</AssemblyName>
+  </PropertyGroup>
+
+  <!-- Standalone desktop builds: one self-contained file. macOS is a Dk.app bundle instead,
+       because codesign has to see each Mach-O file. -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-desktop' and '$(RuntimeIdentifier)' != ''">
+    <SelfContained>true</SelfContained>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-desktop' and '$(RuntimeIdentifier)' != '' and !$(RuntimeIdentifier.StartsWith('osx'))">
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+  <Import Project="Native.targets" />
+</Project>
