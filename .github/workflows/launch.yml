@@ -132,6 +132,9 @@ jobs:
           echo "App: $APP"
           UDID="$(xcrun simctl list devices available -j | jq -r '[.devices[][] | select(.name | startswith("iPhone"))][0].udid')"
           echo "Simulator: $UDID"
+          # The build is unsigned (EnableCodeSigning=false). The simulator kills an unsigned app at startup
+          # with SIGKILL (Code Signature Invalid), so sign it ad hoc, with no identity, before installing.
+          codesign --force --deep --sign - "$APP"
           xcrun simctl boot "$UDID"
           xcrun simctl bootstatus "$UDID" -b
           xcrun simctl install "$UDID" "$APP"
