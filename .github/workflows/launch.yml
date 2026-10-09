@@ -84,13 +84,22 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - name: Start the emulator, install, launch, screenshot
+        timeout-minutes: 25
         run: |
           set -eu
           export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
-          echo no | avdmanager create avd -n ci -k "$IMAGE" --force
+          mkdir -p artifacts/screenshots
+          echo "ANDROID_HOME=$ANDROID_HOME ANDROID_AVD_HOME=${ANDROID_AVD_HOME:-} HOME=$HOME"
+          echo no | avdmanager --verbose create avd -n ci -k "$IMAGE" --force
+          echo '--- avds the SDK knows'; avdmanager list avd
+          echo '--- avds the emulator can find'; emulator -list-avds
+          emulator -list-avds | grep -qx ci || { echo 'the emulator cannot see the avd ci'; exit 1; }
           nohup emulator -avd ci -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect >emulator.log 2>&1 &
-          adb wait-for-device
+          EMU=$!
+          # A bounded wait: without a timeout, adb waits forever when the emulator never starts.
+          timeout 180 adb wait-for-device || { echo 'no device within 3 minutes'; cat emulator.log; exit 1; }
           for i in $(seq 1 90); do
+            kill -0 "$EMU" 2>/dev/null || { echo 'the emulator process exited'; cat emulator.log; exit 1; }
             [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = 1 ] && break
             sleep 5
           done
@@ -100,10 +109,9 @@ jobs:
           adb install -r "$APK"
           adb shell monkey -p com.diskuv.mechadk -c android.intent.category.LAUNCHER 1
           sleep 20
-          mkdir -p artifacts/screenshots
           adb exec-out screencap -p > artifacts/screenshots/android-emulator.png
           [ "$(wc -c < artifacts/screenshots/android-emulator.png)" -gt 1024 ]
-          adb logcat -d -t 200 > artifacts/screenshots/android-logcat.txt
+          adb logcat -d -t 300 > artifacts/screenshots/android-logcat.txt
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
@@ -138,6 +146,9 @@ jobs:
           codesign --force --deep --sign - "$APP"
           xcrun simctl boot "$UDID"
           xcrun simctl bootstatus "$UDID" -b
+          # A freshly booted simulator is still busy for a while (the wallpaper and icons are not drawn yet,
+          # and a launch request sent now can sit unanswered), so let it settle before installing.
+          sleep 45
           xcrun simctl install "$UDID" "$APP"
           mkdir -p artifacts/screenshots
           # --console keeps the app's stdout and stderr, which is where a managed crash shows up
