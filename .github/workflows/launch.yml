@@ -147,7 +147,14 @@ jobs:
           echo "Simulator: $UDID"
           # The build is unsigned (EnableCodeSigning=false). The simulator kills an unsigned app at startup
           # with SIGKILL (Code Signature Invalid), so sign it ad hoc, with no identity, before installing.
-          codesign --force --deep --sign - "$APP"
+          # --deep does not reach loose dylibs in the app folder, and one of them was still unsigned
+          # (the crash report is Code Signature Invalid inside dyld loading a dependent library). Sign
+          # every Mach-O file one by one, then the bundle itself.
+          echo '--- app contents'; find "$APP" -maxdepth 2 | head -60
+          file_list="$(find "$APP" -type f -exec file {} + | grep -i 'Mach-O' | cut -d: -f1)"
+          echo "$file_list" | while IFS= read -r f; do codesign --force --sign - "$f"; done
+          codesign --force --sign - "$APP"
+          codesign --verify --deep --strict --verbose=2 "$APP" || true
           xcrun simctl boot "$UDID"
           xcrun simctl bootstatus "$UDID" -b
           # A freshly booted simulator is still busy for a while (the wallpaper and icons are not drawn yet,
