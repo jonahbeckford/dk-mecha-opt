@@ -89,7 +89,11 @@ jobs:
           set -eu
           export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
           mkdir -p artifacts/screenshots
-          echo "ANDROID_HOME=$ANDROID_HOME ANDROID_AVD_HOME=${ANDROID_AVD_HOME:-} HOME=$HOME"
+          # avdmanager put the avd under ~/.config/.android/avd while the emulator looks in ~/.android/avd
+          # ("Unknown AVD name"), so name one place for both.
+          export ANDROID_AVD_HOME="$HOME/.android/avd"
+          mkdir -p "$ANDROID_AVD_HOME"
+          echo "ANDROID_HOME=$ANDROID_HOME ANDROID_AVD_HOME=$ANDROID_AVD_HOME HOME=$HOME"
           echo no | avdmanager --verbose create avd -n ci -k "$IMAGE" --force
           echo '--- avds the SDK knows'; avdmanager list avd
           echo '--- avds the emulator can find'; emulator -list-avds
