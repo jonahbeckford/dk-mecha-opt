@@ -26,7 +26,7 @@ Script names are lowercase kebab-case (`scripts/*.ps1`).
 | Windows, macOS, Linux | `net10.0-desktop` | `dk.exe`, `Dk.app`, `dk` |
 | Web | `net10.0-browserwasm` | `wwwroot` |
 | Android | `net10.0-android` | APK |
-| iOS | `net10.0-ios` | app (macOS only) |
+| iOS | `net10.0-ios26.0` | app (macOS only) |
 
 Desktop publishes to a self-contained single file: **`dk`** on Linux, **`dk.exe`** on Windows. On
 macOS it is the bundle **`Dk.app`** (not a single file, so it can be signed); `build.ps1` assembles
@@ -63,6 +63,16 @@ pwsh -File scripts/build.ps1 -Target all -Publish
 **The native library is built for the host only.** Each desktop runtime identifier is therefore
 published on its own OS and architecture: `win-*` on Windows, `osx-*` on a Mac, `linux-*` on Linux.
 Publishing another RID fails early with a message saying where to build it. CI has a runner for each.
+
+**iOS is pinned to the iOS 26.0 SDK** (`net10.0-ios26.0`). Plain `net10.0-ios` resolves to the newest
+workload pack, which needs the newest Xcode. Raise the pin in `MechaDk.csproj`, `Native.targets` and
+`build.ps1` together. The 26.0 SDK checks the Xcode version to the minor release; CI builds with the
+image's default (newest) Xcode and `-Property ValidateXcodeVersion=false`, and that is the only combination
+verified. CI needs no Xcode setup. Measured on `macos-26`: the build passes with no `xcode-select`,
+`DEVELOPER_DIR`, `MD_APPLE_SDK_ROOT`, Xamarin `AppleSdkRoot` or `-runFirstLaunch`, each alone and all
+together. It fails if `xcode-select` is pointed at the alias `Xcode_26.6.0.app` (a symlink to
+`Xcode_26.6.app`): the asset catalog step then cannot locate the SDK under the alias path. Selecting
+`Xcode_26.0.app` also failed in the probe; its error was not read.
 
 **Signing and notarizing are not done.** `Dk.app`, the Windows executable and the iOS build are
 unsigned, and no certificate or identity is committed.

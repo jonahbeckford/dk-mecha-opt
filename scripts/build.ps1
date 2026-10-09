@@ -27,6 +27,11 @@
 .PARAMETER Rid
   Desktop runtime identifier for -Publish. Default is the host's.
 
+.PARAMETER Property
+  Extra MSBuild properties, as Name=Value, passed to every dotnet build or publish as -p:Name=Value.
+  No leading dash, so pwsh -File does not mistake it for a parameter name.
+  Example: -Property ValidateXcodeVersion=false
+
 .EXAMPLE
   pwsh scripts/build.ps1 -Target desktop
   pwsh scripts/build.ps1 -Target desktop -Publish
@@ -37,7 +42,8 @@ param(
   [ValidateSet('desktop', 'web', 'android', 'ios', 'all')][string]$Target = 'all',
   [ValidateSet('Debug', 'Release')][string]$Configuration = 'Debug',
   [switch]$Publish,
-  [string]$Rid
+  [string]$Rid,
+  [string[]]$Property = @()
 )
 
 . "$PSScriptRoot/dev-common.ps1"
@@ -60,6 +66,7 @@ $produced = [System.Collections.Generic.List[string]]::new()
 function Get-TfmArg([string]$Tfm) { "-p:TargetFrameworks=$Tfm" }
 
 function Invoke-Dotnet([string[]]$DotnetArgs) {
+  $DotnetArgs = $DotnetArgs + @($Property | ForEach-Object { "-p:$_" })
   Write-Host "> dotnet $($DotnetArgs -join ' ')" -ForegroundColor Cyan
   & dotnet @DotnetArgs
   if ($LASTEXITCODE -ne 0) { throw "dotnet $($DotnetArgs[0]) failed with exit code $LASTEXITCODE" }
@@ -141,9 +148,9 @@ function Build-Android {
 function Build-Ios {
   if (-not $IsMacOS) { throw 'iOS builds only on macOS.' }
   # Simulator, unsigned: no certificate or profile is committed or assumed.
-  $iosArgs = @('-f', 'net10.0-ios', (Get-TfmArg 'net10.0-ios'), '-c', $Configuration, '-p:RuntimeIdentifier=iossimulator-arm64', '-p:EnableCodeSigning=false')
+  $iosArgs = @('-f', 'net10.0-ios26.0', (Get-TfmArg 'net10.0-ios26.0'), '-c', $Configuration, '-p:RuntimeIdentifier=iossimulator-arm64', '-p:EnableCodeSigning=false')
   if ($Publish) { Invoke-Dotnet (@('publish', $proj) + $iosArgs) } else { Invoke-Dotnet (@('build', $proj) + $iosArgs) }
-  $produced.Add((Join-Path $script:ProjectDir "bin/$Configuration/net10.0-ios"))
+  $produced.Add((Join-Path $script:ProjectDir "bin/$Configuration/net10.0-ios26.0"))
 }
 
 $targets = if ($Target -eq 'all') { @('desktop', 'web', 'android') + $(if ($IsMacOS) { 'ios' } else { @() }) } else { @($Target) }

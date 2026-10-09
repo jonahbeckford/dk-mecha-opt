@@ -105,10 +105,12 @@
     </ItemGroup>
   </Target>
 
-  <!-- ===== iOS (macOS host only): static library linked into the app ===== -->
+  <!-- ===== iOS (macOS host only): static library linked into the app =====
+       _ExpandNativeReferences (Xamarin.Shared.targets in the iOS SDK) turns @(NativeReference) into the
+       link inputs, so the library has to be added before it. -->
   <Target Name="MechaDkNativeIos"
-          BeforeTargets="_CollectNativeReferences;_ComputeNativeReferences;_PrepareNativeReferences"
-          Condition="'$(TargetFramework)' == 'net10.0-ios'"
+          BeforeTargets="_SanitizeNativeReferences;_ExpandNativeReferences"
+          Condition="$(TargetFramework.StartsWith('net10.0-ios'))"
           Inputs="@(MechaDkNativeInput)"
           Outputs="$(MechaDkNativeObj)ios/stamp">
     <PropertyGroup>
@@ -124,8 +126,8 @@
 
   <Target Name="MechaDkNativeIosItems"
           DependsOnTargets="MechaDkNativeIos"
-          BeforeTargets="_CollectNativeReferences;_ComputeNativeReferences;_PrepareNativeReferences"
-          Condition="'$(TargetFramework)' == 'net10.0-ios'">
+          BeforeTargets="_SanitizeNativeReferences;_ExpandNativeReferences"
+          Condition="$(TargetFramework.StartsWith('net10.0-ios'))">
     <ItemGroup>
       <NativeReference Include="$(MechaDkNativeObj)ios/out/libmechadk_native.a" Kind="Static" ForceLoad="true" />
     </ItemGroup>

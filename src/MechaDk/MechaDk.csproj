@@ -1,8 +1,9 @@
 <Project Sdk="Uno.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net10.0-android;net10.0-browserwasm;net10.0-desktop</TargetFrameworks>
-    <!-- iOS builds only on macOS. -->
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(TargetFrameworks);net10.0-ios</TargetFrameworks>
+    <!-- iOS builds only on macOS, and is pinned to the iOS 26.0 SDK, which needs Xcode 26.x. Plain
+         net10.0-ios resolves to the newest workload pack, which needs the newest Xcode. -->
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(TargetFrameworks);net10.0-ios26.0</TargetFrameworks>
 
     <OutputType>Exe</OutputType>
     <UnoSingleProject>true</UnoSingleProject>

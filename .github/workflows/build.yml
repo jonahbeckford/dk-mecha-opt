@@ -111,16 +111,14 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      # The iOS workload requires the Xcode it was built for, so use the newest one installed.
-      - name: Select the newest Xcode
-        run: |
-          ls -d /Applications/Xcode*.app
-          sudo xcode-select -s "$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)/Contents/Developer"
-          xcodebuild -version
+      # No Xcode setup is needed: the image's default Xcode works (measured, see README). What breaks the
+      # asset catalog step (xcrun actool) is running xcode-select on the alias Xcode_26.6.0.app, a symlink
+      # to Xcode_26.6.app. Do not add that step. The newest Xcode is used with ValidateXcodeVersion=false
+      # below: net10.0-ios26.0 asks for Xcode 26.0 to the minor version.
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: 10.0.x
       - run: dotnet workload install ios
       - name: Build (simulator, unsigned)
         shell: pwsh
-        run: ./scripts/build.ps1 -Target ios
+        run: ./scripts/build.ps1 -Target ios -Property ValidateXcodeVersion=false
