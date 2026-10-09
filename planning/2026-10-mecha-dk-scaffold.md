@@ -427,3 +427,27 @@ same URL.
 It succeeds when each of Linux, Windows, macOS, iOS and Android has been seen running in a screenshot
 someone looked at, or has an honest recorded reason it was not, and the artifact says so. After that
 the plan is complete; remaining open items are the user's choices (signing, other RIDs).
+
+## Addendum 4: the GUI is renamed `mecha-dk` (2026-10-09)
+
+The GUI executable is no longer `dk`, so that `dk` stays free for the command line tool (a GUI and a
+CLI need separate executables on Windows, and a macOS GUI must be an `.app`). Earlier sections of this
+file still use the old names. The names now are:
+
+| Platform | Name |
+|---|---|
+| Linux | `mecha-dk` |
+| Windows | `mecha-dk.exe` |
+| macOS | `Mecha dk.app`, with `Contents/MacOS/mecha-dk` (`CFBundleExecutable` is `mecha-dk`) |
+
+The macOS app name has a space, so scripts and workflows quote its path. CI artifact names are
+`mecha-dk-<rid>` and, for macOS, `Mecha-dk-<rid>.zip`. `AssemblyName` is `mecha-dk`.
+
+Verified on Linux only: the Debug build and the published single file both start and draw the page.
+**Not verified anywhere else, because the Actions minutes ran out:** the Windows and macOS builds, the
+`ditto` zip of the quoted macOS path, `take-screenshot.ps1` finding `Mecha dk.app` and its
+`mecha-dk` process (`pgrep`/`pkill`), and every CI artifact name. The rename commit carries `[skip ci]`,
+so **no `build.yml` run exists on the branch head**. The Nov 1 routine must start one itself
+(`run_workflow` on `build.yml`, ref `jumping-jack`) and fix anything red before the launch checks.
+Whether a hyphen in the assembly name breaks anything on the other platforms (resource names, the
+macOS bundle) is open until then.

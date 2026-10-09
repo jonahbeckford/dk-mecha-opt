@@ -59,9 +59,9 @@ if ($Target -eq 'desktop' -and $IsLinux -and -not $env:DISPLAY) {
   exit $LASTEXITCODE
 }
 
-# On a Mac the desktop app is the Dk.app bundle that build.ps1 -Publish assembles, started the way a
+# On a Mac the desktop app is the Mecha dk.app bundle that build.ps1 -Publish assembles, started the way a
 # person starts it, not through dotnet. That is the artifact that will be signed, so that is the one to look at.
-$macApp = Join-Path $script:ArtifactsDir "publish/desktop/$($script:HostRid)/Dk.app"
+$macApp = Join-Path $script:ArtifactsDir "publish/desktop/$($script:HostRid)/Mecha dk.app"
 $useBundle = $Target -eq 'desktop' -and $IsMacOS
 
 if (-not $NoBuild) {
@@ -106,11 +106,11 @@ try {
     & open -n $macApp
     if ($LASTEXITCODE -ne 0) { throw "open failed with exit code $LASTEXITCODE" }
     Start-Sleep -Seconds $WaitSeconds
-    & pgrep -f "$macApp/Contents/MacOS/dk" | Out-Null
+    & pgrep -f "$macApp/Contents/MacOS/mecha-dk" | Out-Null
     if ($LASTEXITCODE -ne 0) { throw "The app exited early: no process is running from $macApp." }
     Save-DesktopScreenshot $null $OutFile
   } elseif ($Target -eq 'desktop') {
-    $dll = Join-Path $script:ProjectDir 'bin/Debug/net10.0-desktop/dk.dll'
+    $dll = Join-Path $script:ProjectDir 'bin/Debug/net10.0-desktop/mecha-dk.dll'
     if (-not (Test-Path $dll)) { throw "No desktop build at $dll. Run without -NoBuild." }
     $proc = Start-Process dotnet -ArgumentList @("`"$dll`"") -PassThru
     Start-Sleep -Seconds $WaitSeconds
@@ -138,7 +138,7 @@ try {
 } finally {
   # Kill the whole tree: dotnet run starts the dev server as a child.
   if ($proc -and -not $proc.HasExited) { try { $proc.Kill($true) } catch { } }
-  if ($useBundle) { & pkill -f "$macApp/Contents/MacOS/dk" 2>$null }
+  if ($useBundle) { & pkill -f "$macApp/Contents/MacOS/mecha-dk" 2>$null }
 }
 
 if (-not (Test-Path $OutFile) -or (Get-Item $OutFile).Length -lt 1024) { throw "No usable screenshot was written to $OutFile" }

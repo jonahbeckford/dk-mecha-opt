@@ -33,13 +33,14 @@
     </UnoFeatures>
   </PropertyGroup>
 
-  <!-- The desktop executable is `dk` (Linux), `dk.exe` (Windows) and Dk.app (macOS). -->
+  <!-- The desktop executable is `mecha-dk` (Linux), `mecha-dk.exe` (Windows) and `Mecha dk.app` (macOS, with
+       Contents/MacOS/mecha-dk). `dk` is left for the command line tool. -->
   <!-- scripts/build.ps1 builds one target framework at a time with -p:TargetFrameworks=<tfm>. -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-desktop'">
-    <AssemblyName>dk</AssemblyName>
+    <AssemblyName>mecha-dk</AssemblyName>
   </PropertyGroup>
 
-  <!-- Standalone desktop builds: one self-contained file. macOS is a Dk.app bundle instead,
+  <!-- Standalone desktop builds: one self-contained file. macOS is a `Mecha dk.app` bundle instead,
        because codesign has to see each Mach-O file. -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-desktop' and '$(RuntimeIdentifier)' != ''">
     <SelfContained>true</SelfContained>

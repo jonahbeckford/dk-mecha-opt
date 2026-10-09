@@ -36,27 +36,27 @@ jobs:
         run: ./scripts/build.ps1 -Target desktop -Publish -Rid ${{ matrix.rid }}
       - name: Package (Linux)
         if: startsWith(matrix.rid, 'linux')
-        run: tar -C artifacts/publish/desktop/${{ matrix.rid }} -czf dk-${{ matrix.rid }}.tar.gz dk
+        run: tar -C artifacts/publish/desktop/${{ matrix.rid }} -czf mecha-dk-${{ matrix.rid }}.tar.gz mecha-dk
       - name: Package (macOS)
         if: startsWith(matrix.rid, 'osx')
-        run: ditto -c -k --keepParent artifacts/publish/desktop/${{ matrix.rid }}/Dk.app Dk-${{ matrix.rid }}.zip
+        run: ditto -c -k --keepParent "artifacts/publish/desktop/${{ matrix.rid }}/Mecha dk.app" Mecha-dk-${{ matrix.rid }}.zip
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: startsWith(matrix.rid, 'linux')
         with:
-          name: dk-${{ matrix.rid }}
-          path: dk-${{ matrix.rid }}.tar.gz
+          name: mecha-dk-${{ matrix.rid }}
+          path: mecha-dk-${{ matrix.rid }}.tar.gz
           if-no-files-found: error
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: startsWith(matrix.rid, 'win')
         with:
-          name: dk-${{ matrix.rid }}
-          path: artifacts/publish/desktop/${{ matrix.rid }}/dk.exe
+          name: mecha-dk-${{ matrix.rid }}
+          path: artifacts/publish/desktop/${{ matrix.rid }}/mecha-dk.exe
           if-no-files-found: error
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: startsWith(matrix.rid, 'osx')
         with:
-          name: Dk-${{ matrix.rid }}
-          path: Dk-${{ matrix.rid }}.zip
+          name: Mecha-dk-${{ matrix.rid }}
+          path: Mecha-dk-${{ matrix.rid }}.zip
           if-no-files-found: error
 
   web:

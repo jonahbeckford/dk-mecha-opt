@@ -19,7 +19,7 @@
 
 .PARAMETER Publish
   Produce the deliverable under artifacts/publish/<target>/...:
-    desktop  dk (Linux), dk.exe (Windows), Dk.app (macOS), single file except macOS
+    desktop  mecha-dk (Linux), mecha-dk.exe (Windows), Mecha dk.app (macOS), single file except macOS
     web      the published wwwroot
     android  the APK
     ios      a simulator build, unsigned (macOS only)
@@ -84,7 +84,7 @@ function New-MacApp([string]$PublishDir, [string]$AppPath) {
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>CFBundleExecutable</key><string>dk</string>
+  <key>CFBundleExecutable</key><string>mecha-dk</string>
   <key>CFBundleIdentifier</key><string>com.diskuv.mechadk</string>
   <key>CFBundleName</key><string>Mecha dk</string>
   <key>CFBundleDisplayName</key><string>Mecha dk</string>
@@ -109,13 +109,13 @@ function Build-Desktop {
   Invoke-Dotnet @('publish', $proj, '-f', 'net10.0-desktop', (Get-TfmArg 'net10.0-desktop'), '-r', $Rid, '-c', 'Release', '-o', $stage)
   $out = Join-Path $publishRoot "desktop/$Rid"
   if ($Rid.StartsWith('osx')) {
-    $app = Join-Path $out 'Dk.app'
+    $app = Join-Path $out 'Mecha dk.app'
     New-MacApp -PublishDir $stage -AppPath $app
     $produced.Add($app)
   } else {
     # Uno's content (icons, fonts) is published beside the executable but is not needed to run it.
     # The deliverable is the one file.
-    $exe = if ($Rid.StartsWith('win')) { 'dk.exe' } else { 'dk' }
+    $exe = if ($Rid.StartsWith('win')) { 'mecha-dk.exe' } else { 'mecha-dk' }
     Copy-Item (Join-Path $stage $exe) (Join-Path $out $exe) -Force
     $produced.Add((Join-Path $out $exe))
   }
