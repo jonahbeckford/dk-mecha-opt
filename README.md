@@ -15,7 +15,9 @@ human. Agent instructions are in `AGENTS.md` (`CLAUDE.md` imports it).
   to come, which will be built as a DLL, a static library and WebAssembly.
 - `global.json` - pins the .NET SDK floor and the Uno SDK version.
 - `scripts/` - setup, validation, build and screenshot scripts, all PowerShell 7.
-- `.github/workflows/build.yml` - builds every platform.
+- `.github/workflows/build.yml` - builds every platform. `launch.yml` starts the app (manual, see CI).
+- `planning/` - plans of record. `2026-10-mecha-dk-scaffold.md` is the scaffold plan, with the current
+  state and the scheduled follow-up at its end.
 
 Script names are lowercase kebab-case (`scripts/*.ps1`).
 
