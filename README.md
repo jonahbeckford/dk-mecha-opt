@@ -1,6 +1,7 @@
 # dk-mecha-opt
 
-Coordinator's record for the dk mecha optimization harness. Agent instructions are in `AGENTS.md`
+Coordinator's record for the dk mecha optimization harness. dk mecha is a .NET GUI for submitting
+and solving problems with a "mecha": an assistant guided by a human. Agent instructions are in `AGENTS.md`
 (`CLAUDE.md` imports it).
 
 ## Layout

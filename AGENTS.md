@@ -1,6 +1,7 @@
 # dk Mecha Studio - AI agent instructions
 
-Optimization harness for dk mecha. This repository is the coordinator's record, laid out like its
+Optimization harness for dk mecha, a .NET GUI for submitting and solving problems with a "mecha":
+an assistant guided by a human. This repository is the coordinator's record, laid out like its
 sibling `../dk-engine-opt`.
 
 ## Standing rules

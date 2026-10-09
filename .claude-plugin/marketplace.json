@@ -5,7 +5,7 @@
         {
             "name": "dk-mecha-opt",
             "source": "./.ai-skills",
-            "description": "dk mecha optimization harness coordinator skills."
+            "description": "dk mecha optimization harness coordinator skills. dk mecha is a .NET GUI for submitting and solving problems with a human-guided assistant."
         }
     ]
 }
