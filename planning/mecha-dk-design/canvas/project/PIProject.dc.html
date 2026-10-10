@@ -139,7 +139,7 @@ Never use more than [amount] of reagent [name] in one experiment.]</textarea></d
 
     <fieldset style="min-width: 0; margin: 0; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
       <legend style="font-size: 17px; font-weight: 600; padding: 0 6px">3. Revelations</legend>
-      <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Established findings and constraints you hold as true. The mecha never proposes a hypothesis that contradicts them, and checks each new one against the rest before it is added.</div>
+      <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Established findings and constraints you hold as true. At IDEATE the mecha proposes new hypotheses that apply them, alongside hypotheses drawn from the results so far. At DROP it drops a new hypothesis that clearly contradicts one, and flags and believes less one that may. The LLM reads them ahead of its own analysis whenever it proposes a hypothesis or writes an experiment. A new revelation is checked against the others before it is added.</div>
       <ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.6"><li>[Revelation]</li></ul>
       <div style="display: flex; flex-wrap: wrap; gap: 10px">
         <label for="g" style="position: absolute; left: -9999px">New revelation</label>

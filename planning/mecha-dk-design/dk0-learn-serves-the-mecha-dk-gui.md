@@ -1306,6 +1306,23 @@ R14). "What you measure" keeps only where cases come from.
   smallest change of each weight that changes the order of the top hypotheses. The GUI shows the result; the
   arithmetic is `dk0 learn`'s.
 
+### R29. Revelations seed IDEATE as well as bound it
+
+The maintainer (verbatim, 2026-10-10): "Revelations also are used in IDEATE to generate new hypotheses (confirm
+that). If so, the Revelations section needs an updated description."
+
+Confirmed from the record. design.typ (section 3, "A revelation is also a generator"): IDEATE places the
+revelations in its context "with an explicit steer that logical applications of a revelation are good source
+material for new hypotheses", and "each IDEATE deliberately runs *two streams*: revelation-seeded hypotheses
+... and unseeded, data-driven hypotheses"; C31 resolves that both streams are always on, each with an elicited
+minimum share. In `cycle/`, `suo.py` injects the revelations "into every IDEATE and FIX prompt, stated to
+outrank the agent's own analysis". The seeding steer is design; `cycle/` uses revelations as constraints only.
+
+The New project form now describes all four uses: seeding at IDEATE, dropping or flagging at DROP, the LLM
+reading them first when it proposes or writes an experiment, and checking a new revelation against the others.
+Open for the threads: whether the PI sets the minimum share of each stream (C31 says it is elicited), and where
+in the GUI, if at all.
+
 ## Classification
 
 Not yet applied. A first reading, for the threads to confirm or overturn: R1 to R3 change what the
