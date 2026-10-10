@@ -1541,6 +1541,19 @@ limit:
   run can do, so marking the powerful secrets is enough.
 - **An experiment for a person**, as before.
 
+**Who creates the request** (the maintainer, verbatim, 2026-10-10: "It is still unclear to me what is creating the
+authorization request. It might be a run-function response (if so, that should be in the documentation). Or it
+could be an LLM (which one?). Or it could be Mecha DK itself (when and how?)"). Mecha DK itself: the desktop
+driver (R11), at SELECT, when it plans each chosen hypothesis's run. The driver writes every `dk0 run-function`
+request, so before anything runs it knows the executor, the steps and the secrets each step receives, and it
+parks the run instead of handing it to DISPATCH when that plan matches a rule above. This is the role
+`eval/chain.mjs` plays in dk-engine-opt: deterministic code over the planned act, consulted before SELECT
+commits. No LLM and no function rule's response creates a request, and neither can avoid one, since neither
+chooses the executor or the secrets. "Start the project" runs the same check on the setup check. The rules
+are documented in MECHA-DK.md, Security, and not in the GUI (the maintainer, verbatim, 2026-10-10: "The "Runs
+that wait for your approval" section belongs in MECHA-DK.md, not in the UI."); the GUI keeps only the "Approve
+each use" checkbox on each secret and the reason on each parked row.
+
 Each approval releases one run of one hypothesis and is recorded with who gave it and when, the GUI's form of a
 written single-use grant. An unattended window never approves, and parked hypotheses keep their class alive at
 IDEATE. The setup check at "Start the project" follows the same rule. SELECT still weighs cost when choosing

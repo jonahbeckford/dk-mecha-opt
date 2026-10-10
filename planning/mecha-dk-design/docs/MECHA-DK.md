@@ -63,17 +63,28 @@ A secret cannot be read back once saved.
 
 ### Runs that wait for your approval
 
-The mecha parks a run at AUTHORIZE for what it does:
+Mecha DK itself creates every authorization request: the desktop that runs the project, when it plans a run.
+No LLM creates one, and no function rule's response does.
 
-- It runs on a paid executor: Diskuv SaaS, or a cloud virtual machine. The page shows the most it can cost, the
-  executor's hourly price times the step's time limit, with the calculation.
-- Its steps receive a secret you marked **Approve each use**. Mark every secret that can publish, release or pay
-  for something.
-- It is an experiment for a person.
+At SELECT, for each hypothesis it chooses, the desktop plans the run: which executor runs it, which steps run
+(Set up, Run the experiment, Grade out of sight), and which secrets each step receives. It writes every
+`dk0 run-function` request itself, so it knows all three before anything runs. It parks the run at AUTHORIZE,
+instead of sending it to DISPATCH, when the plan has any of these:
+
+- **A paid executor**: Diskuv SaaS, or a cloud virtual machine. The request shows the most the run can cost,
+  the executor's hourly price times the steps' time limits, with the calculation.
+- **A secret you marked Approve each use** in Experiment environment, received by any step. Mark every secret
+  that can publish, release or pay for something.
+- **An experiment for a person.**
+
+"Start the project" applies the same check to its setup check, before the first cycle.
 
 Each approval releases one run of one hypothesis, and is recorded with who gave it and when. In an unattended
-window nothing is approved and parked runs wait. A paid service that an experiment calls with a secret is covered
-only when you mark that secret Approve each use.
+window nothing is approved: parked runs wait, and the mecha keeps proposing hypotheses like them.
+
+The check reads only the run plan. An LLM that writes an experiment cannot add or remove a request: it cannot
+choose the executor or the secrets a step receives. A function rule that calls a paid service needs that
+service's secret, so marking the secret Approve each use is what puts such a run in front of you.
 
 ### What the mecha may change
 
