@@ -126,12 +126,12 @@ page('OBSERVE','StageObserve','read where things stand',
  'nothing new to the tree; it hands the matched problems to IDEATE and SELECT.', 1250)
 
 page('AUTHORIZE','StageAuthorize','release what is waiting on you',
- 'Some hypotheses wait for you before the mecha may choose them: a spend above your limit, a revelation only you can make, or an experiment a person must run. Release them here, or leave them parked. In an unattended window this stage is skipped and they stay parked.',
+ 'Some hypotheses wait for you before the mecha may choose them: a run that does something you asked to approve, a revelation only you can make, or an experiment a person must run. Release them here, or leave them parked. In an unattended window this stage is skipped and they stay parked.',
  [('Status', tag('Needs you','warn') + ' <span style="font-weight: 400; color: {{c.mut}}">since [time]</span>'), ('Done by', 'You'), ('Runs', 'Attended windows only')],
- section('Parked for a spend ([n])', table(['Hypothesis','Cost','Value of what it would tell us','',''], [
-   ['[Hypothesis]', '[cost] on [executor]', '[VoI], expected loss [L]', btn('Authorize', True), btn('Keep parked')],
-   ['[Hypothesis]', '[cost] on [executor]', '[VoI], expected loss [L]', btn('Authorize', True), btn('Keep parked')]], 760)
-   + p('Your spend limit per experiment is [limit]; anything above it waits here. ' + a('Change the limit','ProjectSettings.dc.html#n'), True), 'h-sp', '2px solid {{c.warn}}')
+ section('Parked for what the run does ([n])', table(['Hypothesis','What needs you','Cost, worked out now','Value of what it would tell us',''], [
+   ['[Hypothesis]', 'Runs on a paid executor: [Diskuv SaaS]', 'Up to [$3.20]: time limit [2 h] at [$1.60] an hour. ' + a('Show the calculation','#calc'), '[VoI], expected loss [L]', '<span style="display: flex; flex-wrap: wrap; gap: 6px">' + btn('Authorize, up to [$3.20]', True) + btn('Run on this computer') + btn('Keep parked') + '</span>'],
+   ['[Hypothesis]', 'Its run step uses <code>[RELEASE_TOKEN]</code>, which you marked Approve each use', '[What the secret lets it do, in your words]', '[VoI], expected loss [L]', '<span style="display: flex; flex-wrap: wrap; gap: 6px">' + btn('Authorize this run', True) + btn('Keep parked') + '</span>']], 900)
+   + p('The mecha parks a run for what it does, as set in ' + a('Experiment environment','Environment.dc.html') + ': a paid executor, or a secret marked Approve each use. Each approval releases one run of one hypothesis, and is recorded with who gave it and when. Run on this computer appears when this computer meets the hardware.', True), 'h-sp', '2px solid {{c.warn}}')
  + section('Waiting for a revelation from you ([n])', p('The mecha asks: [the question only you can answer]. Your revelation is checked against the project\'s other revelations before it is added.')
    + '        <div style="display: flex; flex-wrap: wrap; gap: 10px"><input aria-label="Your revelation" type="text" placeholder="[State what is true]" style="flex: 1 1 300px; min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">' + btn('Check and add', True) + '</div>', 'h-st')
  + section('Experiments for a person ([n])', ul([
@@ -151,7 +151,7 @@ page('IDEATE','StageIdeate','propose new hypotheses',
    tag('Zotero','acc') + '<span style="flex: 1 1 300px"><code>[query]</code> in [library]</span><span style="color: {{c.mut}}">[n] items read</span>',
    tag('Semantic Scholar','acc') + '<span style="flex: 1 1 300px"><code>[query]</code>, fields of study [field]</span><span style="color: {{c.mut}}">[n] papers</span>',
    tag("The LLM's own search",'acc') + '<span style="flex: 1 1 300px"><code>[query]</code></span><span style="color: {{c.mut}}">[n] pages cited</span>'])
-   + '        <div style="font-size: 13px; line-height: 1.45; padding: 10px 12px; border-radius: 6px; border: 2px solid {{c.bad}}">Papers, notes and web pages can carry a prompt injection. Check a hypothesis from an unfamiliar source before you authorize spend on it. ' + a('More','Collaborators.dc.html') + '</div>'
+   + '        <div style="font-size: 13px; line-height: 1.45; padding: 10px 12px; border-radius: 6px; border: 2px solid {{c.bad}}">Papers, notes and web pages can carry a prompt injection. Check a hypothesis from an unfamiliar source before you authorize a run of it. ' + a('More','Collaborators.dc.html') + '</div>'
    + '        <div>' + a('Open the full LLM transcript','#transcript') + '</div>', 'h-src'),
  'the tree, open research questions, the revelations, last cycle\'s results, the allowed sources.',
  'new hypotheses into the tree, each with its starting belief and the sources it came from.', 1350)
@@ -171,11 +171,11 @@ page('SELECT','StageSelect','choose what to test',
  [LAST, MECHA, ('Budget this cycle', '[budget], [spent] chosen')],
  section('The choice', table(['Hypothesis','Belief now','Value of testing','Cost','Choice'], [
    ['[Hypothesis]', '<code>Beta(3, 2)</code> 60%', '[high]', '[cost]', tag('Chosen','ok')],
-   ['[Hypothesis]', '<code>Beta(1, 1)</code> no view yet', '[high]', '[cost]', tag('Parked','warn') + ': spend above your limit, ' + a('AUTHORIZE','StageAuthorize.dc.html')],
+   ['[Hypothesis]', '<code>Beta(1, 1)</code> no view yet', '[high]', '[cost]', tag('Parked','warn') + ': runs on a paid executor, ' + a('AUTHORIZE','StageAuthorize.dc.html')],
    ['[Hypothesis]', '<code>Beta(1, 4)</code> 20%', '[low]', '[cost]', 'Not this cycle'],
    ['[Hypothesis]', '<code>Beta(2, 2)</code> 50%', '[medium]', '[cost]', tag('Parked','warn') + ': needs a person, ' + a('AUTHORIZE','StageAuthorize.dc.html')]], 760)
    + p('Value of testing is how much the result is expected to improve the next decision. The numbers behind each row are in ' + a('the SELECT report','#report') + '.', True), 'h-sel'),
- 'every open hypothesis and its belief, costs per executor, your spend limit, the budget.',
+ 'every open hypothesis and its belief, costs per executor, what parks for your approval, the budget.',
  'the chosen list for DISPATCH, and parked hypotheses with the reason.', 1050)
 
 page('DISPATCH','StageDispatch','run the experiments',

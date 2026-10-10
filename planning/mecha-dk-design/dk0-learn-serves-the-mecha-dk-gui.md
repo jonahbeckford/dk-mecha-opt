@@ -1509,6 +1509,48 @@ change" and "Out of bounds" line by line (MECHA-DK.md, Security).
   "Started from the template", "Draft without the template" drafts again from the description alone, keeping
   every field the PI changed (the maintainer, choosing "Yes, one button").
 
+### R33. AUTHORIZE parks a run for what it does, not for what it costs
+
+The maintainer (verbatim, 2026-10-10): "How does the mecha know the first run will cost money?", then, on a
+proposal of a cost estimate for every run and a spend limit per experiment: "I don't like your proposal. How does
+dk-engine-opt for MlFront or dk-engine-opt cycle/ ask for authorization? Are any of their authorizations for
+spending? (I vaguely recall an authorizationfor training a model using AWS SageMaker)", then "Yes" to the design
+below.
+
+**What the harnesses do.** dk-engine-opt classifies the act, not the price: `eval/chain.mjs` prices a candidate in
+acts (a branch pipeline is AUTONOMOUS, a release tag NEEDS AUTHORIZATION, code signing is HUMAN-ONLY, and an
+unknown act falls through to `blocked`), and SELECT dispatches only AUTONOMOUS nodes. A node needing more is
+parked (`tree.mjs park`: pending plus a `parked` block with the verdict and price), not pruned, and IDEATE keeps
+proposing its class. It is released by a single-use written grant (`authorize-node`, `state/authorizations.json`),
+which the coordinator never requests or infers. The one money gate is fine-tuning (DECISIONS 2026-09-25,
+`lifecycle/plans/gate-finetuning-with-a-cost-estimate.md`): attended at OBSERVE, an optional GPU probe after
+asking, prices from a fixed provider set with AWS SageMaker for privacy, the cost computed in a reviewable script
+(`scripts/estimate-finetune-cost.mjs`), and a choice of local, external at the estimate, or defer; never
+AUTONOMOUS, never unattended. `cycle/` has no AUTHORIZE: its only gate is `finetune/run_finetune.py`, whose
+`--train` refuses without `--cost-reviewed`.
+
+**The GUI.** A run parks at AUTHORIZE for what it does, never for a running cost estimate, and there is no spend
+limit:
+
+- **A run on a paid executor** (Diskuv SaaS, a cloud virtual machine). The cost is worked out when it parks, as
+  the executor's hourly price times the step's time limit, with the calculation shown, and the choices mirror the
+  fine-tune gate: "Authorize, up to $X", "Run on this computer" (when this computer meets the hardware), or "Keep
+  parked". A run on this computer or GitHub Actions does not park for this reason.
+- **A run whose steps receive a secret marked "Approve each use"** in Experiment environment, for a secret that can
+  publish, release or pay for something. This is the release-tag case: the secrets allow list already bounds what a
+  run can do, so marking the powerful secrets is enough.
+- **An experiment for a person**, as before.
+
+Each approval releases one run of one hypothesis and is recorded with who gave it and when, the GUI's form of a
+written single-use grant. An unattended window never approves, and parked hypotheses keep their class alive at
+IDEATE. The setup check at "Start the project" follows the same rule. SELECT still weighs cost when choosing
+(R12 and the hourly price above), but cost alone never parks a run.
+
+**Engine requests.** `dk0 learn` records a park with its reason (executor, secret or person) and the worked cost,
+records each approval as a single-use grant tied to one hypothesis's run, and refuses to dispatch a parked run
+without one. Executors report whether they are paid and their hourly price. Open: whether a PI who runs everything
+on Diskuv SaaS may approve paid runs for a whole attended window at once, rather than run by run.
+
 ## Classification
 
 Not yet applied. A first reading, for the threads to confirm or overturn: R1 to R3 change what the

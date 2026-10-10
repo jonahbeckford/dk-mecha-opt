@@ -25,7 +25,7 @@ after a few minutes, and the desktop asks you to approve each new device.
 
 Collaborators you invite can see the whole hypothesis tree, pose hypotheses, run experiments you send
 them, and request measurement changes for you to approve. Only you approve experiments, reviews and
-calibrations, and only you authorize a spend. A collaborator can ask you to.
+calibrations, and only you authorize a run that waits for approval. A collaborator can ask you to.
 
 #### A collaborator can gain your full control
 
@@ -40,7 +40,7 @@ Invite only people you would trust with the desktop that runs the project.
 
 The same risk comes from every other text an LLM reads: papers and notes from Zotero, web pages from
 search, and anything on the project's read-only list. Check a hypothesis from an unfamiliar source before you
-authorize a spend on it.
+authorize a run of it.
 
 ### Secrets
 
@@ -60,6 +60,20 @@ itself and adds the ticked secrets for that step. Every other secret stays in th
 The Experiment environment page decides which executors receive a copy of a secret: this computer,
 GitHub Actions (as an Actions secret of the repository that runs the experiments) or Diskuv SaaS (in your account's vault).
 A secret cannot be read back once saved.
+
+### Runs that wait for your approval
+
+The mecha parks a run at AUTHORIZE for what it does:
+
+- It runs on a paid executor: Diskuv SaaS, or a cloud virtual machine. The page shows the most it can cost, the
+  executor's hourly price times the step's time limit, with the calculation.
+- Its steps receive a secret you marked **Approve each use**. Mark every secret that can publish, release or pay
+  for something.
+- It is an experiment for a person.
+
+Each approval releases one run of one hypothesis, and is recorded with who gave it and when. In an unattended
+window nothing is approved and parked runs wait. A paid service that an experiment calls with a secret is covered
+only when you mark that secret Approve each use.
 
 ### What the mecha may change
 
