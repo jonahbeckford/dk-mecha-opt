@@ -896,8 +896,29 @@ case each; MLE-bench runs `submission.py` and a separate grader returns only val
   is out of scope, which for every project includes the harness' own `eval/` and the host's release credentials
   (the execution boundary)"; R8 adopted "out of bounds" as the PI wording for it. In `cycle/` the closest
   pieces are `suo.py`'s `constraints` (no network for the candidate program, the container boundary) and the
-  MLE-bench guard that refuses to stage test labels. It is: always secrets and the measuring apparatus; by default no network for the program under
-  test and no hidden test data; free text for hazards, ethics and budgets.
+  MLE-bench guard that refuses to stage test labels. Each rule says how it is kept (the maintainer,
+  verbatim, 2026-10-10: "You still haven't said exactly HOW the choices will be used. "Hidden test data and
+  answers, when a grader holds them", for example, has no mechanism to enforce it."):
+  - *Secrets the experiment never gets*, a list chosen from the experiment environment's secrets. The desktop
+    driver writes every `dk0 run-function` request itself and leaves them out of all three steps; the
+    environment page cannot tick them for any executor.
+  - *How results are measured*, always. The set up, run and grade rules are pinned by module and version in
+    project state and the driver refuses a run whose rule differs. Before each run the driver compares the
+    candidate change with the edit surface's limits and rejects a change touching any other file (the tests,
+    for example). Changing these is a measurement change (R13).
+  - *No internet for the experiment and the grader*, a checkbox, on by default. The driver starts both steps
+    with networking off (the MXC sandbox's network policy on this computer, R6; the executor's own switch
+    elsewhere) and never uses an executor that cannot switch it off while the box is ticked. Only Set up has
+    the internet.
+  - *Hidden answers stay with the grader*: an item marked "Grader only" goes only into the grader's request,
+    as `KIND[hidden][name]`, in its own run and folder. Before every run the driver checks, by path and by
+    checksum, that no grader-only file is inside anything the experiment receives, and stops the cycle if one
+    is (the analog of MLE-bench's `_assert_no_labels_reachable`). The grader returns one result per case.
+  - *Anything else*, free text, is kept by people: it is shown to a person running an experiment as "Stop if"
+    and "Never", the PI approves each such experiment at AUTHORIZE, and the LLM reads it with the standing
+    instructions. No program checks it.
+  Open for the threads: whether MXC exposes a network switch the driver can set, which remote executors can
+  switch networking off, and whether `dk0 learn` or the driver owns the pre-run checks.
 
 **Templates.** "Start from" offers Blank, two templates drawn from the benchmarks (fix a program until its tests
 pass; do well in an ML competition, with the MLE-bench revelations on leakage and a disclosed learner), and the
@@ -1144,7 +1165,7 @@ Level 2 attestation; `trust accept` records acceptance of a producer key and `tr
 
 Proposed convention, for the threads to settle with `dk0`: kind first, then `rw` or `ro` where the kind has
 both: `KIND[rw][name]=value` or `KIND[ro][name]=value` for `repo`, `file`, `dir`, `model`, `data` and `param`,
-and `output[name]=path` with no split. The rule receives `{"repo": {"rw": {...}, "ro": {...}}, "param": {"rw":
+and `output[name]=path` with no split; a grader-only item reaches only the grader, as `KIND[hidden][name]`. The rule receives `{"repo": {"rw": {...}, "ro": {...}}, "param": {"rw":
 {...}}, ..., "output": {...}}`, so a read-only item can be enforced by the engine rather than by convention.
 Each item's name defaults to its own name in lower case with every other character replaced by `_` (`app`,
 `modernbert_large_nli`, `incubation_temperature`); the PI can rename it. The per-case results are the rule's
