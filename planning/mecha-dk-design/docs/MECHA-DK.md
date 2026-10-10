@@ -11,7 +11,7 @@ This document describes how to use the Mecha DK app. The engine underneath it, `
 
 A Mecha DK project runs code, spends money and reads text written by other people. This section
 describes who can act on a project, what each experiment receives, and how Mecha DK keeps the choices
-you make under **Out of bounds** in the New project form and in project settings.
+you make in the Scope section of the New project form and in project settings.
 
 ### Who controls a project
 
@@ -48,7 +48,7 @@ A secret is a value such as an API key or a sign-in token. Secrets live in the d
 Windows Credential Manager, the macOS Keychain or the Linux Secret Service. A project file, a template,
 a report and a read-only link never contain a secret.
 
-Each project lists, under **Out of bounds**, which secrets each step may use:
+Each project lists, under **Secrets each step may use**, which secrets each step may use:
 
 - **Set up**, which runs once per executor and is the only step with internet access.
 - **Run the experiment**.
@@ -95,7 +95,7 @@ grader stay with the grader.
 
 ### Internet access
 
-With **No internet for running and grading the experiment** ticked, the desktop starts the run and
+With **No internet for running and grading the experiment** ticked under **Out of bounds**, the desktop starts the run and
 grade steps with networking switched off: in the MXC sandbox on this computer, and with the executor's
 own setting on GitHub Actions or Diskuv SaaS. While the box is ticked, the desktop uses only executors
 that can switch networking off. Set up keeps its internet access.
@@ -106,9 +106,9 @@ Before each experiment, the desktop checks that the executor offers the hardware
 operating system, CPUs, memory, disk, accelerators and any cloud virtual machine settings. On a
 mismatch the desktop holds the experiment back, and the DISPATCH page names the choice that failed.
 
-### Anything else in Out of bounds
+### Out of bounds text
 
-The **Anything else** text covers hazards, ethics and approval limits, and budget ceilings, in your own
+The **Out of bounds** text covers hazards, ethics and approval limits, and budget ceilings, in your own
 words. People keep these rules:
 
 - A person running an experiment sees the text as "Stop if" and "Never" on the experiment's page.
