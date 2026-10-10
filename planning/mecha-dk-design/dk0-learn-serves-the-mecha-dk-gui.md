@@ -896,29 +896,39 @@ case each; MLE-bench runs `submission.py` and a separate grader returns only val
   is out of scope, which for every project includes the harness' own `eval/` and the host's release credentials
   (the execution boundary)"; R8 adopted "out of bounds" as the PI wording for it. In `cycle/` the closest
   pieces are `suo.py`'s `constraints` (no network for the candidate program, the container boundary) and the
-  MLE-bench guard that refuses to stage test labels. Each rule says how it is kept (the maintainer,
-  verbatim, 2026-10-10: "You still haven't said exactly HOW the choices will be used. "Hidden test data and
-  answers, when a grader holds them", for example, has no mechanism to enforce it."):
-  - *Secrets the experiment never gets*, a list chosen from the experiment environment's secrets. The desktop
-    driver writes every `dk0 run-function` request itself and leaves them out of all three steps; the
-    environment page cannot tick them for any executor.
-  - *How results are measured*, always. The set up, run and grade rules are pinned by module and version in
-    project state and the driver refuses a run whose rule differs. Before each run the driver compares the
-    candidate change with the edit surface's limits and rejects a change touching any other file (the tests,
-    for example). Changing these is a measurement change (R13).
-  - *No internet for the experiment and the grader*, a checkbox, on by default. The driver starts both steps
-    with networking off (the MXC sandbox's network policy on this computer, R6; the executor's own switch
-    elsewhere) and never uses an executor that cannot switch it off while the box is ticked. Only Set up has
+  MLE-bench guard that refuses to stage test labels. Its choices and how each is kept (the maintainer, verbatim, 2026-10-10:
+  "You still haven't said exactly HOW the choices will be used. "Hidden test data and answers, when a grader
+  holds them", for example, has no mechanism to enforce it."; then: ""Secrets the experiment never gets." No,
+  the secrets should be whitelisted not blacklisted. "How results are measured (always)". That is wasted space
+  in a UI ... there are no options in this section! "The three rules are pinned by module and version, and the
+  desktop refuses a run whose rule differs." I don't understand. The desktop runs the three rules each cycle,
+  whatever they are. There is no "refuses". The "How it is kept" blurbs: these don't belong in the UI. They
+  were for me to check the design makes sense. They belong in the design document and security documents."):
+  - *Secrets each step may use*: a grid of the experiment environment's secrets against Set up, Run the
+    experiment and Grade out of sight. A step receives only the secrets ticked for it; the driver writes every
+    `dk0 run-function` request and adds those alone. Every other secret stays in the key store.
+  - *How results are measured* has no options and no UI block. The driver runs the three rules the project
+    names, each cycle. Changing a rule, or what it measures with, is a measurement change (R13). Before each
+    run the driver compares the change under test with the edit surface's limits and rejects a change
+    touching any other file (the tests, for example), recording it on the DISPATCH page.
+  - *No internet for running and grading the experiment*, a checkbox, on by default. The driver starts both
+    steps with networking off (the MXC sandbox's network policy on this computer, R6; the executor's own
+    setting elsewhere) and uses only executors that can switch it off while the box is ticked. Set up keeps
     the internet.
-  - *Hidden answers stay with the grader*: an item marked "Grader only" goes only into the grader's request,
-    as `KIND[hidden][name]`, in its own run and folder. Before every run the driver checks, by path and by
-    checksum, that no grader-only file is inside anything the experiment receives, and stops the cycle if one
-    is (the analog of MLE-bench's `_assert_no_labels_reachable`). The grader returns one result per case.
-  - *Anything else*, free text, is kept by people: it is shown to a person running an experiment as "Stop if"
-    and "Never", the PI approves each such experiment at AUTHORIZE, and the LLM reads it with the standing
+  - *Grader only* is an access choice in the items list, with no block of its own. Such an item reaches only
+    the grader's request, as `KIND[hidden][name]`, in its own run and folder. Before every run the driver
+    checks, by path and by checksum, that no grader-only file is inside anything the experiment receives, and
+    stops the cycle if one is (the analog of MLE-bench's `_assert_no_labels_reachable`). The grader returns
+    one result per case.
+  - *Anything else* is a Markdown text editor. People keep it: a person running an experiment sees it as "Stop
+    if" and "Never", the PI approves each such experiment at AUTHORIZE, and the LLM reads it with the standing
     instructions. No program checks it.
-  Open for the threads: whether MXC exposes a network switch the driver can set, which remote executors can
-  switch networking off, and whether `dk0 learn` or the driver owns the pre-run checks.
+  The explanations live in the security sections of a new user document, `MECHA-DK.md`, a sibling of
+  `DK0-REFERENCE.md` in `dksdk-coder/ext/dk/docs/` (the maintainer: "Since we do have security sections in
+  DK0-REFERENCE.md, start writing into security sections of a new sibling MECHA-DK.md (which documents how to
+  use the Mecha DK UI)."). The form links to it with "How Mecha DK keeps these". It is also the security
+  document R18 asks for. Open for the threads: whether MXC exposes a network switch the driver can set, which
+  remote executors can switch networking off, and whether `dk0 learn` or the driver owns the pre-run checks.
 
 **Templates.** "Start from" offers Blank, two templates drawn from the benchmarks (fix a program until its tests
 pass; do well in an ML competition, with the MLE-bench revelations on leakage and a disclosed learner), and the
