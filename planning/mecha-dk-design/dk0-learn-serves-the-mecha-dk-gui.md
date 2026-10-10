@@ -1329,6 +1329,26 @@ machinery as SELECT, shifting toward exploration when seeded nodes keep failing 
 the frontier drifts incoherent." Engine request: `dk0 learn` stores the two floors in project state and runs
 that allocation; the default of 25% each is a proposal.
 
+### R30. Uploading files into the project
+
+The maintainer (verbatim, 2026-10-10): "In "Task description" where did description.md come from? If it is an
+uploaded file, the UI needs to be able to upload files."
+
+`description.md` came from MLE-bench: `cycle/mlebench/mlebench_task.py` stages "description.md, the competition
+description" into each task, and `suo.py`'s `task_context` reads it into the IDEATE and FIX prompts. In the GUI it
+was an example file in the project folder with no way to put it there. Now:
+
+- The items list has "Upload files" and "Add from the project folder". An uploaded file is copied into the project
+  folder (R23) and listed as an item, read-only by default.
+- The task description is one of: a file the mecha may read, an uploaded file (saved to the project folder and
+  added to the read list), text written in an editor (saved as `description.md`), or none.
+- On the web and phones the upload goes to the desktop driver over iroh (R11, R12), since the project folder
+  lives there. The protocol of record already offers "Upload a document" (R24) on the same path.
+
+Engine side: nothing new for `dk0 learn` beyond the project folder; the driver needs a file-transfer command on the
+iroh channel with a size limit, and the threads should say what that limit is and whether large files go through
+the "model or dataset" references of R27 instead.
+
 ## Classification
 
 Not yet applied. A first reading, for the threads to confirm or overturn: R1 to R3 change what the
