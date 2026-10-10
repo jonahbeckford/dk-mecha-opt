@@ -25,7 +25,7 @@ after a few minutes, and the desktop asks you to approve each new device.
 
 Collaborators you invite can see the whole hypothesis tree, pose hypotheses, run experiments you send
 them, and request measurement changes for you to approve. Only you approve experiments, reviews and
-calibrations.
+calibrations, and only you authorize a spend. A collaborator can ask you to.
 
 #### A collaborator can gain your full control
 
@@ -85,8 +85,11 @@ applied with a fresh baseline. See Measurement changes in project settings.
 ### Projects drafted from a description
 
 With **Describe it**, the LLM you choose reads your description and any files you add, then drafts the New project
-form. The description and files go to that LLM's provider. A draft never ticks a secret and never chooses the run
-and grade rules; you do both.
+form. The description and files go to that LLM's provider. A draft never ticks a secret; you tick each one.
+
+The LLM can write run and grade rules for the project. Each waits for you: no rule runs until you open it and
+approve it, and the desktop runs only the approved version of a rule. A rule changed after approval waits for you
+again.
 
 Text and files from someone else can carry a prompt injection that steers the draft, for example by widening what
 the mecha may change or by dropping a line from Out of bounds. Read those two parts of a draft line by line before

@@ -246,7 +246,8 @@ or how results return. Requirements this puts on the design, for the threads:
   AUTHORIZE until the PI approves it and picks who runs it.
 - **What a collaborator may do.** The maintainer (verbatim, 2026-10-10): "They can pose hypotheses and see
   the whole tree." So the SaaS shares the whole tree with collaborators, and posing a hypothesis (R2) must
-  record who posed it. Who besides the PI may AUTHORIZE is not yet decided.
+  record who posed it. Only the PI may AUTHORIZE; a collaborator can ask for an authorization, and the PI
+  approves it (the maintainer, 2026-10-10, choosing "Only the PI"). This also limits what a prompt injection through a collaborator can spend.
 - **SaaS accounts.** The maintainer (verbatim, 2026-10-10): "Password reset? Through email." and "Create
   accounts in the app? Yes". So the SaaS account operations of R7 are: create an account, confirm it, sign
   in, sign out, reset a forgotten password by an emailed link, invite a collaborator by email, and query
@@ -836,9 +837,10 @@ hold project state.
 
 Engine side: `dk0 learn` needs every command to take the project folder explicitly (as the harness passes
 `--cwd state` today), a way to tell whether a folder holds a project, and its version, without changing it, and a
-defined behaviour for a non-empty folder at `init`. Secrets stay out of the folder (R16). Open: whether init
-should offer to make the folder a git repository, so "another machine can continue" (PERSIST) has a default
-path; the design only says the folder can be copied, synced or kept in git.
+defined behaviour for a non-empty folder at `init`. Secrets stay out of the folder (R16). Decided (the maintainer, 2026-10-10, choosing "Offer, ticked"): the
+New project form has "Keep the history in git" under the project folder, ticked by default. `init` makes the folder
+a git repository and each PERSIST commits what it saved; pushing to a remote is the PI's choice in project
+settings. Engine request: `dk0 learn init --git` and a commit at PERSIST.
 
 ### R24. A welcome wizard, an LLM in the New project flow, structured scope, and templates
 
@@ -1236,10 +1238,10 @@ providing executor infrastructure." So:
   DISPATCH page. The threads must say how the driver learns what an executor offers (this computer directly;
   GitHub Actions and Diskuv SaaS by what their runner reports), what happens when a remote runner turns out
   different once started (the run reports its hardware and the result is discarded on a mismatch), and
-  whether changing a hardware choice is a re-baseline (a different machine can change measured results,
-  R14). An executor (this computer, GitHub Actions, Diskuv SaaS, R7) is used only if it meets the
-requirement; the threads must say how each executor reports what it offers, and whether `max_hourly_cost` feeds
-the cost SELECT weighs. The Cap'n Proto `run` struct carries the OS set and these fields with SkyPilot's names.
+  that changing a hardware choice is a measurement change with a fresh baseline (R14) (the maintainer, 2026-10-10, choosing "Yes, re-baseline"). An executor (this computer, GitHub Actions, Diskuv SaaS, R7) is used only if it meets the
+requirement; the threads must say how each executor reports what it offers. SELECT weighs the executor's reported
+hourly price times the expected run time as the experiment's cost; "Most per hour" (`max_hourly_cost`) stays a hard
+cap (the maintainer, 2026-10-10, choosing "Yes, actual price"). The Cap'n Proto `run` struct carries the OS set and these fields with SkyPilot's names.
 
 **The adapter hooks.** `cycle/common/run_cycle_core.py` defines `RootedHooks`, "what the core loop needs from a
 task adapter": `task_context`, `result_text`, `code_hash`, `measure`, `ingest`, `snapshot`, `now`, and an
@@ -1337,8 +1339,9 @@ model or count is a measurement change (R13, R14).
   extending the line beyond the range (accuracy 51% on a 70% to 95% range scores (51 - 70) / (95 - 70) = -0.76),
   combine with the weights,
   and propagate the weights' Dirichlet uncertainty into each hypothesis's expected value. DECIDE also applies
-  each outcome's never-adopt limit; the threads must say whether the limit applies to the posterior mean or to
-  a credible bound, the same question as C2's decision quantile. SELECT and DECIDE use
+  each outcome's never-adopt limit; the limit applies to a credible bound: DECIDE adopts only when it is confident,
+  at C2's decision quantile, that the outcome is within the limit (the maintainer, 2026-10-10, choosing "Cautious bound"). One setting
+  serves both. SELECT and DECIDE use
   that combined value; with one outcome it reduces to today's failure rate.
 - **Elicitation.** Turn the order and the chained ratings into Dirichlet parameters, and, once there are results, report a sensitivity
   check: the smallest change of each rating that changes which hypothesis leads, expressed as a rating. The GUI shows the result; the
@@ -1418,8 +1421,11 @@ settings" opens the full sections with the template's entries locked. Additions 
 Engine and schema requests: a template marks which fields each project must fill (slots: here the repository,
 source folder and branch, and the task description), and a project records the template it came from, its
 version, and its additions separately, so the template's entries stay locked and a later template version can be
-told apart from the project's own extensions. Open: whether a project can move to a newer version of its
-template, and whether that is a measurement change (R13).
+told apart from the project's own extensions. Decided (the maintainer, 2026-10-10, choosing "Offer, as a change"): project
+settings shows the template's version and offers a newer one, with the author's note of what changed. Moving
+waits for a break between cycles; when the new version changes how results are measured, it is a measurement
+change with a fresh baseline (R13, R14). The project's own additions stay. Engine request: a template version
+diff that says whether it touches the measured surface.
 
 ### R32. A New project drafted from a description, and problems and hypotheses to start with
 
@@ -1450,7 +1456,7 @@ changed. The description and files go to the chosen LLM and are kept in the proj
 note. Nothing starts until "Start the project".
 
 Four things always need the PI, listed in "Before you start the project": the project folder; the run and grade
-rules, where the draft states what each must do but chooses none; the secrets each step may use, which a draft
+rules the LLM wrote, which the PI reviews and approves; the secrets each step may use, which a draft
 always leaves unticked; and the weighing of outcomes, a preference the LLM can only guess from the PI's words. The
 same list warns that pasted text and added files can steer the draft, and asks the PI to read "What the mecha may
 change" and "Out of bounds" line by line (MECHA-DK.md, Security).
@@ -1462,10 +1468,18 @@ change" and "Out of bounds" line by line (MECHA-DK.md, Security).
   a list of them.
 - **One schema for a template and a draft.** The LLM writes its draft as a value of the template schema, with each
   field marked as drafted, and `dk0 learn` checks it as it checks an imported template. A draft never carries a
-  secret or a run rule choice.
-- **Open:** whether the LLM may write a new run and grade rule into the project folder for the PI to review, or
-  only pick among the rules the added packages provide; and whether a description that matches a template should
-  start the draft from that template.
+  secret.
+- **Run and grade rules in a draft** (the maintainer, 2026-10-10, choosing "Write, PI reviews"). The LLM may write new run and grade
+  rules into the project folder. Each is marked "Needs you", and neither runs until the PI opens and approves it;
+  a later change to either is a measurement change. Engine request: `dk0 learn` records a rule's approval
+  against its content hash and refuses a rule whose hash has no approval. A draft still never ticks a secret.
+- **A matching template** (the maintainer, 2026-10-10, first choosing "Suggest it", then on being asked again
+  "Use it automatically"). When a description matches a template, the draft starts from it without asking and
+  says which template it used ("Started from the template Fix a program until its tests pass"). The template
+  fills sections 1 to 4 under the rules of R31 (standing instructions read-only, its entries locked), and the LLM
+  drafts only what the template leaves open, plus any extra problems and hypotheses. With no match, the draft
+  says "No template matched it". Open for the threads: how close a match must be, and whether the PI can redraft
+  without the template.
 
 ## Classification
 

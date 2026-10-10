@@ -58,6 +58,7 @@ select{max-width:100%;min-width:0}
         <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Choose folder</button>
       </div>
       <span style="font-size: 13px; color: {{c.mut}}; line-height: 1.45">On the web or a phone, Choose folder browses the paired desktop. Secrets and keys are never written to this folder. To continue the project on another computer, copy or sync the folder, or keep it in a git repository.</span>
+      <label style="display: flex; align-items: flex-start; gap: 8px; min-height: 44px; font-size: 15px"><input type="checkbox" checked style="width: 20px; height: 20px; margin: 2px 0 0; flex: none"><span style="display: flex; flex-direction: column; gap: 2px"><span>Keep the history in git</span><span style="font-size: 13px; color: {{c.mut}}; line-height: 1.45">Makes the folder a git repository, and each cycle commits what it saved at PERSIST. You choose whether to push it anywhere, in project settings.</span></span></label>
     </div>
 
     <section aria-labelledby="ft" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 14px">

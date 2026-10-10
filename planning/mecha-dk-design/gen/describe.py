@@ -23,15 +23,15 @@ desc=('Our churn model in github.com/acme/churn overfits: training AUC is 0.97, 
 need=lambda t: '<li style="margin: 2px 0">'+t+'</li>'
 panel=('\n    <section aria-labelledby="dsc" style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border: 2px solid {{c.acc}}; border-radius: 8px; background: {{c.surf}}">\n'
  '      <h2 id="dsc" style="margin: 0; font-size: 17px">Describe the project</h2>\n'
- '      <div style="font-size: 14px; line-height: 1.5">Say what you want to improve, where it lives, how you will tell a result is better, and what the mecha must never do. Name any questions or changes you already have in mind. The LLM drafts sections 1 to 4 and 6, and suggests who runs the experiments. You choose where the LLM looks.</div>\n'
+ '      <div style="font-size: 14px; line-height: 1.5">Say what you want to improve, where it lives, how you will tell a result is better, and what the mecha must never do. Name any questions or changes you already have in mind. The LLM drafts sections 1 to 4 and 6, and suggests who runs the experiments. You choose where the LLM looks. When the description matches a template, the draft starts from that template, says which one, and the LLM drafts only what the template leaves open.</div>\n'
  '      <label for="dtx" style="position: absolute; left: -9999px">Description</label>\n'
  '      <textarea id="dtx" rows="5" style="box-sizing: border-box; width: 100%; padding: 10px 12px; font: inherit; font-size: 15px; line-height: 1.5; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}; resize: vertical">'+desc+'</textarea>\n'
  '      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">'+btn('Add files')+'<span style="display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 10px; border: 1px solid {{c.line}}; border-radius: 16px; font-size: 14px">churn-metrics.csv <button type="button" aria-label="Remove churn-metrics.csv" style="min-width: 32px; min-height: 32px; border: 0; background: transparent; color: {{c.ink}}">×</button></span>'
  '<span style="flex: 1 1 auto"></span><button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Draft again</button></div>\n'
- '      <div style="'+MUT+'">Drafted [2 minutes ago] from this description and 1 file. Draft again keeps every field you changed. The description and files go to [Claude Code]; they stay in the project folder as the project\'s first note.</div>\n'
+ '      <div style="'+MUT+'">Drafted [2 minutes ago] from this description and 1 file. No template matched it. Draft again keeps every field you changed. The description and files go to [Claude Code]; they stay in the project folder as the project\'s first note.</div>\n'
  '      <div role="note" style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 6px; background: {{c.att}}; font-size: 14px; line-height: 1.5"><b>Before you start the project</b><ul style="margin: 0; padding-left: 20px">'
  + need('Choose the project folder.')
- + need('Choose the run and grade rules under How an experiment runs. The draft names what they must do.')
+ + need('Review the run and grade rules the LLM wrote, under How an experiment runs. Neither runs until you approve it.')
  + need('Tick the secrets each step may use. A draft leaves every secret unticked.')
  + need('Check the order and ratings under Weigh outcomes. They are your preferences, guessed from your words.')
  + need('Text you paste from someone else, and files you add, can steer the draft. Check What the mecha may change and Out of bounds line by line.')
@@ -51,7 +51,7 @@ C=lambda t: '<code>'+t+'</code>'
 rows=''.join([
  r('Task description','Holdout AUC has fallen to 0.78 while training AUC is 0.97. Improve holdout AUC by reducing overfitting. Saved as '+C('task.md')+'.'),
  r('What the mecha may change and read','Changes '+C('train.py')+' and '+C('features/')+' in '+C('github.com/acme/churn')+'. Reads '+C('data/train.parquet')+'. Grader only: '+C('data/holdout.parquet')+'.'),
- r('How an experiment runs','Run: train on the training data and save the model. Grade: score holdout AUC and report training minutes. No rule is chosen yet.',True,'Choose rules'),
+ r('How an experiment runs','The LLM wrote a run rule and a grade rule in the project folder. Run: trains on the training data and saves the model. Grade: scores holdout AUC and reports training minutes. Neither runs until you approve it.',True,'Review rules'),
  r('Hardware','Linux, macOS or Windows. 1 GPU with at least 16 GB of memory.'),
  r('Protocol of record','None found in the description. Add a file such as a data contract if the project has one.'),
  r('Secrets each step may use','All unticked.',True,'Tick secrets'),
