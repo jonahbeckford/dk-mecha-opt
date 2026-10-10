@@ -1,0 +1,3 @@
+const { chromium } = require('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:900}});await p.goto('file://'+process.argv[2]);
+console.log(await p.evaluate(()=>{const W=document.documentElement.clientWidth;const out=[];for(const e of document.querySelectorAll("body *")){const r=e.getBoundingClientRect();const pr=e.parentElement.getBoundingClientRect();if(r.right>W+1&&pr.right<=W+1)out.push(e.tagName+' '+Math.round(r.right)+' '+(e.textContent||'').trim().slice(0,40));}return [document.documentElement.scrollWidth,W,out.slice(0,12)];}));await b.close();})();
