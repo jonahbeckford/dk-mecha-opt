@@ -82,6 +82,16 @@ results are measured. The desktop runs the rules named in the project each cycle
 anything it measures with, is a measurement change: it waits for the next break between cycles and is
 applied with a fresh baseline. See Measurement changes in project settings.
 
+### Judged outcomes
+
+An outcome can come from a judge's score: an LLM or a person rates each result against the judge's
+instructions, and the median of the judges' scores counts. A judge reads text the mecha produced, and that
+text can carry a prompt injection aimed at the judge. Use more than one judge, and read a sample of judged
+results when a score jumps.
+
+The judge's instructions, model and number of judges decide how the outcome is measured. Changing any of them
+is a measurement change.
+
 ### Hidden answers
 
 An item marked **Grader only** goes into the grader's request alone, as `data[hidden][name]`, in a run

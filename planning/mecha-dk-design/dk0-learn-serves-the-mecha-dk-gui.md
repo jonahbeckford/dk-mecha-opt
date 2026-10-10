@@ -1316,10 +1316,21 @@ expected value for that outcome is worse than the limit, however good its other 
 outcome as a two-line card: name, source, value name and direction, then unit, typical range, the optional
 limit and Delete.
 
+**Judged outcomes** (the maintainer, verbatim, 2026-10-10: "How does the "Measured directly, no judge" option
+work? It sounds like it is related to the Outcomes section ... and may even be implied by the outcomes.", then
+"Yes"). The judge belongs to the outcome, not to the project. Section 5 no longer has a "Judges results" choice.
+An outcome whose source is "A judge's score" shows its judge's settings in its card: who judges (an LLM
+connection and model, or a person), how many judges (the median counts, as in design.typ), what the judge
+looks at (the change, the experiment's output, or both), the score range, and the judge's instructions in a
+Markdown editor, saved with the template. The score range becomes the outcome's typical range unless the PI
+changes it. A project with no judged outcome has no judge settings. A judge reads text the mecha produced, so
+a judge score can be steered by a prompt injection (MECHA-DK.md, Security). Changing a judge's instructions,
+model or count is a measurement change (R13, R14).
+
 **Engine requests.**
 
 - **Result format.** A run rule returns, per case, `{"id", "passed", "values": {NAME: number, ...}}`, one entry
-  per value or judge outcome. Defined and versioned by `dk0 learn` with the template schema (R24, R27).
+  per value or judge outcome; a judged value is the median of the judges' scores, with each score kept. Defined and versioned by `dk0 learn` with the template schema (R24, R27).
 - **One belief per outcome.** A Beta for "cases that pass" (as today) and a Student-t from the NIG for each
   numeric outcome, per hypothesis, with the same recency decay and state attribution (R26).
 - **The value function.** Scale each outcome linearly so the start of its typical range is 0 and the end is 1,
