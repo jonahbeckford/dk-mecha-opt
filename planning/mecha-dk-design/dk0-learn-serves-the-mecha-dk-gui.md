@@ -1042,9 +1042,10 @@ struct Outcome {
   valueName @2 :Text;                # for a value or judge outcome: the key in each case's result
   higherIsBetter @3 :Bool;
   unit @4 :Text;
-  worst @5 :Float64;                 # the swing range used for weighting
-  best @6 :Float64;
+  typicalFrom @5 :Float64;           # scores 0; sets the scale for weighing
+  typicalTo @6 :Float64;             # scores 1; values outside still count
   weight @7 :Float64;                # from the PI's order and ratings, not typed
+  neverAdoptWorseThan @8 :Float64;   # optional; NaN when unset
 }
 
 enum OutcomeSource { casesThatPass @0; runRuleValue @1; judgeScore @2; }
@@ -1307,14 +1308,26 @@ below 40 compared to Tests pass, a different hypothesis would lead". A new weigh
 measurement change that recalculates scores from recorded results; a new outcome is measured again (R13,
 R14). "What you measure" keeps only where cases come from.
 
+**Results outside the typical range** (the maintainer, verbatim, 2026-10-10: "What are you suggesting will
+happen if accuracy is 51%, when the second outcome says "Accuracy, from 70% to 95%" ?", then "Option 3"). The
+range sets the scale only; results outside it still count, below 0 or above 1, so a bad change and a terrible
+one stay apart. Each outcome may also carry "Never adopt if worse than": DECIDE never merges a change whose
+expected value for that outcome is worse than the limit, however good its other outcomes. The form shows each
+outcome as a two-line card: name, source, value name and direction, then unit, typical range, the optional
+limit and Delete.
+
 **Engine requests.**
 
 - **Result format.** A run rule returns, per case, `{"id", "passed", "values": {NAME: number, ...}}`, one entry
   per value or judge outcome. Defined and versioned by `dk0 learn` with the template schema (R24, R27).
 - **One belief per outcome.** A Beta for "cases that pass" (as today) and a Student-t from the NIG for each
   numeric outcome, per hypothesis, with the same recency decay and state attribution (R26).
-- **The value function.** Normalise each outcome to 0 at its worst and 1 at its best, combine with the weights,
-  and propagate the weights' Dirichlet uncertainty into each hypothesis's expected value. SELECT and DECIDE use
+- **The value function.** Scale each outcome linearly so the start of its typical range is 0 and the end is 1,
+  extending the line beyond the range (accuracy 51% on a 70% to 95% range scores (51 - 70) / (95 - 70) = -0.76),
+  combine with the weights,
+  and propagate the weights' Dirichlet uncertainty into each hypothesis's expected value. DECIDE also applies
+  each outcome's never-adopt limit; the threads must say whether the limit applies to the posterior mean or to
+  a credible bound, the same question as C2's decision quantile. SELECT and DECIDE use
   that combined value; with one outcome it reduces to today's failure rate.
 - **Elicitation.** Turn the order and the chained ratings into Dirichlet parameters, and, once there are results, report a sensitivity
   check: the smallest change of each rating that changes which hypothesis leads, expressed as a rating. The GUI shows the result; the
