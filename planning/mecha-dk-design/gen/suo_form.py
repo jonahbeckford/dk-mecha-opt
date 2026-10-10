@@ -31,7 +31,7 @@ measure=row(sel('Cases come from',['Tests run by a command: each test is a case'
             sel('Each case gives',['Pass or fail','A number, lower is better','A number, higher is better'],'1 1 200px'))
 measure+='\n        '+row(inp('Command','[./gradlew test]',flex='2 1 260px',mono=True),sel('Run in',['[github.com/owner/app]','The project folder'],'1 1 220px'))
 measure+='\n        '+chk('Also check nothing else broke: one more case that fails if any test that passed before now fails',on=True)
-measure+='\n        '+chk('Leave out tests that already fail before any change, so they are never charged to one',on=True)
+measure+='\n        '+chk('Leave out tests that already fail on the starting version; no change is ever charged for them',on=True)
 proto=row(sel('Protocol of record',['A file in a repository','A document you upload','None yet: the mecha drafts one at the start, for your review'],'1 1 320px'),inp('File','[github.com/owner/spec]/SPECIFICATION.md',flex='2 1 300px',mono=True))
 oob='<div style="display: flex; flex-direction: column">'+''.join([
  chk('Secrets, keys and sign-ins (always)',locked=True),

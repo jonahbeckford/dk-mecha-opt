@@ -118,7 +118,7 @@ page('OBSERVE','StageObserve','read where things stand',
  section('Posed since cycle [n-1]', ul([
    tag('Question','acc') + '<span style="flex: 1 1 300px">[Research question]</span><span style="color: {{c.mut}}">by [person], [date]. Goes to IDEATE</span>',
    tag('Hypothesis','acc') + '<span style="flex: 1 1 300px">[Hypothesis]</span><span style="color: {{c.mut}}">by [person], [date]. Placed under [parent]</span>']), 'h-posed')
- + section('Problems from last cycle', p('Each failure is matched to the hypothesis it belongs to, so the tree learns from it instead of losing it.') + table(['What happened','Matched to','Next'], [
+ + section('Problems from last cycle', p('Each failure is matched to the hypothesis it belongs to. The tree keeps it as evidence.') + table(['What happened','Matched to','Next'], [
    [tag('Failed','bad') + ' [experiment]: [first line of the error]', '[Hypothesis]', a('Open log','#log')],
    [tag('Timed out','warn') + ' [experiment] after [duration]', '[Hypothesis]', 'Counts as no result; may be chosen again']]), 'h-prob')
  + section('Where beliefs stand', p('No change since the end of cycle [n-1]. [n] hypotheses open, [n] parked, [n] settled.') + '        <div style="display: flex; flex-wrap: wrap; gap: 10px">' + a('Open the hypothesis tree','Tree.dc.html') + '</div>', 'h-bel'),
@@ -151,7 +151,7 @@ page('IDEATE','StageIdeate','propose new hypotheses',
    tag('Zotero','acc') + '<span style="flex: 1 1 300px"><code>[query]</code> in [library]</span><span style="color: {{c.mut}}">[n] items read</span>',
    tag('Semantic Scholar','acc') + '<span style="flex: 1 1 300px"><code>[query]</code>, fields of study [field]</span><span style="color: {{c.mut}}">[n] papers</span>',
    tag("The LLM's own search",'acc') + '<span style="flex: 1 1 300px"><code>[query]</code></span><span style="color: {{c.mut}}">[n] pages cited</span>'])
-   + '        <div style="font-size: 13px; line-height: 1.45; padding: 10px 12px; border-radius: 6px; border: 2px solid {{c.bad}}">Papers, notes and web pages can carry a prompt injection. Check a hypothesis whose source you do not recognise before you authorize spend on it. ' + a('More','Collaborators.dc.html') + '</div>'
+   + '        <div style="font-size: 13px; line-height: 1.45; padding: 10px 12px; border-radius: 6px; border: 2px solid {{c.bad}}">Papers, notes and web pages can carry a prompt injection. Check a hypothesis from an unfamiliar source before you authorize spend on it. ' + a('More','Collaborators.dc.html') + '</div>'
    + '        <div>' + a('Open the full LLM transcript','#transcript') + '</div>', 'h-src'),
  'the tree, open research questions, the revelations, last cycle\'s results, the allowed sources.',
  'new hypotheses into the tree, each with its starting belief and the sources it came from.', 1350)
@@ -163,7 +163,7 @@ page('DROP','StageDrop','check new hypotheses against the revelations',
    ['[Hypothesis]', tag('Dropped','bad'), 'Contradicts "' + a('[revelation]','Cycle.dc.html#rev') + '" with high confidence ([0.97])'],
    ['[Hypothesis]', tag('Flagged','warn') + ', belief lowered from 50% to [30%]', 'May contradict "' + a('[revelation]','Cycle.dc.html#rev') + '" ([0.62])'],
    ['[Hypothesis]', tag('Passed','ok'), 'No contradiction found']], 760)
-   + p('A dropped hypothesis stays in the tree, marked dropped, so you can see it was considered.', True), 'h-drop'),
+   + p('A dropped hypothesis stays in the tree, marked dropped. You can see it was considered.', True), 'h-drop'),
  'the hypotheses IDEATE just added, the revelations.', 'dropped and flagged marks, and lowered starting beliefs.', 1000)
 
 page('SELECT','StageSelect','choose what to test',
@@ -190,7 +190,7 @@ page('DISPATCH','StageDispatch','run the experiments',
  'the chosen list, the experiment environment, each executor\'s sign-in.', 'one result or failure per experiment, with its log.', 1050)
 
 page('UPDATE','StageUpdate','fold results into beliefs',
- 'Each result changes the belief in its hypothesis, and that change carries up the tree to the hypotheses above it. What moves is the full belief, not a summary, so nothing measured is lost.',
+ 'Each result changes the belief in its hypothesis, and that change carries up the tree to the hypotheses above it. What moves is the full belief. Every measurement is kept.',
  [LAST, MECHA, ALWAYS],
  section('Beliefs that changed ([n])', table(['Hypothesis','Before','After','Why'], [
    ['[Hypothesis]', '<code>Beta(3, 2)</code> 60%', '<code>Beta(4, 2)</code> 67%', 'Passed on [case]'],
@@ -201,7 +201,7 @@ page('UPDATE','StageUpdate','fold results into beliefs',
  'DISPATCH results, the tree.', 'new beliefs for each tested hypothesis and those above it.', 1050)
 
 page('DECIDE','StageDecide','merge, prune or keep testing',
- 'With the new beliefs, the mecha decides for each tested hypothesis whether it is settled. A change that is better than the current best is merged, one that is not worth more testing is pruned, and the rest stay open.',
+ 'With the new beliefs, the mecha decides for each tested hypothesis whether it is settled. A change better than the current best is merged. A hypothesis whose next test would cost more than it could tell us is pruned. The rest stay open.',
  [LAST, MECHA, ALWAYS],
  section('Decisions ([n])', table(['Hypothesis','Decision','Because'], [
    ['[Hypothesis]', tag('Merged','ok') + ' into the current best', 'Better than the current best with [96%] probability; expected loss of merging [L]'],
@@ -212,7 +212,7 @@ page('DECIDE','StageDecide','merge, prune or keep testing',
  'beliefs after UPDATE, the current best, costs.', 'merge and prune decisions; merged changes go to REVIEW.', 1000)
 
 page('PERSIST','StagePersist','save the cycle',
- 'The mecha saves the updated tree and any measurement changes researched at CALIBRATE, so another device can pick up the project where this one stopped.',
+ 'The mecha saves the updated tree and any measurement changes researched at CALIBRATE. Another device can then pick up the project where this one stopped.',
  [LAST, MECHA, ALWAYS],
  section('Saved', ul([
    '<span style="flex: 1 1 260px">Hypothesis tree, version [v]</span><span style="color: {{c.mut}}">[n] hypotheses, [n] results</span>',

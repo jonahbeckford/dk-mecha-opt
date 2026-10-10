@@ -60,7 +60,7 @@ a{color:inherit}
 
     <section aria-labelledby="ro" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
       <h2 id="ro" style="margin: 0; font-size: 18px">Read-only links</h2>
-      <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Anyone with the link can browse the project in a web browser until it expires, with no account. They cannot change anything. Each link has its own key, separate from full control and from every other link, so revoking one stops only that one, at once. Links last up to 30 days.</div>
+      <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Anyone with the link can browse the project in a web browser until it expires, with no account. They cannot change anything. Each link has its own key, separate from full control and from every other link. Revoking a link stops that link at once. Links last up to 30 days.</div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end">
         <div style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 220px"><label for="rp" style="font-size: 14px; font-weight: 600">Project</label><select id="rp" style="min-height: 44px; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"><option>[Project title]</option></select></div>
         <div style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 160px"><label for="re" style="font-size: 14px; font-weight: 600">Expires after</label><select id="re" style="min-height: 44px; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"><option>1 day</option><option>[other durations]</option></select></div>
@@ -80,7 +80,7 @@ a{color:inherit}
     </section>
 
     <div style="font-size: 14px; line-height: 1.5; padding: 12px 14px; border-radius: 6px; background: {{c.surf2}}"><strong>Lost a phone?</strong> Remove it above, and revoke it on your Diskuv account page, which works even if this computer is off. A device's certificate also expires after [30] days unless it stays signed in. <strong>Lost this computer?</strong> Revoke it on your Diskuv account page, then replace the secrets it held: [list of secrets].</div>
-    <div style="font-size: 13px; color: {{c.mut}}">This computer's address: <code>[iroh endpoint id]</code>. Relay: Diskuv's relay, used only when a direct connection is not possible; it cannot read the traffic.</div>
+    <div style="font-size: 13px; color: {{c.mut}}">This computer's address: <code>[iroh endpoint id]</code>. Relay: Diskuv's relay, used only when the devices cannot connect directly; it cannot read the traffic.</div>
   </main>
 </div>
 </x-dc>

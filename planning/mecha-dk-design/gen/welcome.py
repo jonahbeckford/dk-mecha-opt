@@ -38,7 +38,7 @@ html=HEAD.format(title='Welcome to Mecha DK')+f'''<div style="min-height: {H}px;
     <div><strong>1. Welcome.</strong> What Mecha DK does, the two public demos to open first, and signing in to Diskuv SaaS or continuing without an account (drawn on its own board).</div>
     <div><strong>3. This computer.</strong> Where projects are kept by default (<code>[~/Mecha DK]</code>), and whether this computer keeps running projects in the background so a phone or browser can reach them.</div>
     <div><strong>4. Your first project.</strong> New project (from a template or blank), Open project folder, or open one of the two demos read-only.</div>
-    <div style="color: {{{{c.mut}}}}">The wizard opens on first launch and can be reopened from Settings. Any step can be skipped. On the web and on phones, the agents are not offered here (they run on a desktop or an executor), so step 2 starts with Diskuv SaaS. Choosing a model on a desktop also downloads and sets up goose with it. Each choice opens the same setup as <a href="LLMs.dc.html" style="color: {{{{c.acc}}}}">Settings, LLMs</a> and returns here.</div>
+    <div style="color: {{{{c.mut}}}}">The wizard opens on first launch and can be reopened from Settings. Any step can be skipped. On the web and on phones, step 2 starts with Diskuv SaaS. Coding agents run on a desktop or an executor. Choosing a model on a desktop also downloads and sets up goose with it. Each choice opens the same setup as <a href="LLMs.dc.html" style="color: {{{{c.acc}}}}">Settings, LLMs</a> and returns here.</div>
   </section>
 </div>
 '''+(TAIL % H)

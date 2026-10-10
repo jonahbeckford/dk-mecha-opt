@@ -7,7 +7,7 @@ def rep(a,b,c=1):
     global s; assert s.count(a)==c,(a[:80],s.count(a)); s=s.replace(a,b)
 # Where it runs
 rep('What each experiment needs, brought in with one or more <code>dk0 import</code>. Each is pinned, so every version runs on the same tools.',
-    'The packages each experiment needs, added with <code>dk0 add</code> from a GitHub release. Each is pinned to its tag, so every version runs on the same tools. A release must carry a distribution with a SLSA Level 2 attestation, and you accept each producer\'s key once.')
+    'The packages each experiment needs, added with <code>dk0 add</code> from a GitHub release. Each is pinned to its tag. Every version runs on the same tools. A release must carry a distribution with a SLSA Level 2 attestation, and you accept each producer\'s key once.')
 rep('<code style="flex: none; font-size: 14px">dk0 import</code>','<code style="flex: none; font-size: 14px">dk0 add github-l2</code>',2)
 rep('value="[first import]"','value="[owner/repo@tag]"'); rep('value="[second import]"','value="[host/owner/repo@tag]"')
 rep('<span style="position: absolute; left: -9999px">Import</span>','<span style="position: absolute; left: -9999px">Package</span>',2)
