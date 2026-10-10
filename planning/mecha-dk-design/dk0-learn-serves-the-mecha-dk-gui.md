@@ -1044,7 +1044,7 @@ struct Outcome {
   unit @4 :Text;
   worst @5 :Float64;                 # the swing range used for weighting
   best @6 :Float64;
-  weight @7 :Float64;                # from the PI's swing answers, not typed
+  weight @7 :Float64;                # from the PI's order and ratings, not typed
 }
 
 enum OutcomeSource { casesThatPass @0; runRuleValue @1; judgeScore @2; }
@@ -1287,11 +1287,15 @@ quantile (C2).
 
 **The GUI.** Section 2 is a list of outcomes, each with a name, where it comes from (cases that pass, a value
 the run rule returns by name, or a judge's score), the value name, which way is better, a unit, and the worst
-and best values that matter. With two or more outcomes, "Weigh outcomes" runs swing weighting: the PI puts every
-move from worst to best in order, most wanted first, by dragging or with up and down buttons (the maintainer,
-2026-10-10: "In "Weigh outcomes", shouldn't the user be able to reorder the outcomes, even if there are more than
-two outcomes?"), then rates each other move against the first from 0 to 100, each rating no higher than the move
-above it, and sees the
+and best values that matter. With two or more outcomes, "Weigh outcomes" runs swing weighting: the PI puts the outcomes
+in order, the one they value most first, by dragging or with up and down buttons (the maintainer, 2026-10-10: "In
+"Weigh outcomes", shouldn't the user be able to reorder the outcomes, even if there are more than two
+outcomes?"), then values each outcome compared to the previous one on a slider from 1 to 100 (the maintainer:
+"How much should each outcome be valued compared to the previous outcome?", "let the sliders be 1-100 for each
+outcome", and "Use "outcomes" consistently"). Each outcome is valued over its range from worst to best. The
+weights follow by chaining the ratings: the first outcome's raw weight is 1, each next one is the previous raw
+weight times its rating over 100, and the raw weights are divided by their sum to add up to 1.00 (ratings 60
+and 25 give 1, 0.60 and 0.15, so 0.57, 0.34 and 0.09). The GUI shows the
 weights with their uncertainty and the weight the ranking is most sensitive to. A new weight later is a
 measurement change that recalculates scores from recorded results; a new outcome is measured again (R13,
 R14). "What you measure" keeps only where cases come from.
@@ -1305,7 +1309,7 @@ R14). "What you measure" keeps only where cases come from.
 - **The value function.** Normalise each outcome to 0 at its worst and 1 at its best, combine with the weights,
   and propagate the weights' Dirichlet uncertainty into each hypothesis's expected value. SELECT and DECIDE use
   that combined value; with one outcome it reduces to today's failure rate.
-- **Elicitation.** Turn the swing answers into Dirichlet parameters, and report a sensitivity check: the
+- **Elicitation.** Turn the order and the chained ratings into Dirichlet parameters, and report a sensitivity check: the
   smallest change of each weight that changes the order of the top hypotheses. The GUI shows the result; the
   arithmetic is `dk0 learn`'s.
 
