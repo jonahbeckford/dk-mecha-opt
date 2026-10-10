@@ -593,6 +593,21 @@ Requirements for the threads:
 - **Agent credentials are the driver's.** Running `claude setup-token` needs spawn and a browser, so it is
   desktop-only, consistent with R5 and R11. Other coding agents' credentials follow the same pattern.
 
+**One list, superseding part of the above** (the maintainer, verbatim, 2026-10-10: "Are the Experiment
+repositories any different from the New Project / Project Settings repositories?", then "Yes" to the
+recommendation). They were meant to be one list, but the Experiment environment page showed only change or read
+only, without limits, the name an item is passed as, or the other kinds of item. Now:
+
+- Project settings has a "What the mecha may change and read" page that shows the same list as New project
+  (repositories, files, models, data, outputs, parameters, with limits and names). A change there is a request
+  applied between cycles, with a fresh baseline when it changes what is measured (moving a pin, a new dataset
+  version).
+- The Experiment environment page keeps secrets alone, and links to that list. Its Repositories table is gone.
+- Its Environment variables table is gone too. Values reach an experiment as `run-function` parameters (R27), so
+  the "Can change results" flag above no longer applies; a parameter's change follows the list's rules.
+- The repository chosen on the GitHub Actions executor page is "the repository that runs the experiments": its
+  runners host experiments and it holds the Actions secrets. It is separate from the repositories in the list.
+
 ### R17. Rename SLEEP to CALIBRATE
 
 The maintainer said SLEEP "does not fit the other stages" and, offered CALIBRATE, AMEND or RETOOL (with
@@ -874,7 +889,7 @@ case each; MLE-bench runs `submission.py` and a separate grader returns only val
 
 - **Aim**, the root hypothesis, required, one sentence.
 - **What the mecha may change and read**, one list: repositories (change on a branch, or read pinned; the same
-  list as the experiment environment, R16), files and data in the project folder, and parameters with a range
+  list as project settings shows, R16), files and data in the project folder, and parameters with a range
   for experiments a person runs. Anything not listed is out of reach. This adds a *read surface* the design does
   not name today: the inputs an agent may see but not change (a task description, training data, a pinned
   dependency). Proposed: `dk0 learn init` records it beside the edit and measured surfaces.

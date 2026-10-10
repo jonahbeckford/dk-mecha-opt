@@ -26,7 +26,7 @@ a{color:inherit}
   <main style="width: 100%; max-width: 880px; box-sizing: border-box; margin: 0 auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 20px">
     <div style="display: flex; flex-direction: column; gap: 6px">
       <h1 style="margin: 0; font-size: 26px">Run experiments on GitHub Actions or GitHub Enterprise</h1>
-      <div style="font-size: 15px; color: {{c.mut}}; line-height: 1.5">DISPATCH runs each experiment with <code>dk0 remote GitHub@[version]</code> in the repository you choose. Desktop only, because it starts the <code>gh</code> program.</div>
+      <div style="font-size: 15px; color: {{c.mut}}; line-height: 1.5">DISPATCH runs each experiment with <code>dk0 remote GitHub@[version]</code> in the repository that runs the experiments. Desktop only, because it starts the <code>gh</code> program.</div>
     </div>
 
     <section aria-labelledby="s0" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
@@ -54,7 +54,8 @@ a{color:inherit}
     </section>
 
     <section aria-labelledby="s2" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
-      <h2 id="s2" style="margin: 0; font-size: 18px">3. Choose where experiments run</h2>
+      <h2 id="s2" style="margin: 0; font-size: 18px">3. Repository that runs the experiments</h2>
+      <div style="font-size: 14px; line-height: 1.5">Its GitHub Actions runners run each experiment, and the secrets you allow are copied to it as Actions secrets. It is separate from the repositories in What the mecha may change and read.</div>
       <div role="radiogroup" aria-label="Repository" style="display: flex; flex-wrap: wrap; gap: 8px">
         <button type="button" role="radio" aria-checked="true" style="min-height: 44px; padding: 0 16px; font-size: 15px; font-weight: 600; border: 2px solid {{c.acc}}; border-radius: 6px; background: {{c.sel}}; color: {{c.ink}}">Use an existing repository</button>
         <button type="button" role="radio" aria-checked="false" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Create a new one</button>

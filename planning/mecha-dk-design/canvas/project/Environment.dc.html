@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Executor environment</title>
+<title>Experiment environment</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -26,25 +26,10 @@ a{color:inherit}
   <main style="width: 100%; max-width: 960px; box-sizing: border-box; margin: 0 auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 18px">
     <div style="display: flex; flex-direction: column; gap: 6px">
       <h1 style="margin: 0; font-size: 26px">Experiment environment</h1>
-      <div style="font-size: 15px; color: {{c.mut}}; line-height: 1.5">What every experiment starts with, wherever it runs: this computer, GitHub Actions or Diskuv SaaS. A person running an experiment does not get these.</div>
+      <div style="font-size: 15px; color: {{c.mut}}; line-height: 1.5">The secrets every executor can hold, wherever experiments run: this computer, GitHub Actions or Diskuv SaaS. A person running an experiment never gets them.</div>
     </div>
 
-    <section aria-labelledby="rp" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; overflow: hidden">
-      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 20px; border-bottom: 1px solid {{c.line}}">
-        <h2 id="rp" style="margin: 0; font-size: 18px; flex: 1 1 auto">Repositories</h2>
-        <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Add repository</button>
-      </div>
-      <div style="overflow-x: auto">
-        <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px">
-          <thead><tr style="text-align: left; color: {{c.mut}}"><th scope="col" style="padding: 10px 16px; font-weight: 600">Repository</th><th scope="col" style="padding: 10px 16px; font-weight: 600">Branch</th><th scope="col" style="padding: 10px 16px; font-weight: 600">The mecha may</th><th scope="col" style="padding: 10px 16px"><span style="position: absolute; left: -9999px">Actions</span></th></tr></thead>
-          <tbody>
-            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 8px 16px"><code>[host/owner/repo]</code></td><td style="padding: 8px 16px">[branch]</td><td style="padding: 8px 16px; font-weight: 600">Change it</td><td style="padding: 6px 16px"><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Edit</button></td></tr>
-            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 8px 16px"><code>[host/owner/repo]</code></td><td style="padding: 8px 16px">[tag or commit] <span style="display: block; font-size: 12px; color: {{c.mut}}">pinned</span></td><td style="padding: 8px 16px">Read only</td><td style="padding: 6px 16px"><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Edit</button></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="padding: 12px 20px; font-size: 13px; color: {{c.mut}}; line-height: 1.45; border-top: 1px solid {{c.line}}">A repository the mecha may change follows its branch, because the mecha's own adopted changes move it. A read-only repository is pinned to a tag or commit. Results stay comparable from cycle to cycle. Moving the pin is a measurement change, applied between cycles with the baseline measured again. Adding a repository, or switching one between change and read only, is also a request applied between cycles. Private repositories use the access you set up for the executor (for example your GitHub sign-in).</div>
-    </section>
+    <div style="font-size: 15px; line-height: 1.5; padding: 12px 16px; border: 1px solid {{c.line}}; border-radius: 8px; background: {{c.surf}}">Repositories, files, models, data and parameters are in <a href="SettingsSurface.dc.html" style="color: {{c.acc}}">What the mecha may change and read</a>. Each experiment receives them as <code>dk0 run-function</code> arguments.</div>
 
     <section aria-labelledby="sc" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; overflow: hidden">
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 20px; border-bottom: 1px solid {{c.line}}">
@@ -55,21 +40,9 @@ a{color:inherit}
         <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 8px 20px"><code style="flex: 1 1 220px; font-size: 15px">CLAUDE_CODE_OAUTH_TOKEN</code><span style="font-size: 13px; color: {{c.mut}}">From <a href="LLMs.dc.html" style="color: {{c.acc}}">Settings, LLMs</a>. Value hidden</span><span style="font-size: 13px">This computer, GitHub, SaaS</span></li>
         <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 8px 20px; border-top: 1px solid {{c.line}}"><code style="flex: 1 1 220px; font-size: 15px">[NAME]</code><span style="font-size: 13px; color: {{c.mut}}">Value hidden. Set [date]</span><span style="font-size: 13px">[This computer, GitHub]</span><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Replace</button></li>
       </ul>
-      <div style="padding: 12px 20px; font-size: 13px; color: {{c.mut}}; line-height: 1.45; border-top: 1px solid {{c.line}}">A secret is kept in this computer's key store and copied only to the executors you tick: to GitHub as an Actions secret of the chosen repository, to Diskuv SaaS into your account's vault. It never goes into the project or a report, and it cannot be read back once saved. Out of bounds in each project says which steps may use each secret.</div>
+      <div style="padding: 12px 20px; font-size: 13px; color: {{c.mut}}; line-height: 1.45; border-top: 1px solid {{c.line}}">A secret is kept in this computer's key store and copied only to the executors you tick: to GitHub as an Actions secret of the repository that runs the experiments, to Diskuv SaaS into your account's vault. It never goes into the project or a report, and it cannot be read back once saved. "Secrets each step may use", under Scope, says which steps receive each one.</div>
     </section>
 
-    <section aria-labelledby="ev" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; overflow: hidden">
-      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 20px; border-bottom: 1px solid {{c.line}}">
-        <h2 id="ev" style="margin: 0; font-size: 18px; flex: 1 1 auto">Environment variables</h2>
-        <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Add variable</button>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 20px">
-        <label style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 200px; font-size: 14px; font-weight: 600">Name<input type="text" value="[NAME]" style="min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; font-family: 'Ubuntu Mono', monospace; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></label>
-        <label style="display: flex; flex-direction: column; gap: 4px; flex: 2 1 280px; font-size: 14px; font-weight: 600">Value<input type="text" value="[value]" style="min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; font-family: 'Ubuntu Mono', monospace; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></label>
-        <label style="display: flex; align-items: center; gap: 8px; flex: 1 1 100%; min-height: 44px; font-size: 14px"><input type="checkbox" checked style="width: 20px; height: 20px; margin: 0"> Can change results</label>
-      </div>
-      <div style="padding: 0 20px 14px; font-size: 13px; color: {{c.mut}}; line-height: 1.45">Plain settings, visible to anyone on the project, with one value for every executor. Put passwords and tokens in Secrets. When "Can change results" is ticked (the default), changing the value is a measurement change: it becomes a request, applied between cycles, and you are told what will be measured again. Untick it only for settings that cannot affect results, such as a log level; ticking or unticking it is itself a request.</div>
-    </section>
   </main>
 </div>
 </x-dc>

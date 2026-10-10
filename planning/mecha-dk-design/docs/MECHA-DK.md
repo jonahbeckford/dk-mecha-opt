@@ -58,7 +58,7 @@ A step receives only the secrets ticked for it. The desktop writes every `dk0 ru
 itself and adds the ticked secrets for that step. Every other secret stays in the key store.
 
 The Experiment environment page decides which executors receive a copy of a secret: this computer,
-GitHub Actions (as an Actions secret of the chosen repository) or Diskuv SaaS (in your account's vault).
+GitHub Actions (as an Actions secret of the repository that runs the experiments) or Diskuv SaaS (in your account's vault).
 A secret cannot be read back once saved.
 
 ### What the mecha may change

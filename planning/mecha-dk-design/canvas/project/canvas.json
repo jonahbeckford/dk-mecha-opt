@@ -177,7 +177,7 @@
       "w": 1360,
       "h": 1400,
       "expand": "fill",
-      "title": "Web: executor environment"
+      "title": "Web: experiment environment (secrets)"
     },
     "StageObserve.dc.html": {
       "x": 0,
@@ -298,6 +298,14 @@
       "h": 1500,
       "expand": "fill",
       "title": "Web: new project drafted from a description"
+    },
+    "SettingsSurface.dc.html": {
+      "x": 7670,
+      "y": 9520,
+      "w": 1360,
+      "h": 1500,
+      "expand": "fill",
+      "title": "Web: settings, what the mecha may change and read"
     }
   },
   "order": [
@@ -328,6 +336,7 @@
     "ProjectSettings.dc.html",
     "MeasurementChanges.dc.html",
     "Environment.dc.html",
+    "SettingsSurface.dc.html",
     "StageObserve.dc.html",
     "StageAuthorize.dc.html",
     "StageIdeate.dc.html",
@@ -380,7 +389,7 @@
       "y": 9220,
       "text": "Every decision from any device, read-only sharing, and measurement changes",
       "kind": "title1",
-      "maxW": 7590
+      "maxW": 9030
     },
     "t7": {
       "x": 0,
