@@ -1,0 +1,403 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-09T12:00:00Z"
+  },
+  "title": "Mecha DK UI design",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 300,
+      "w": 1200,
+      "h": 920,
+      "title": "Flow overview"
+    },
+    "Projects.dc.html": {
+      "x": 0,
+      "y": 1640,
+      "w": 1360,
+      "h": 720,
+      "expand": "fill",
+      "title": "Web: projects"
+    },
+    "Cycle.dc.html": {
+      "x": 1440,
+      "y": 1640,
+      "w": 1360,
+      "h": 1300,
+      "expand": "fill",
+      "title": "Web: project and cycle"
+    },
+    "Tree.dc.html": {
+      "x": 2880,
+      "y": 1640,
+      "w": 1360,
+      "h": 1100,
+      "expand": "fill",
+      "title": "Web: hypothesis tree"
+    },
+    "PhoneCycle.dc.html": {
+      "x": 0,
+      "y": 4460,
+      "w": 390,
+      "h": 1400,
+      "title": "Phone: cycle"
+    },
+    "PhoneTree.dc.html": {
+      "x": 470,
+      "y": 4460,
+      "w": 390,
+      "h": 1400,
+      "title": "Phone: hypotheses"
+    },
+    "Marks.dc.html": {
+      "x": 1280,
+      "y": 300,
+      "w": 1200,
+      "h": 980,
+      "title": "dk mark for Mecha DK"
+    },
+    "GitHubRemote.dc.html": {
+      "x": 0,
+      "y": 6280,
+      "w": 1360,
+      "h": 1000,
+      "expand": "fill",
+      "title": "Web: GitHub Actions executor"
+    },
+    "SaaSRemote.dc.html": {
+      "x": 1440,
+      "y": 6280,
+      "w": 1360,
+      "h": 1000,
+      "expand": "fill",
+      "title": "Web: Diskuv SaaS executor"
+    },
+    "HumanTask.dc.html": {
+      "x": 2880,
+      "y": 6280,
+      "w": 1360,
+      "h": 1100,
+      "expand": "fill",
+      "title": "Web: an experiment for a person"
+    },
+    "PhoneHumanTask.dc.html": {
+      "x": 4320,
+      "y": 6280,
+      "w": 390,
+      "h": 1400,
+      "title": "Phone: an experiment for a person"
+    },
+    "PIProject.dc.html": {
+      "x": 0,
+      "y": 2480,
+      "w": 1360,
+      "h": 1500,
+      "expand": "fill",
+      "title": "Web: new project (one form, PI's words)"
+    },
+    "Collaborators.dc.html": {
+      "x": 0,
+      "y": 7800,
+      "w": 1360,
+      "h": 900,
+      "expand": "fill",
+      "title": "Web: collaborators (Diskuv SaaS)"
+    },
+    "Devices.dc.html": {
+      "x": 2880,
+      "y": 7800,
+      "w": 1360,
+      "h": 1100,
+      "expand": "fill",
+      "title": "Desktop: drive in the background, paired devices"
+    },
+    "PhoneConnect.dc.html": {
+      "x": 4320,
+      "y": 7800,
+      "w": 390,
+      "h": 1000,
+      "title": "Phone: connect to your desktop"
+    },
+    "ReviewCalibrate.dc.html": {
+      "x": 0,
+      "y": 9520,
+      "w": 1360,
+      "h": 1300,
+      "expand": "fill",
+      "title": "Web: REVIEW and CALIBRATE decisions"
+    },
+    "PhoneReview.dc.html": {
+      "x": 1440,
+      "y": 9520,
+      "w": 390,
+      "h": 1400,
+      "title": "Phone: REVIEW and CALIBRATE"
+    },
+    "ReadOnly.dc.html": {
+      "x": 1910,
+      "y": 9520,
+      "w": 1360,
+      "h": 1000,
+      "expand": "fill",
+      "title": "Web: read-only view (public demo)"
+    },
+    "ProjectSettings.dc.html": {
+      "x": 3350,
+      "y": 9520,
+      "w": 1360,
+      "h": 1400,
+      "expand": "fill",
+      "title": "Web: project settings"
+    },
+    "MeasurementChanges.dc.html": {
+      "x": 4790,
+      "y": 9520,
+      "w": 1360,
+      "h": 1400,
+      "expand": "fill",
+      "title": "Web: measurement changes"
+    },
+    "LLMs.dc.html": {
+      "x": 1440,
+      "y": 7800,
+      "w": 1360,
+      "h": 1300,
+      "expand": "fill",
+      "title": "Web: settings, LLMs"
+    },
+    "Environment.dc.html": {
+      "x": 6230,
+      "y": 9520,
+      "w": 1360,
+      "h": 1400,
+      "expand": "fill",
+      "title": "Web: experiment environment (secrets)"
+    },
+    "StageObserve.dc.html": {
+      "x": 0,
+      "y": 11420,
+      "w": 1360,
+      "h": 1350,
+      "expand": "fill",
+      "title": "Web: OBSERVE stage"
+    },
+    "StageAuthorize.dc.html": {
+      "x": 1440,
+      "y": 11420,
+      "w": 1360,
+      "h": 1350,
+      "expand": "fill",
+      "title": "Web: AUTHORIZE stage"
+    },
+    "StageIdeate.dc.html": {
+      "x": 2880,
+      "y": 11420,
+      "w": 1360,
+      "h": 1350,
+      "expand": "fill",
+      "title": "Web: IDEATE stage"
+    },
+    "StageDrop.dc.html": {
+      "x": 4320,
+      "y": 11420,
+      "w": 1360,
+      "h": 1350,
+      "expand": "fill",
+      "title": "Web: DROP stage"
+    },
+    "StageSelect.dc.html": {
+      "x": 5760,
+      "y": 11420,
+      "w": 1360,
+      "h": 1350,
+      "expand": "fill",
+      "title": "Web: SELECT stage"
+    },
+    "StageDispatch.dc.html": {
+      "x": 7200,
+      "y": 11420,
+      "w": 1360,
+      "h": 1350,
+      "expand": "fill",
+      "title": "Web: DISPATCH stage"
+    },
+    "StageUpdate.dc.html": {
+      "x": 8640,
+      "y": 11420,
+      "w": 1360,
+      "h": 1350,
+      "expand": "fill",
+      "title": "Web: UPDATE stage"
+    },
+    "StageDecide.dc.html": {
+      "x": 10080,
+      "y": 11420,
+      "w": 1360,
+      "h": 1350,
+      "expand": "fill",
+      "title": "Web: DECIDE stage"
+    },
+    "StagePersist.dc.html": {
+      "x": 11520,
+      "y": 11420,
+      "w": 1360,
+      "h": 1350,
+      "expand": "fill",
+      "title": "Web: PERSIST stage"
+    },
+    "Windows.dc.html": {
+      "x": 12960,
+      "y": 11420,
+      "w": 1360,
+      "h": 1500,
+      "expand": "fill",
+      "title": "Web: attended and unattended windows, pause"
+    },
+    "Welcome.dc.html": {
+      "x": 4400,
+      "y": 300,
+      "w": 1200,
+      "h": 1450,
+      "expand": "fill",
+      "title": "First launch: welcome wizard, step 2 (connect an LLM)"
+    },
+    "WelcomeStart.dc.html": {
+      "x": 5680,
+      "y": 300,
+      "w": 1200,
+      "h": 720,
+      "expand": "fill",
+      "title": "First launch: welcome wizard, step 1 (with the demos)"
+    },
+    "SuoBrowser.dc.html": {
+      "x": 4320,
+      "y": 1640,
+      "w": 1360,
+      "h": 1300,
+      "expand": "fill",
+      "title": "Web: browse a version of what the mecha works on"
+    },
+    "PIProjectTemplate.dc.html": {
+      "x": 1440,
+      "y": 2480,
+      "w": 1360,
+      "h": 1500,
+      "expand": "fill",
+      "title": "Web: new project from a template (sections 1 to 3 folded, 4 from the template)"
+    },
+    "PIProjectDescribe.dc.html": {
+      "x": 2880,
+      "y": 2820,
+      "w": 1360,
+      "h": 1500,
+      "expand": "fill",
+      "title": "Web: new project drafted from a description"
+    },
+    "SettingsSurface.dc.html": {
+      "x": 7670,
+      "y": 9520,
+      "w": 1360,
+      "h": 1500,
+      "expand": "fill",
+      "title": "Web: settings, what the mecha may change and read"
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Marks.dc.html",
+    "WelcomeStart.dc.html",
+    "Welcome.dc.html",
+    "Projects.dc.html",
+    "PIProject.dc.html",
+    "PIProjectTemplate.dc.html",
+    "PIProjectDescribe.dc.html",
+    "Cycle.dc.html",
+    "Tree.dc.html",
+    "SuoBrowser.dc.html",
+    "PhoneCycle.dc.html",
+    "PhoneTree.dc.html",
+    "GitHubRemote.dc.html",
+    "SaaSRemote.dc.html",
+    "HumanTask.dc.html",
+    "PhoneHumanTask.dc.html",
+    "Collaborators.dc.html",
+    "LLMs.dc.html",
+    "Devices.dc.html",
+    "PhoneConnect.dc.html",
+    "ReviewCalibrate.dc.html",
+    "PhoneReview.dc.html",
+    "ReadOnly.dc.html",
+    "ProjectSettings.dc.html",
+    "MeasurementChanges.dc.html",
+    "Environment.dc.html",
+    "SettingsSurface.dc.html",
+    "StageObserve.dc.html",
+    "StageAuthorize.dc.html",
+    "StageIdeate.dc.html",
+    "StageDrop.dc.html",
+    "StageSelect.dc.html",
+    "StageDispatch.dc.html",
+    "StageUpdate.dc.html",
+    "StageDecide.dc.html",
+    "StagePersist.dc.html",
+    "Windows.dc.html"
+  ],
+  "notes": {
+    "t1": {
+      "x": 0,
+      "y": 0,
+      "text": "Mecha DK: two flows, one cycle",
+      "kind": "title1",
+      "maxW": 2480
+    },
+    "t2": {
+      "x": 0,
+      "y": 1340,
+      "text": "Web, wide window (first priority)",
+      "kind": "title1",
+      "maxW": 4240
+    },
+    "t3": {
+      "x": 0,
+      "y": 4160,
+      "text": "Same screens at phone width",
+      "kind": "title1",
+      "maxW": 860
+    },
+    "t4": {
+      "x": 0,
+      "y": 5980,
+      "text": "Executors: GitHub Actions, Diskuv SaaS, a person",
+      "kind": "title1",
+      "maxW": 4710
+    },
+    "t5": {
+      "x": 0,
+      "y": 7500,
+      "text": "Collaborators, LLMs, and the background driver",
+      "kind": "title1",
+      "maxW": 4710
+    },
+    "t6": {
+      "x": 0,
+      "y": 9220,
+      "text": "Every decision from any device, read-only sharing, and measurement changes",
+      "kind": "title1",
+      "maxW": 9030
+    },
+    "t7": {
+      "x": 0,
+      "y": 11120,
+      "text": "One page per stage of a cycle (REVIEW and CALIBRATE are above)",
+      "kind": "title1",
+      "maxW": 12880
+    }
+  },
+  "designSystems": []
+}

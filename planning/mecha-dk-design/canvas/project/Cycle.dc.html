@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Project and cycle</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code{font-family:"Ubuntu Mono",monospace}
+button,input,textarea{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 1300px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}; flex: 1 1 auto">/ [Project name]</div>
+    <a href="Windows.dc.html" style="display: inline-flex; flex-direction: column; justify-content: center; min-height: 44px; padding: 2px 12px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none; font-size: 14px; line-height: 1.25"><span style="font-weight: 600">Attended until 18:00</span><span style="font-size: 12px; color: {{c.mut}}">Then unattended. Windows</span></a>
+    <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; font-weight: 700; border: 2px solid {{c.bad}}; border-radius: 6px; background: transparent; color: {{c.bad}}">Pause now</button>
+    <a href="ProjectSettings.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none">Project settings</a>
+  </header>
+
+  <div style="display: flex; flex-wrap: wrap; flex: 1 1 auto; align-items: stretch">
+    <nav aria-label="Project" style="flex: 1 1 240px; max-width: 270px; box-sizing: border-box; padding: 18px 14px; border-right: 1px solid {{c.line}}; background: {{c.surf}}; display: flex; flex-direction: column; gap: 4px">
+      <a href="#cycle" aria-current="page" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; background: {{c.sel}}; font-size: 15px; font-weight: 600; text-decoration: none">Cycle [n]</a>
+      <a href="Tree.dc.html" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Hypothesis tree</a>
+      <a href="#rev" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Revelations</a>
+      <a href="#reports" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Reports</a>
+      <div style="font-size: 13px; font-weight: 600; color: {{c.mut}}; padding: 16px 12px 4px">Research questions</div>
+      <a href="Tree.dc.html" style="display: flex; flex-direction: column; gap: 2px; min-height: 44px; box-sizing: border-box; padding: 8px 12px; border-radius: 6px; text-decoration: none">
+        <span style="font-size: 15px; font-weight: 600">[Research question]</span>
+        <span style="font-size: 13px; color: {{c.mut}}">[n] hypotheses, [n] parked</span>
+      </a>
+      <a href="Tree.dc.html" style="display: flex; flex-direction: column; gap: 2px; min-height: 44px; box-sizing: border-box; padding: 8px 12px; border-radius: 6px; text-decoration: none">
+        <span style="font-size: 15px; font-weight: 600">[Research question]</span>
+        <span style="font-size: 13px; color: {{c.mut}}">Not yet ideated</span>
+      </a>
+      <div style="font-size: 13px; font-weight: 600; color: {{c.mut}}; padding: 16px 12px 4px">Posed hypotheses</div>
+      <a href="Tree.dc.html" style="display: flex; flex-direction: column; gap: 2px; min-height: 44px; box-sizing: border-box; padding: 8px 12px; border-radius: 6px; text-decoration: none">
+        <span style="font-size: 15px; font-weight: 600">[Hypothesis]</span>
+        <span style="font-size: 13px; color: {{c.warn}}">Flagged at DROP</span>
+      </a>
+    </nav>
+
+    <main id="cycle" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+      <section aria-labelledby="h-pose" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+          <h2 id="h-pose" style="margin: 0; font-size: 17px; flex: 1 1 auto">Pose</h2>
+          <div role="radiogroup" aria-label="What to pose" style="display: inline-flex; border: 1px solid {{c.line}}; border-radius: 6px; overflow: hidden">
+            <button type="button" role="radio" aria-checked="true" style="min-height: 44px; padding: 0 16px; font-size: 14px; font-weight: 600; border: 0; background: {{c.sel}}; color: {{c.ink}}">Research question</button>
+            <button type="button" role="radio" aria-checked="false" style="min-height: 44px; padding: 0 16px; font-size: 14px; border: 0; border-left: 1px solid {{c.line}}; background: transparent; color: {{c.ink}}">Hypothesis</button>
+          </div>
+        </div>
+        <label for="pose" style="font-size: 14px; color: {{c.mut}}">A research question is turned into hypotheses at the next IDEATE. A hypothesis is placed in the tree and checked against the project's revelations.</label>
+        <textarea id="pose" rows="3" placeholder="[Ask the question in your own words]" style="box-sizing: border-box; width: 100%; padding: 10px 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}; resize: vertical"></textarea>
+        <div style="display: flex; justify-content: flex-end"><button type="button" style="min-height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Pose question</button></div>
+      </section>
+
+      <section aria-labelledby="h-stages" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+          <h2 id="h-stages" style="margin: 0; font-size: 17px; flex: 1 1 auto">Cycle [n]: waiting at AUTHORIZE</h2>
+          <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Stop after this stage</button>
+        </div>
+        <ol aria-label="Stages" style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px">
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; background: {{c.done}}; font-size: 12px; font-weight: 600"><a href="StageObserve.dc.html" style="color: inherit">OBSERVE</a><span style="font-weight: 400; color: {{c.mut}}">done</span></li>
+          <li aria-current="step" style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 5px 7px; border-radius: 6px; border: 2px solid {{c.warn}}; background: {{c.att}}; font-size: 12px; font-weight: 700"><a href="StageAuthorize.dc.html" style="color: inherit">AUTHORIZE</a><span style="font-weight: 600; color: {{c.warn}}">needs you</span></li>
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; border: 1px solid {{c.line}}; font-size: 12px; font-weight: 600"><a href="StageIdeate.dc.html" style="color: inherit">IDEATE</a></li>
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; border: 1px solid {{c.line}}; font-size: 12px; font-weight: 600"><a href="StageDrop.dc.html" style="color: inherit">DROP</a></li>
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; border: 1px solid {{c.line}}; font-size: 12px; font-weight: 600"><a href="StageSelect.dc.html" style="color: inherit">SELECT</a></li>
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; border: 1px solid {{c.line}}; font-size: 12px; font-weight: 600"><a href="StageDispatch.dc.html" style="color: inherit">DISPATCH</a></li>
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; border: 1px solid {{c.line}}; font-size: 12px; font-weight: 600"><a href="StageUpdate.dc.html" style="color: inherit">UPDATE</a></li>
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; border: 1px solid {{c.line}}; font-size: 12px; font-weight: 600"><a href="StageDecide.dc.html" style="color: inherit">DECIDE</a></li>
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; border: 1px dashed {{c.warn}}; font-size: 12px; font-weight: 600"><a href="ReviewCalibrate.dc.html" style="color: inherit">REVIEW</a><span style="font-weight: 400; color: {{c.mut}}">attended</span></li>
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; border: 1px dashed {{c.warn}}; font-size: 12px; font-weight: 600"><a href="ReviewCalibrate.dc.html" style="color: inherit">CALIBRATE</a><span style="font-weight: 400; color: {{c.mut}}">with an LLM only</span></li>
+          <li style="flex: 1 0 84px; min-height: 44px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 6px 8px; border-radius: 6px; border: 1px solid {{c.line}}; font-size: 12px; font-weight: 600"><a href="StagePersist.dc.html" style="color: inherit">PERSIST</a></li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="h-auth" style="background: {{c.surf}}; border: 2px solid {{c.warn}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 14px">
+        <h2 id="h-auth" style="margin: 0; font-size: 18px">AUTHORIZE: [n] hypotheses are parked</h2>
+        <div style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline">
+            <div style="font-size: 16px; font-weight: 600; flex: 1 1 280px">[Hypothesis: the proposed change]</div>
+            <div style="font-size: 14px; font-weight: 600; color: {{c.warn}}">Parked for a spend: [cost]</div>
+          </div>
+          <div style="font-size: 14px; color: {{c.mut}}">From [research question]. Expected loss [L] (90% interval [a] to [b]). Value of information [VoI] against cost [c].</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px">
+            <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Authorize spend</button>
+            <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Keep parked</button>
+          </div>
+        </div>
+        <div style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline">
+            <div style="font-size: 16px; font-weight: 600; flex: 1 1 280px">[Hypothesis: the proposed change]</div>
+            <div style="font-size: 14px; font-weight: 600; color: {{c.warn}}">Parked: needs a revelation from you</div>
+          </div>
+          <div style="font-size: 14px; color: {{c.mut}}">The mecha asks: [the question only the maintainer can answer]</div>
+          <label for="rv" style="font-size: 14px; font-weight: 600">Your revelation</label>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px">
+            <input id="rv" type="text" placeholder="[State what is true]" style="flex: 1 1 260px; min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+            <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Check and add</button>
+          </div>
+        </div>
+        <div style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline">
+            <div style="font-size: 16px; font-weight: 600; flex: 1 1 280px">[Experiment: the protocol, in one line]</div>
+            <div style="font-size: 14px; font-weight: 600; color: {{c.warn}}">Parked: to be sent to a person</div>
+          </div>
+          <div style="font-size: 14px; color: {{c.mut}}">Tests [hypothesis]. Needs [materials, time]. <a href="HumanTask.dc.html" style="color: {{c.acc}}">Read the full protocol</a></div>
+          <label for="who" style="font-size: 14px; font-weight: 600">Who runs it</label>
+          <select id="who" style="min-height: 44px; max-width: 360px; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"><option>You</option><option>[Collaborator]</option></select>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px">
+            <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Authorize and send</button>
+            <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Keep parked</button>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end"><button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; font-weight: 600; border: 1px solid {{c.acc}}; border-radius: 6px; background: transparent; color: {{c.acc}}">Done, continue to IDEATE</button></div>
+      </section>
+
+      <section aria-labelledby="h-disp" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+        <h2 id="h-disp" style="margin: 0; font-size: 17px"><a href="StageDispatch.dc.html" style="color: inherit">Last DISPATCH: [n] experiments</a></h2>
+        <div style="font-size: 14px; color: {{c.mut}}">Each runs in its own worktree, inside an MXC sandbox ([backend]) when the project chose one. While DISPATCH runs, rows fill in as results arrive.</div>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px">
+          <li style="display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 10px 0; border-top: 1px solid {{c.line}}"><span style="min-width: 80px; font-weight: 600; color: {{c.ok}}">Observed</span><span style="flex: 1 1 260px">[Hypothesis]</span><span style="color: {{c.mut}}">[outcome y]</span></li>
+          <li style="display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 10px 0; border-top: 1px solid {{c.line}}"><span style="min-width: 80px; font-weight: 600; color: {{c.acc}}">Running</span><span style="flex: 1 1 260px">[Hypothesis]</span><span style="color: {{c.mut}}">[elapsed]</span></li>
+          <li style="display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 10px 0; border-top: 1px solid {{c.line}}"><span style="min-width: 80px; font-weight: 600; color: {{c.warn}}">With [person]</span><span style="flex: 1 1 260px">[Hypothesis]</span><a href="HumanTask.dc.html" style="min-height: 44px; display: inline-flex; align-items: center">Sent [n] days ago</a></li>
+          <li style="display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 10px 0; border-top: 1px solid {{c.line}}"><span style="min-width: 80px; font-weight: 600; color: {{c.bad}}">Failed</span><span style="flex: 1 1 260px">[Hypothesis]</span><a href="#log" style="min-height: 44px; display: inline-flex; align-items: center">Open log</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <aside aria-label="Frontier and reports" style="flex: 1 1 320px; max-width: 400px; box-sizing: border-box; padding: 24px 20px; border-left: 1px solid {{c.line}}; background: {{c.surf}}; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <h2 style="margin: 0; font-size: 17px; flex: 1 1 auto">Best hypotheses now</h2>
+        <a href="Tree.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 14px; color: {{c.acc}}">Open tree</a>
+      </div>
+      <div style="font-size: 13px; color: {{c.mut}}">Expected loss, lower is better. The bar is the 90% interval; the tick is the mean.</div>
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+        <li style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15px; font-weight: 600">[Hypothesis]</span>
+          <div role="img" aria-label="Expected loss [L], interval [a] to [b]" style="position: relative; height: 12px; border-radius: 6px; background: {{c.track}}"><div style="position: absolute; left: 12%; width: 26%; top: 0; bottom: 0; border-radius: 6px; background: {{c.acc}}"></div><div style="position: absolute; left: 22%; width: 3px; top: -3px; bottom: -3px; background: {{c.ink}}"></div></div></li>
+        <li style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15px; font-weight: 600">[Hypothesis]</span>
+          <div role="img" aria-label="Expected loss [L], interval [a] to [b]" style="position: relative; height: 12px; border-radius: 6px; background: {{c.track}}"><div style="position: absolute; left: 18%; width: 50%; top: 0; bottom: 0; border-radius: 6px; background: {{c.acc}}"></div><div style="position: absolute; left: 36%; width: 3px; top: -3px; bottom: -3px; background: {{c.ink}}"></div></div></li>
+        <li style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15px; font-weight: 600">[Hypothesis]</span>
+          <div role="img" aria-label="Expected loss [L], interval [a] to [b]" style="position: relative; height: 12px; border-radius: 6px; background: {{c.track}}"><div style="position: absolute; left: 40%; width: 34%; top: 0; bottom: 0; border-radius: 6px; background: {{c.acc}}"></div><div style="position: absolute; left: 55%; width: 3px; top: -3px; bottom: -3px; background: {{c.ink}}"></div></div></li>
+      </ul>
+
+      <h2 id="reports" style="margin: 12px 0 0; font-size: 17px; padding-top: 16px; border-top: 1px solid {{c.line}}">Reports for cycle [n]</h2>
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+        <li><a href="#r" style="display: flex; flex-direction: column; min-height: 44px; justify-content: center; padding: 6px 10px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none"><span style="font-size: 15px; font-weight: 600">Cycle report</span><span style="font-size: 13px; color: {{c.mut}}">Observed, selected, dispatched, decided</span></a></li>
+        <li><a href="Tree.dc.html" style="display: flex; flex-direction: column; min-height: 44px; justify-content: center; padding: 6px 10px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none"><span style="font-size: 15px; font-weight: 600">Frontier map</span><span style="font-size: 13px; color: {{c.mut}}">Pending leaves with posteriors</span></a></li>
+        <li><a href="#r" style="display: flex; flex-direction: column; min-height: 44px; justify-content: center; padding: 6px 10px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none"><span style="font-size: 15px; font-weight: 600">Scorecard</span><span style="font-size: 13px; color: {{c.mut}}">Candidate against trunk, paired</span></a></li>
+        <li><a href="#r" style="display: flex; flex-direction: column; min-height: 44px; justify-content: center; padding: 6px 10px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none"><span style="font-size: 15px; font-weight: 600">REVIEW reconciliation</span><span style="font-size: 13px; color: {{c.mut}}">Merged diff against the spec, to sign off</span></a></li>
+        <li><a href="#r" style="display: flex; flex-direction: column; min-height: 44px; justify-content: center; padding: 6px 10px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none"><span style="font-size: 15px; font-weight: 600">Explanation</span><span style="font-size: 13px; color: {{c.mut}}">Why a solution was reached</span></a></li>
+      </ul>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

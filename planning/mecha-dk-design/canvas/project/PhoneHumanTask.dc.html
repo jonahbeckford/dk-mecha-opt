@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone experiment for a person</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3{font-family:Lato,Inter,sans-serif;font-weight:700}
+button,input{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 1400px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; align-items: center; gap: 4px; padding: 4px 8px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="#back" aria-label="Back to experiments for you" style="min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; color: {{c.ink}}">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </a>
+    <div style="display: flex; flex-direction: column; min-width: 0">
+      <div style="font-size: 16px; font-weight: 600">[Experiment title]</div>
+      <div style="font-size: 13px; color: {{c.mut}}">[Project], step 2 of [n]</div>
+    </div>
+  </header>
+
+  <main style="flex: 1 1 auto; overflow: hidden; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+    <div role="img" aria-label="Step 2 of 4" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px">
+      <div style="height: 6px; border-radius: 3px; background: {{c.ok}}"></div><div style="height: 6px; border-radius: 3px; background: {{c.acc}}"></div><div style="height: 6px; border-radius: 3px; background: {{c.track}}"></div><div style="height: 6px; border-radius: 3px; background: {{c.track}}"></div>
+    </div>
+    <section aria-labelledby="st" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+      <h2 id="st" style="margin: 0; font-size: 17px">Step 2</h2>
+      <p style="margin: 0; font-size: 18px; line-height: 1.5">[One protocol step, large enough to read at arm's length.]</p>
+      <div style="border: 2px solid {{c.warn}}; background: {{c.att}}; border-radius: 6px; padding: 10px 12px; font-size: 15px"><strong>Stop if</strong> [condition].</div>
+      <div style="display: flex; gap: 12px">
+        <button type="button" style="flex: 1 1 0; min-height: 52px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Back</button>
+        <button type="button" style="flex: 2 1 0; min-height: 52px; font-size: 16px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Done, next step</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="ms" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+      <h2 id="ms" style="margin: 0; font-size: 17px">Record a measurement</h2>
+      <label for="c1" style="font-size: 15px; font-weight: 600">[case 1], in [unit]</label>
+      <input id="c1" type="text" inputmode="decimal" style="min-height: 52px; box-sizing: border-box; padding: 0 12px; font-size: 20px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+      <div role="radiogroup" aria-label="[case 2] outcome" style="display: flex; flex-direction: column; gap: 6px">
+        <div style="font-size: 15px; font-weight: 600">[case 2], when the loss is a yes or no</div>
+        <div style="display: flex; gap: 12px">
+          <button type="button" role="radio" aria-checked="false" style="flex: 1 1 0; min-height: 52px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Pass</button>
+          <button type="button" role="radio" aria-checked="false" style="flex: 1 1 0; min-height: 52px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Fail</button>
+        </div>
+      </div>
+      <button type="button" style="min-height: 52px; font-size: 16px; border: 1px dashed {{c.line}}; border-radius: 6px; background: transparent; color: {{c.acc}}">Take a photo</button>
+    </section>
+
+    <button type="button" style="min-height: 52px; font-size: 16px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Send results</button>
+    <button type="button" style="min-height: 52px; font-size: 16px; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Could not run it</button>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":390,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Welcome to Mecha DK</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code{font-family:"Ubuntu Mono",monospace}
+button,input,textarea,select{font-family:inherit}
+a{color:inherit}
+th{font-weight:600}
+</style>
+</helmet>
+<div style="min-height: 720px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; padding: 32px 16px; background: {{c.bg}}; color: {{c.ink}}">
+  <div role="dialog" aria-labelledby="w1" style="width: 100%; max-width: 760px; box-sizing: border-box; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+    <ol aria-label="Steps" style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px"><li style="flex: 1 1 120px; padding: 8px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; outline: 2px solid {{c.acc}}; background: {{c.sel}}"><span style="display: block; font-weight: 400; color: {{c.mut}}">Step 1 of 4</span>Welcome</li><li style="flex: 1 1 120px; padding: 8px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid {{c.line}}"><span style="display: block; font-weight: 400; color: {{c.mut}}">Step 2 of 4</span>Connect an LLM</li><li style="flex: 1 1 120px; padding: 8px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid {{c.line}}"><span style="display: block; font-weight: 400; color: {{c.mut}}">Step 3 of 4</span>This computer</li><li style="flex: 1 1 120px; padding: 8px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid {{c.line}}"><span style="display: block; font-weight: 400; color: {{c.mut}}">Step 4 of 4</span>Your first project</li></ol>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <h1 id="w1" style="margin: 0; font-size: 28px">Welcome to Mecha DK</h1>
+      <div style="font-size: 15px; line-height: 1.55">You pose research questions and hypotheses. The mecha turns them into experiments, runs them in cycles, and keeps track of what each result means. It stops to ask you before it spends, when a change is ready for review, and when how results are measured should change. It works for software and for studies in the lab or the field.</div>
+    </div>
+    <section aria-labelledby="dm" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="dm" style="margin: 0; font-size: 17px">See it working first</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid {{c.line}}; border-radius: 8px; background: {{c.bg}}"><span style="font-size: 12px; font-weight: 600; color: {{c.mut}}">PUBLIC DEMO, READ-ONLY</span><span style="font-size: 17px; font-weight: 700">Improving the dk build system</span><span style="font-size: 14px; line-height: 1.45">The hypothesis tree behind Paper I: changes proposed, tested and decided for MlFront, the dk build and learning system.</span><span style="font-size: 13px; color: {{c.mut}}">[n] hypotheses, [n] cycles</span><span><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Open the demo</button></span></div>
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid {{c.line}}; border-radius: 8px; background: {{c.bg}}"><span style="font-size: 12px; font-weight: 600; color: {{c.mut}}">PUBLIC DEMO, READ-ONLY</span><span style="font-size: 17px; font-weight: 700">Fixing bugs in Java programs</span><span style="font-size: 14px; line-height: 1.45">A tree grown from program repairs on RunBugRun, then used to seed repairs of real Java bugs from Defects4J.</span><span style="font-size: 13px; color: {{c.mut}}">[n] hypotheses, [n] repairs</span><span><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Open the demo</button></span></div>
+      </div>
+      <div style="font-size: 13px; color: {{c.mut}}">Demos open read-only and need no account. They are also under Demos on the Projects page.</div>
+    </section>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding-top: 6px; border-top: 1px solid {{c.line}}">
+      <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Sign in to Diskuv SaaS</button>
+      <span style="display: inline-flex; flex-wrap: wrap; gap: 10px"><button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Continue without an account</button></span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":720}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

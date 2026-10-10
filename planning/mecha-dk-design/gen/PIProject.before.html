@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New project</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code{font-family:"Ubuntu Mono",monospace}
+button,input,textarea{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 1500px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}">/ New project</div>
+  </header>
+
+  <main style="width: 100%; max-width: 920px; box-sizing: border-box; margin: 0 auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <h1 style="margin: 0; font-size: 28px">Set up your project</h1>
+      <div style="font-size: 15px; color: {{c.mut}}; line-height: 1.5">You lead the project. The mecha proposes hypotheses, designs experiments, and analyses the results; you decide what it may change, what counts as a better result, and which experiments go ahead. It works the same for software and for a study in the lab or the field.</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="t" style="font-size: 15px; font-weight: 600">Project title</label>
+      <input id="t" type="text" placeholder="[Project title]" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.surf}}; color: {{c.ink}}">
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="dir" style="font-size: 15px; font-weight: 600">Project folder</label>
+      <span id="dir-d" style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Where the mecha keeps this project: its hypotheses, results and every saved cycle. Choose an empty folder, or a new one. It lives on the computer that runs the project.</span>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <select aria-label="Computer" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.surf}}; color: {{c.ink}}; flex: 0 1 240px"><option>This computer</option><option>[Paired desktop name]</option></select>
+        <input id="dir" type="text" aria-describedby="dir-d" value="[~/Mecha DK/project-title]" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.surf}}; color: {{c.ink}}; flex: 1 1 280px; font-family: 'Ubuntu Mono', monospace">
+        <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Choose folder</button>
+      </div>
+      <span style="font-size: 13px; color: {{c.mut}}; line-height: 1.45">On the web or a phone, Choose folder browses the paired desktop. Secrets and keys are never written to this folder. To continue the project on another computer, copy or sync the folder, or keep it in a git repository.</span>
+    </div>
+
+    <fieldset style="min-width: 0; margin: 0; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 14px">
+      <legend style="font-size: 17px; font-weight: 600; padding: 0 6px">1. Scope</legend>
+      <div style="display: flex; flex-direction: column; gap: 4px"><label for="a" style="font-size: 15px; font-weight: 600">What the mecha may vary</label><span style="font-size: 14px; color: {{c.mut}}">Code and configuration, or conditions, materials, protocol steps and parameters.</span><textarea id="a" rows="2" style="box-sizing: border-box; padding: 8px 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></textarea></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><label for="b" style="font-size: 15px; font-weight: 600">What you measure</label><span style="font-size: 14px; color: {{c.mut}}">The outcomes, and the cases they are measured on: tests and inputs, or samples, subjects and sites.</span><textarea id="b" rows="2" style="box-sizing: border-box; padding: 8px 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></textarea></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><label for="cc" style="font-size: 15px; font-weight: 600">Protocol of record</label><span style="font-size: 14px; color: {{c.mut}}">The written specification, protocol or pre-registration. When a change is adopted, you review it against this. None yet? The mecha can draft one for your review.</span><input id="cc" type="text" placeholder="[document or link]" style="min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><label for="dd" style="font-size: 15px; font-weight: 600">Out of bounds</label><span style="font-size: 14px; color: {{c.mut}}">What no one, person or program, may touch or be asked to do: credentials, hazards, ethics and approval limits, budget ceilings. Experiments sent to a person show these as "Stop if" and "Never".</span><textarea id="dd" rows="2" style="box-sizing: border-box; padding: 8px 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></textarea></div>
+    </fieldset>
+
+    <fieldset style="min-width: 0; margin: 0; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+      <legend style="font-size: 17px; font-weight: 600; padding: 0 6px">2. What counts as a better result</legend>
+      <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Your outcome measures, each something an experiment can measure. You weigh them by answering a few comparisons, not by typing weights.</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <span style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border: 1px solid {{c.line}}; border-radius: 18px; font-size: 14px">[primary outcome]</span>
+        <span style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border: 1px solid {{c.line}}; border-radius: 18px; font-size: 14px">[secondary outcome]</span>
+        <button type="button" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px dashed {{c.line}}; border-radius: 6px; background: transparent; color: {{c.acc}}">Add outcome</button>
+        <button type="button" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Weigh outcomes</button>
+      </div>
+    </fieldset>
+
+    <fieldset style="min-width: 0; margin: 0; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+      <legend style="font-size: 17px; font-weight: 600; padding: 0 6px">3. Revelations</legend>
+      <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Established findings and constraints you hold as true. The mecha never proposes a hypothesis that contradicts them, and checks each new one against the rest before it is added.</div>
+      <ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.6"><li>[Revelation]</li></ul>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <label for="g" style="position: absolute; left: -9999px">New revelation</label>
+        <input id="g" type="text" placeholder="[State what is established]" style="flex: 1 1 260px; min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+        <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Check and add</button>
+      </div>
+    </fieldset>
+
+    <fieldset style="min-width: 0; margin: 0; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+      <legend style="font-size: 17px; font-weight: 600; padding: 0 6px">4. Who runs the experiments</legend>
+      <div style="font-size: 14px; color: {{c.mut}}">This device lists only what it is allowed to run.</div>
+      <div role="radiogroup" aria-label="Who runs the experiments" style="display: flex; flex-direction: column; gap: 8px">
+        <label style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 4px 12px; border: 2px solid {{c.acc}}; border-radius: 6px; font-size: 15px"><input type="radio" name="w" checked style="width: 20px; height: 20px; margin: 0"> <span style="display: flex; flex-direction: column"><span>You</span><span style="font-size: 13px; color: {{c.mut}}">Experiments arrive in your "Experiments for you" list.</span></span></label>
+        <label style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 4px 12px; border: 1px solid {{c.line}}; border-radius: 6px; font-size: 15px"><input type="radio" name="w" style="width: 20px; height: 20px; margin: 0"> <span style="display: flex; flex-direction: column; flex: 1 1 auto"><span>You and collaborators you invite</span><span style="font-size: 13px; color: {{c.mut}}">Needs Diskuv SaaS, which keeps the project shared between you.</span></span><a href="Collaborators.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 14px; color: {{c.acc}}">Invite</a></label>
+        <label style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 4px 12px; border: 1px solid {{c.line}}; border-radius: 6px; font-size: 15px"><input type="radio" name="w" style="width: 20px; height: 20px; margin: 0"> <span style="display: flex; flex-direction: column; flex: 1 1 auto"><span>This computer</span><span style="font-size: 13px; color: {{c.mut}}">Desktop only. Optionally inside an MXC sandbox ([backend]).</span></span></label>
+        <label style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 4px 12px; border: 1px solid {{c.line}}; border-radius: 6px; font-size: 15px"><input type="radio" name="w" style="width: 20px; height: 20px; margin: 0"> <span style="display: flex; flex-direction: column; flex: 1 1 auto"><span>GitHub Actions or GitHub Enterprise</span><span style="font-size: 13px; color: {{c.mut}}">Desktop only. [host], [owner/repo]</span></span><a href="GitHubRemote.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 14px; color: {{c.acc}}">Set up</a></label>
+        <label style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 4px 12px; border: 1px solid {{c.line}}; border-radius: 6px; font-size: 15px"><input type="radio" name="w" style="width: 20px; height: 20px; margin: 0"> <span style="display: flex; flex-direction: column; flex: 1 1 auto"><span>Diskuv SaaS</span><span style="font-size: 13px; color: {{c.mut}}">DkCloud@[version]. Not signed in</span></span><a href="SaaSRemote.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 14px; color: {{c.acc}}">Sign in</a></label>
+      </div>
+      <div style="font-size: 13px; color: {{c.mut}}">You approve every experiment before it is sent to a person.</div>
+    </fieldset>
+
+    <fieldset style="min-width: 0; margin: 0; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 14px">
+      <legend style="font-size: 17px; font-weight: 600; padding: 0 6px">5. Who helps the mecha</legend>
+      <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Each role can be done by people or by an LLM. LLMs are optional and need a connection in <a href="LLMs.dc.html" style="color: {{c.acc}}">Settings, LLMs</a>.</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px">
+        <div style="display: flex; flex-direction: column; gap: 6px; flex: 1 1 100%"><label for="m1" style="font-size: 14px; font-weight: 600">Proposes hypotheses</label><select id="m1" style="max-width: 100%; max-width: 360px; min-height: 44px; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"><option selected>People on the project</option><option>An LLM: [connection / model]</option><option>Both</option></select>
+          <fieldset style="min-width: 0; margin: 0; padding: 8px 12px 12px; border: 1px solid {{c.line}}; border-radius: 6px; display: flex; flex-direction: column; gap: 8px"><legend style="font-size: 14px; font-weight: 600; padding: 0 4px">Where the LLM looks</legend>
+            <div style="font-size: 13px; color: {{c.mut}}; line-height: 1.45">Shown only when an LLM is chosen. It always reads this project's hypotheses and results. Colleagues propose by posing hypotheses themselves.</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 8px">
+            <div style="display: flex; flex-direction: column; padding: 0 8px 6px; border: 1px solid {{c.line}}; border-radius: 6px"><div style="display: flex; align-items: center; gap: 8px; min-height: 44px"><label for="s-zot" style="display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; font-weight: 600;"><input type="checkbox" id="s-zot" aria-describedby="s-zot-d" checked style="width: 20px; height: 20px; margin: 0; flex: none"> Zotero</label><a href="LLMs.dc.html#src-zotero" style="margin-left: auto; min-height: 44px; display: inline-flex; align-items: center; padding: 0 6px; font-size: 14px; color: {{c.acc}}">Change</a></div><span id="s-zot-d" style="font-size: 13px; color: {{c.mut}}; line-height: 1.35; padding-left: 28px">Your library: [library]</span></div>
+            <div style="display: flex; flex-direction: column; padding: 0 8px 6px; border: 1px solid {{c.line}}; border-radius: 6px"><div style="display: flex; align-items: center; gap: 8px; min-height: 44px"><label for="s-web" style="display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; font-weight: 600;"><input type="checkbox" id="s-web" aria-describedby="s-web-d" style="width: 20px; height: 20px; margin: 0; flex: none"> The LLM's own search</label></div><span id="s-web-d" style="font-size: 13px; color: {{c.mut}}; line-height: 1.35; padding-left: 28px">Built into the LLM's provider</span></div>
+            <div style="display: flex; flex-direction: column; padding: 0 8px 6px; border: 1px solid {{c.line}}; border-radius: 6px"><div style="display: flex; align-items: center; gap: 8px; min-height: 44px"><label for="s-s2" style="display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; font-weight: 600;"><input type="checkbox" id="s-s2" aria-describedby="s-s2-d" style="width: 20px; height: 20px; margin: 0; flex: none"> Semantic Scholar</label><a href="LLMs.dc.html#src-s2" style="margin-left: auto; min-height: 44px; display: inline-flex; align-items: center; padding: 0 6px; font-size: 14px; color: {{c.acc}}">Add a key</a></div><span id="s-s2-d" style="font-size: 13px; color: {{c.mut}}; line-height: 1.35; padding-left: 28px">Research papers only. Rate limited without a key</span></div>
+            </div>
+            <details style="border-top: 1px solid {{c.line}}; padding-top: 2px">
+              <summary style="min-height: 44px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 14px; cursor: pointer"><span aria-hidden="true" style="color: {{c.acc}}">+</span><span style="font-weight: 600; color: {{c.acc}}">More sources</span><span>Exa, Tavily, Brave Search</span><span style="opacity: 0.8">(each needs a key)</span></summary>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 8px; padding-top: 4px">
+              <div style="display: flex; flex-direction: column; padding: 0 8px 6px; border: 1px solid {{c.line}}; border-radius: 6px"><div style="display: flex; align-items: center; gap: 8px; min-height: 44px"><label for="s-exa" style="display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; font-weight: 600; color: {{c.mut}};"><input type="checkbox" id="s-exa" aria-describedby="s-exa-d" disabled style="width: 20px; height: 20px; margin: 0; flex: none"> Exa</label><a href="LLMs.dc.html#src-exa" style="margin-left: auto; min-height: 44px; display: inline-flex; align-items: center; padding: 0 6px; font-size: 14px; color: {{c.acc}}">Set up</a></div><span id="s-exa-d" style="font-size: 13px; color: {{c.mut}}; line-height: 1.35; padding-left: 28px">Pages from across the internet. Needs a key</span></div>
+              <div style="display: flex; flex-direction: column; padding: 0 8px 6px; border: 1px solid {{c.line}}; border-radius: 6px"><div style="display: flex; align-items: center; gap: 8px; min-height: 44px"><label for="s-tav" style="display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; font-weight: 600; color: {{c.mut}};"><input type="checkbox" id="s-tav" aria-describedby="s-tav-d" disabled style="width: 20px; height: 20px; margin: 0; flex: none"> Tavily</label><a href="LLMs.dc.html#src-tavily" style="margin-left: auto; min-height: 44px; display: inline-flex; align-items: center; padding: 0 6px; font-size: 14px; color: {{c.acc}}">Set up</a></div><span id="s-tav-d" style="font-size: 13px; color: {{c.mut}}; line-height: 1.35; padding-left: 28px">Pages from across the internet. Needs a key; free requests each month</span></div>
+              <div style="display: flex; flex-direction: column; padding: 0 8px 6px; border: 1px solid {{c.line}}; border-radius: 6px"><div style="display: flex; align-items: center; gap: 8px; min-height: 44px"><label for="s-brv" style="display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 15px; font-weight: 600; color: {{c.mut}};"><input type="checkbox" id="s-brv" aria-describedby="s-brv-d" disabled style="width: 20px; height: 20px; margin: 0; flex: none"> Brave Search</label><a href="LLMs.dc.html#src-brave" style="margin-left: auto; min-height: 44px; display: inline-flex; align-items: center; padding: 0 6px; font-size: 14px; color: {{c.acc}}">Set up</a></div><span id="s-brv-d" style="font-size: 13px; color: {{c.mut}}; line-height: 1.35; padding-left: 28px">Pages from Brave's own index. Needs a key; free requests each month</span></div>
+              </div>
+            </details>
+            <div style="font-size: 12px; color: {{c.mut}}; line-height: 1.45">The LLM's own search appears only when the chosen LLM has one. A source under More sources can be ticked once its key is set up. Set up opens it in Settings, LLMs and brings you back here as you left it; a source you set up moves up beside the others.</div>
+          </fieldset></div>
+        <div style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 240px; min-width: 0"><label for="m2" style="font-size: 14px; font-weight: 600">Writes each experiment</label><select id="m2" style="max-width: 100%; min-height: 44px; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"><option selected>You</option><option>An LLM or coding agent: [connection / model]</option></select></div>
+        <div style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 240px; min-width: 0"><label for="m3" style="font-size: 14px; font-weight: 600">Judges results</label><select id="m3" style="max-width: 100%; min-height: 44px; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"><option selected>Measured directly, no judge</option><option>A person</option><option>An LLM: [connection / model]</option></select></div>
+        <div style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 240px; min-width: 0"><label for="m4" style="font-size: 14px; font-weight: 600">Proposes changes to how results are measured</label><select id="m4" style="max-width: 100%; min-height: 44px; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"><option selected>No one: you change it in project settings</option><option>An LLM: [connection / model] (adds the CALIBRATE stage)</option></select></div>
+      </div>
+      <div style="font-size: 13px; color: {{c.mut}}">With no LLM, you or your collaborators pose the hypotheses and write the experiments, and the mecha still chooses which to run, tracks what each result means, and decides when a hypothesis is settled.</div>
+    </fieldset>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end">
+      <a href="Projects.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none">Cancel</a>
+      <a href="Cycle.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}; text-decoration: none">Start the project</a>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

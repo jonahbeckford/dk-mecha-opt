@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Measurement changes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3{font-family:Lato,Inter,sans-serif;font-weight:700}
+button{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 1400px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}">/ [Project title] / <a href="ProjectSettings.dc.html">Settings</a> / Measurement changes</div>
+  </header>
+
+  <main style="width: 100%; max-width: 1000px; box-sizing: border-box; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <h1 style="margin: 0; font-size: 26px">Measurement changes</h1>
+      <div style="font-size: 15px; color: {{c.mut}}; line-height: 1.5">Changes to how results are measured. They are applied only in a break between cycles: the mecha pauses, applies them one at a time in this order, re-measures a baseline when needed, then resumes. If one fails it stops there and undoes only that one.</div>
+    </div>
+
+    <section aria-labelledby="fail" style="background: {{c.surf}}; border: 2px solid {{c.bad}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+      <h2 id="fail" style="margin: 0; font-size: 18px">Needs you: [n]</h2>
+
+      <div style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline"><span style="font-size: 16px; font-weight: 600; flex: 1 1 280px">[Change title]</span><span style="font-size: 14px; font-weight: 600; color: {{c.bad}}">Could not be applied</span></div>
+        <div style="font-size: 14px; color: {{c.mut}}">[Reason, e.g. the patch no longer applies]. Nothing was changed. Cycles have resumed.</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px"><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Edit and retry</button><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Drop</button></div>
+      </div>
+
+      <div style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline"><span style="font-size: 16px; font-weight: 600; flex: 1 1 280px">[Change title]</span><span style="font-size: 14px; font-weight: 600; color: {{c.bad}}">Baseline could not be measured</span></div>
+        <div style="font-size: 14px; color: {{c.mut}}">The change is in place but the new baseline run failed: [reason]. <strong>Cycles are paused</strong> until you choose. Rolling back is cheap now, because no new baseline was recorded.</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px"><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Roll back</button><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Fix and re-run</button><a href="#log" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; color: {{c.acc}}">Open log</a></div>
+      </div>
+
+      <div style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline"><span style="font-size: 16px; font-weight: 600; flex: 1 1 280px">[Change title]</span><span style="font-size: 14px; font-weight: 600; color: {{c.bad}}">Its check says it was wrong</span></div>
+        <div style="font-size: 14px; color: {{c.mut}}">Applied in cycle [n]. By [date] it was meant to show [expected]; it shows [observed]. Rolling back now re-measures the baseline a second time, and the results from cycles [n] to [m] stay on record under the version they were measured with.</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px"><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; font-weight: 600; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Roll back (second re-baseline)</button><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Keep it and record why</button></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="all" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; overflow: hidden">
+      <h2 id="all" style="margin: 0; font-size: 18px; padding: 16px 20px; border-bottom: 1px solid {{c.line}}">All changes</h2>
+      <div style="overflow-x: auto">
+        <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px">
+          <thead><tr style="text-align: left; color: {{c.mut}}"><th scope="col" style="padding: 10px 16px; font-weight: 600">Order</th><th scope="col" style="padding: 10px 16px; font-weight: 600">Change</th><th scope="col" style="padding: 10px 16px; font-weight: 600">From</th><th scope="col" style="padding: 10px 16px; font-weight: 600">Status</th></tr></thead>
+          <tbody>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 16px">-</td><td style="padding: 10px 16px">[Change title]</td><td style="padding: 10px 16px">You, in Settings</td><td style="padding: 10px 16px; font-weight: 600; color: {{c.acc}}">Measuring the new baseline: [n] of [m] cases</td></tr>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 16px">1</td><td style="padding: 10px 16px">[Change title]<br><span style="font-size: 13px; color: {{c.mut}}">Recalculate only, nothing to measure</span></td><td style="padding: 10px 16px">You, in Settings</td><td style="padding: 10px 16px; font-weight: 600">Waiting for the next break</td></tr>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 16px">2</td><td style="padding: 10px 16px">[Change title]</td><td style="padding: 10px 16px">[Collaborator]</td><td style="padding: 10px 16px; font-weight: 600; color: {{c.warn}}">Waiting for your approval</td></tr>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 16px">3</td><td style="padding: 10px 16px">[Change title]</td><td style="padding: 10px 16px">CALIBRATE, cycle [n]</td><td style="padding: 10px 16px; font-weight: 600; color: {{c.warn}}">Proposed, approve at CALIBRATE</td></tr>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 16px">-</td><td style="padding: 10px 16px">[Change title]</td><td style="padding: 10px 16px">REVIEW gap, cycle [n]</td><td style="padding: 10px 16px">Note: needs a change from you</td></tr>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 16px">-</td><td style="padding: 10px 16px">[Change title]</td><td style="padding: 10px 16px">You</td><td style="padding: 10px 16px; color: {{c.ok}}">Applied, checking until [date]</td></tr>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 16px">-</td><td style="padding: 10px 16px">[Change title]</td><td style="padding: 10px 16px">CALIBRATE</td><td style="padding: 10px 16px; color: {{c.ok}}">Verified</td></tr>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 16px">-</td><td style="padding: 10px 16px">[Change title]</td><td style="padding: 10px 16px">You</td><td style="padding: 10px 16px; color: {{c.mut}}">Rolled back</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <div style="font-size: 13px; color: {{c.mut}}">Failures also appear in "Needs you" on the desktop, a phone and the web app.</div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

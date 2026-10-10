@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Projects</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+button{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 720px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <div style="font-size: 18px; font-weight: 700; flex: 1 1 auto">Mecha DK</div>
+    <a href="HumanTask.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none">Experiments for you ([n])</a>
+    <a href="Devices.dc.html" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: {{c.ok}}"></span>Driven by [this computer]</a>
+    <a href="LLMs.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none">Settings</a>
+    <a href="SaaSRemote.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none">Account</a>
+  </header>
+
+  <main style="width: 100%; max-width: 960px; box-sizing: border-box; margin: 0 auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px">
+      <h1 style="margin: 0; font-size: 28px; flex: 1 1 240px">Projects</h1>
+      <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Open project folder</button>
+      <a href="PIProject.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}; text-decoration: none">New project</a>
+    </div>
+    <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+      <li><a href="Cycle.dc.html" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 16px 20px; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; text-decoration: none">
+        <span style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 18px; font-weight: 600">[Project title]</span><span style="font-size: 14px; color: {{c.mut}}">Cycle [n], [n] research questions, [n] open hypotheses</span><span style="font-size: 13px; color: {{c.mut}}; font-family: 'Ubuntu Mono', monospace">[~/Mecha DK/project-title] on this computer</span></span>
+        <span style="font-size: 14px; font-weight: 600; color: {{c.warn}}">Waiting for your approval: [n]</span></a></li>
+      <li><a href="Cycle.dc.html" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 16px 20px; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; text-decoration: none">
+        <span style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 18px; font-weight: 600">[Project title]</span><span style="font-size: 14px; color: {{c.mut}}">Shared with [n] collaborators. Cycle [n]</span></span>
+        <span style="font-size: 14px; font-weight: 600; color: {{c.acc}}">Experiments running, unattended</span></a></li>
+      <li><a href="Cycle.dc.html" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 16px 20px; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; text-decoration: none">
+        <span style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 18px; font-weight: 600">[Project title]</span><span style="font-size: 14px; color: {{c.mut}}">Ended at cycle [n]</span></span>
+        <span style="font-size: 14px; font-weight: 600; color: {{c.ok}}">Adopted: [hypothesis]</span></a></li>
+    </ul>
+    <section aria-labelledby="demos" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="demos" style="margin: 0; font-size: 18px">Demos</h2>
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px"><li style="flex: 1 1 300px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 14px 18px; background: {{c.surf}}; border: 1px dashed {{c.line}}; border-radius: 8px"><span style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 600">Improving the dk build system</span><span style="font-size: 13px; color: {{c.mut}}">The Paper I tree for MlFront. Public, read-only.</span></span><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Open read-only</button></li><li style="flex: 1 1 300px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 14px 18px; background: {{c.surf}}; border: 1px dashed {{c.line}}; border-radius: 8px"><span style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 600">Fixing bugs in Java programs</span><span style="font-size: 13px; color: {{c.mut}}">Grown from RunBugRun repairs, seeding Defects4J. Public, read-only.</span></span><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Open read-only</button></li></ul>
+    </section>
+    <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.5">Each row says in words what you need to do next, and projects waiting on you come first.</div>
+    <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.5">Open project folder adds a project from a folder, for example one copied from another computer or checked out from git. If the folder holds no project, you are offered New project in it. On the web or a phone it browses the paired desktop.</div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":720}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Experiment environment</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code{font-family:"Ubuntu Mono",monospace}
+button,input,select{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 1400px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}">/ [Project title] / <a href="ProjectSettings.dc.html">Settings</a> / Experiment environment</div>
+  </header>
+
+  <main style="width: 100%; max-width: 960px; box-sizing: border-box; margin: 0 auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <h1 style="margin: 0; font-size: 26px">Experiment environment</h1>
+      <div style="font-size: 15px; color: {{c.mut}}; line-height: 1.5">The secrets every executor can hold, wherever experiments run: this computer, GitHub Actions or Diskuv SaaS. A person running an experiment never gets them.</div>
+    </div>
+
+    <div style="font-size: 15px; line-height: 1.5; padding: 12px 16px; border: 1px solid {{c.line}}; border-radius: 8px; background: {{c.surf}}">Repositories, files, models, data and parameters are in <a href="SettingsSurface.dc.html" style="color: {{c.acc}}">What the mecha may change and read</a>. Each experiment receives them as <code>dk0 run-function</code> arguments.</div>
+
+    <section aria-labelledby="sc" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; overflow: hidden">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 20px; border-bottom: 1px solid {{c.line}}">
+        <h2 id="sc" style="margin: 0; font-size: 18px; flex: 1 1 auto">Secrets</h2>
+        <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Add secret</button>
+      </div>
+      <ul style="list-style: none; margin: 0; padding: 0">
+        <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 8px 20px"><code style="flex: 1 1 220px; font-size: 15px">CLAUDE_CODE_OAUTH_TOKEN</code><span style="font-size: 13px; color: {{c.mut}}">From <a href="LLMs.dc.html" style="color: {{c.acc}}">Settings, LLMs</a>. Value hidden</span><span style="font-size: 13px">This computer, GitHub, SaaS</span><label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 13px"><input type="checkbox" style="width: 20px; height: 20px; margin: 0"> Approve each use</label></li>
+        <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 8px 20px; border-top: 1px solid {{c.line}}"><code style="flex: 1 1 220px; font-size: 15px">[NAME]</code><span style="font-size: 13px; color: {{c.mut}}">Value hidden. Set [date]</span><span style="font-size: 13px">[This computer, GitHub]</span><label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 13px"><input type="checkbox" checked style="width: 20px; height: 20px; margin: 0"> Approve each use</label><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Replace</button></li>
+      </ul>
+      <div style="padding: 12px 20px; font-size: 13px; color: {{c.mut}}; line-height: 1.45; border-top: 1px solid {{c.line}}">A secret is kept in this computer's key store and copied only to the executors you tick: to GitHub as an Actions secret of the repository that runs the experiments, to Diskuv SaaS into your account's vault. It never goes into the project or a report, and it cannot be read back once saved. "Secrets each step may use", under Scope, says which steps receive each one. Tick Approve each use for a secret that can publish, release or pay for something: every run whose steps receive it waits for you at AUTHORIZE.</div>
+    </section>
+
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>
