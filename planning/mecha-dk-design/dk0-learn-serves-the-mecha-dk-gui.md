@@ -1320,8 +1320,14 @@ outrank the agent's own analysis". The seeding steer is design; `cycle/` uses re
 
 The New project form now describes all four uses: seeding at IDEATE, dropping or flagging at DROP, the LLM
 reading them first when it proposes or writes an experiment, and checking a new revelation against the others.
-Open for the threads: whether the PI sets the minimum share of each stream (C31 says it is elicited), and where
-in the GUI, if at all.
+The PI sets the minimum share of each stream (the maintainer, 2026-10-10: "should the PI be able to set the minimum
+share of revelation-seeded versus data-driven hypotheses? Yes"). Project settings, under "Sources for
+hypotheses", has "Mix of new hypotheses": at least N% applying a revelation and at least M% drawn from the
+results so far, 25% each by default, adding up to at most 100%, applied from the next IDEATE. Above the floors
+the split follows C31: "an adaptive bandit allocation by each stream's recent value of information, the same
+machinery as SELECT, shifting toward exploration when seeded nodes keep failing and toward the revelations when
+the frontier drifts incoherent." Engine request: `dk0 learn` stores the two floors in project state and runs
+that allocation; the default of 25% each is a proposal.
 
 ## Classification
 
