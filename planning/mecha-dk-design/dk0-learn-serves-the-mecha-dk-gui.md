@@ -1287,8 +1287,11 @@ quantile (C2).
 
 **The GUI.** Section 2 is a list of outcomes, each with a name, where it comes from (cases that pass, a value
 the run rule returns by name, or a judge's score), the value name, which way is better, a unit, and the worst
-and best values that matter. With two or more outcomes, "Weigh outcomes" runs swing weighting: the PI picks the
-one move from worst to best they want most, rates each other move against it from 0 to 100, and sees the
+and best values that matter. With two or more outcomes, "Weigh outcomes" runs swing weighting: the PI puts every
+move from worst to best in order, most wanted first, by dragging or with up and down buttons (the maintainer,
+2026-10-10: "In "Weigh outcomes", shouldn't the user be able to reorder the outcomes, even if there are more than
+two outcomes?"), then rates each other move against the first from 0 to 100, each rating no higher than the move
+above it, and sees the
 weights with their uncertainty and the weight the ranking is most sensitive to. A new weight later is a
 measurement change that recalculates scores from recorded results; a new outcome is measured again (R13,
 R14). "What you measure" keeps only where cases come from.
