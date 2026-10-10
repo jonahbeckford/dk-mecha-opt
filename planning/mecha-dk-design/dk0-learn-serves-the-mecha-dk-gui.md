@@ -1478,8 +1478,10 @@ change" and "Out of bounds" line by line (MECHA-DK.md, Security).
   says which template it used ("Started from the template Fix a program until its tests pass"). The template
   fills sections 1 to 4 under the rules of R31 (standing instructions read-only, its entries locked), and the LLM
   drafts only what the template leaves open, plus any extra problems and hypotheses. With no match, the draft
-  says "No template matched it". Open for the threads: how close a match must be, and whether the PI can redraft
-  without the template.
+  says "No template matched it". The LLM decides whether a template matches, and only when it can name
+  why; the draft shows that reason (the maintainer, 2026-10-10, choosing "LLM decides, says why"). Beside
+  "Started from the template", "Draft without the template" drafts again from the description alone, keeping
+  every field the PI changed (the maintainer, choosing "Yes, one button").
 
 ## Classification
 
