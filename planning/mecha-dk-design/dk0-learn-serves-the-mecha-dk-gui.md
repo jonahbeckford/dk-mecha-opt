@@ -144,7 +144,10 @@ How it meets the design, for the threads to verify:
 - design.typ already says DISPATCH runs each experiment "in its own isolated worktree", and that the
   unified driver enforces each SUO's boundary, "model-written code in a container or on a remote"
   (`@p1-s4-5-1`, `@p1-s4-5-4`). AGENTS.md says of this repository's execution boundary: "Nothing enforces
-  this". MXC would be one enforcement, as an option per project.
+  this". MXC would be one enforcement, as an option per project. OPEN-ITEMS O-BOUNDARY-1 (recorded
+  2026-10-10) is the evidence: in the 2026-10-09/10 Protocol-A session, model-written tests and scripts ran on
+  the host and nothing detected it; the correction is procedural, and the item stays open until a hook refuses
+  host-side runs.
 - A worktree isolates files from other experiments. MXC would add process, filesystem and network
   policy. The SUO declaration (edit surface, boundary) is a natural source for the filesystem policy,
   and the boundary's "release credentials" exclusion maps to denied paths.
@@ -542,6 +545,14 @@ uncertainty will be widened, in user friendly language) if it knows a re-baselin
 action." So `dk0 learn` must be able to tell the driver, before a change is applied, which of the cases in
 item 1 it falls in and what it will cost, so the warning is computed rather than guessed.
 
+**Since the merge: the agent version** (DECISIONS 2026-10-10, "every measurement records the agent and its
+version"; design.typ now extends the comparability discipline to the agent build). Every measurement records
+`agent` and `agent_version` beside the model, so "a result measured under a later CLI is not silently compared
+with an earlier one". The decision records the version but does not re-baseline on it. The threads must say
+whether a new agent version is a measurement change under item 2 (a version bump, with evidence carried
+forward as in 3a), or only a label the comparison reads. The GUI shows the agent and version with every result
+either way.
+
 ### R15. The GUI can show each posterior as a curve and as its formula
 
 > Right now, the user interface shows a ninety percent interval. There should be an option to show the
@@ -555,6 +566,10 @@ marginal of the normal-inverse-gamma for a continuous loss (Paper I §4), and wh
 named conjugate posterior (the option value `V(n)`, a moment-approximate backup), say so, so the GUI labels
 it "approximately" rather than printing a formula that is not the real distribution. Drawing the curve is
 the GUI's job (a custom chart control in Uno, from the family and parameters); `dk0 learn` need not sample.
+
+**Since the merge:** under per-node credit (R28) the Beta in `cycle/` is the chance a node's own fix works, so
+higher is better, while design.typ's expected loss is lower is better. The curve's caption must say which
+quantity it shows and which direction is better, from what `dk0 learn` reports, never assumed.
 
 ### R16. Executor environments: repositories, secrets, environment variables, and agent credentials
 
@@ -571,7 +586,7 @@ secrets, and environment variables, applied to every machine executor (this comp
 Diskuv SaaS) and not to a person. Desktop Settings, LLMs, has a Claude Code entry whose "Get a token" runs
 `claude setup-token` on the desktop (browser sign-in to a Claude Pro or Max subscription), keeps the token
 in the desktop's key store, and hands it to experiments as the secret `CLAUDE_CODE_OAUTH_TOKEN` (the name
-claude-code-action's docs use; one third-party source says the token lasts a year, unconfirmed).
+claude-code-action's docs use).
 
 Requirements for the threads:
 
@@ -607,6 +622,16 @@ only, without limits, the name an item is passed as, or the other kinds of item.
   the "Can change results" flag above no longer applies; a parameter's change follows the list's rules.
 - The repository chosen on the GitHub Actions executor page is "the repository that runs the experiments": its
   runners host experiments and it holds the Actions secrets. It is separate from the repositories in the list.
+
+**Since the merge: setup-token, settled in dk-engine-opt** (DECISIONS 2026-10-07, "containers authenticate with
+a long-lived setup-token, not the copied /login"). `claude setup-token` creates a one-year OAuth token that
+needs no interactive refresh and outranks `/login`; it replaced copied `/login` credentials, whose rotating
+refresh token invalidated concurrent containers. The harness forwards it to each container as `-e
+CLAUDE_CODE_OAUTH_TOKEN` by name only, so the value never prints, and stores it owner-only in a file outside
+the project tree (`~/.config/dk-engine-opt/claude-oauth-token`), not a user environment variable, which the
+maintainer rejected. Validation fails on an expired or invalid token, since a dead token outranks `/login`, and
+warns within 30 days of expiry. For Mecha DK: the desktop key store holds the token, as above; the driver
+passes it to each run by name, and Settings, LLMs shows its expiry and warns 30 days ahead.
 
 ### R17. Rename SLEEP to CALIBRATE
 
@@ -646,6 +671,10 @@ Requirements:
 - **For the threads:** whether the driver should mark collaborator-written text as untrusted when it hands
   it to an LLM, and whether a project with collaborators should require MXC (or another sandbox) for
   coding agents.
+
+**Since the merge:** O-BOUNDARY-1 (OPEN-ITEMS, 2026-10-10) shows a procedural execution boundary failing
+unnoticed in this harness itself; MECHA-DK.md's security section should say which of its rules a program
+enforces and which rest on people.
 
 ### R19. Diskuv SaaS: module name, credits, and LLM provider
 
@@ -717,6 +746,10 @@ connections (R9).
 the desktop: through the agent's own login where that yields a token that can be stored and reused
 unattended (as `claude setup-token` does), otherwise with the agent's API key. The result is stored as a
 secret and handed to executors (R16).
+
+**Since the merge:** every measurement records the agent and its version (R14). Each supported agent, goose
+included (R25), must report its version where the measurement is produced, as `common/agent.py` now does for
+Claude Code (`agent.agent_version()`, computed inside the container that ran it).
 
 ### R21. IDEATE draws on Zotero, web search and people, not only "the literature"
 
@@ -834,6 +867,12 @@ Engine side: does `dk0 learn` hold the window record and the paused flag as proj
 since state is `dk0 learn`'s, R10), or does the driver? And the harness's condition 10, "a run that cannot hear its
 cancel switch must not keep acting": the GUI equivalent is a driver that cannot reach the relay. Whether it should
 then pause itself is a decision for the maintainer. Who may pause (PI only, or collaborators too) is also open.
+
+**Since the merge: an empty IDEATE round** (DECISIONS 2026-10-10, "a no-verdict draw is not a draw, and an
+empty IDEATE round spends one cycle"). While a case still fails, a round in which IDEATE produces no usable
+hypothesis now counts as one cycle and the next cycle tries again; before, it ended the bug. The window's stop
+rule above ("N cycles in a row that learn nothing") must say whether an empty round is one of those cycles, and
+a failed agent call (no verdict) must not count as a cycle that learned nothing.
 
 ### R23. Each project has a local folder, and the GUI opens folders
 
@@ -1151,6 +1190,10 @@ files of state S, with changed-since-state-T marks" and "read file F at state S"
 GUI never reconstructs states itself. Lab parameters have no state record today at all: an experiment a person
 runs (R8) must record the values used as the state it ran at.
 
+**Since the merge:** a node's posterior now reads only the states it created (`created_by`), so the state
+record above carries the node's evidence, not only lineage (R28). Each state's measurements also record the
+agent and its version (R14), which the SUO browser shows with the state.
+
 ### R27. Models and large data in the SUO, a variable per item, and the scripts that stand in for the adapter hooks
 
 The maintainer (verbatim, 2026-10-10):
@@ -1304,9 +1347,19 @@ these outcome measures are specified. I want to understand how to make that UI s
 **What `cycle/` does today.** One outcome, pass or fail, per case. `common/tree-schema.md` records each
 observation as `(state, outcome)` with "outcome 1 means the case exhibits the failure"; each case runner maps
 `exhibits_failure = 0 if passed else 1` (RunBugRun per test, Defects4J per bug-revealing test plus one
-regression case, MLE-bench one case per competition where "passed is `any_medal`"). The loss is the Beta mean
-of P(exhibits failure) with recency decay (`common/algorithms/posterior.py`: "mean() is the node loss"); SELECT
-is Thompson on those Betas (`selection.py`). "Better" is prose in the root hypothesis (`suo.py`). No weights.
+regression case, MLE-bench one case per competition where "passed is `any_medal`"). Since per-node credit
+(DECISIONS 2026-10-09 and 2026-10-10, `common/tree-schema.md`, `algorithms/treestore.node_posterior`), a node's
+Beta is no longer the share of its in-scope cases that fail, read from the shared log. It is the chance that the
+node's OWN fix resolves its in-scope cases: each state the node created is one success (every in-scope case
+passes there) or one failure, decayed by recency; an untried node keeps the prior 0.5 and so outranks one whose
+fix failed; the initial state is never an attempt; a fix that changed no code is a failure. SELECT is Thompson
+on those Betas, highest first (`selection.py`). "Better" is prose in the root hypothesis (`suo.py`). No weights.
+
+**A gap the threads must close.** design.typ still speaks of a node's expected loss, lower is better, and the
+Mecha DK boards follow it ("Expected loss, lower is better"); `cycle/` now ranks by the chance a node's own fix
+works, higher is better. The multi-outcome value function below needs per-node credit stated for every
+outcome: whether a numeric outcome's belief, too, reads only the states the node created, and what an untried
+node's prior is on the combined value. The GUI's wording follows whichever the design settles on.
 
 **Where weighted outcomes come from.** The dk-engine-opt harness scores several terms (design.typ: `NET =
 FINAL - 0.002·(policy tokens/1000)`, `DOC = 0.4·DOC_MECH + 0.6·judge`). The design's replacement (C62, C63) is
@@ -1360,7 +1413,8 @@ model or count is a measurement change (R13, R14).
 - **Result format.** A run rule returns, per case, `{"id", "passed", "values": {NAME: number, ...}}`, one entry
   per value or judge outcome; a judged value is the median of the judges' scores, with each score kept. Defined and versioned by `dk0 learn` with the template schema (R24, R27).
 - **One belief per outcome.** A Beta for "cases that pass" (as today) and a Student-t from the NIG for each
-  numeric outcome, per hypothesis, with the same recency decay and state attribution (R26).
+  numeric outcome, per hypothesis, with the same recency decay and state attribution (R26), each read from
+  the states the node created (per-node credit, above).
 - **The value function.** Scale each outcome linearly so the start of its typical range is 0 and the end is 1,
   extending the line beyond the range (accuracy 51% on a 70% to 95% range scores (51 - 70) / (95 - 70) = -0.76),
   combine with the weights,
@@ -1368,7 +1422,8 @@ model or count is a measurement change (R13, R14).
   each outcome's never-adopt limit; the limit applies to a credible bound: DECIDE adopts only when it is confident,
   at C2's decision quantile, that the outcome is within the limit (the maintainer, 2026-10-10, choosing "Cautious bound"). One setting
   serves both. SELECT and DECIDE use
-  that combined value; with one outcome it reduces to today's failure rate.
+  that combined value; with one "cases that pass" outcome it must reduce to what `cycle/` does today, per-node
+  credit included.
 - **Elicitation.** Turn the order and the chained ratings into Dirichlet parameters, and, once there are results, report a sensitivity
   check: the smallest change of each rating that changes which hypothesis leads, expressed as a rating. The GUI shows the result; the
   arithmetic is `dk0 learn`'s.

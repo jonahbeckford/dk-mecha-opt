@@ -41,7 +41,7 @@ html = (HEAD.format(title='Windows and pausing') + f'''<div style="min-height: {
    ['[Mon 12 Oct] 09:00 to [Wed 14 Oct] 09:00', '[Away at a conference]', 'Up to [10] cycles; spends up to [amount]', btn('Edit') + ' ' + btn('Cancel')]], 700)
    + '        <div>' + btn('Add an unattended window') + '</div>', 'h-up')
  + section('Before the next window opens', p('These need you, and stay parked while you are away. Clear them in an attended cycle first, or leave them.')
-   + ul(['<span style="flex: 1 1 300px">[n] hypotheses parked for a spend</span>' + a('AUTHORIZE','StageAuthorize.dc.html'),
+   + ul(['<span style="flex: 1 1 300px">[n] hypotheses parked for your approval</span>' + a('AUTHORIZE','StageAuthorize.dc.html'),
          '<span style="flex: 1 1 300px">[n] merged changes waiting for REVIEW</span>' + a('REVIEW','ReviewCalibrate.dc.html'),
          '<span style="flex: 1 1 300px">[n] hypotheses waiting for a revelation from you</span>' + a('Tree','Tree.dc.html')])
    + row(sel('Attended cycles to run first', ['None', '1', '2'])), 'h-prep')

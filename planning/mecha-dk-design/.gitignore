@@ -3,3 +3,4 @@ pubcheck/
 shot/
 __pycache__/
 gen/scan.out
+export/
