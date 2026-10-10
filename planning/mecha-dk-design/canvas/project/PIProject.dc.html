@@ -100,7 +100,6 @@ select{max-width:100%;min-width:0}
 
 Apply the same feature set, preprocessing and encoding to validation and test inputs.]</textarea></div><span style="font-size: 12px; color: {{c.mut}}">Markdown. Read by the LLM before it proposes hypotheses and writes each experiment. "Save sections 1 to 4 as a template" saves these with the template; a project started from a template shows them read-only.</span></div></div></div>
         <div style="font-size: 13px; color: {{c.mut}}; line-height: 1.45">Mecha DK does the rest itself: it saves each version, fingerprints what changed, records every result and works out what it means. A template fills these in; the two benchmark templates come with working scripts.</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center"><button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Check by measuring the starting version</button><span style="font-size: 13px; color: {{c.mut}}">Runs set up and one experiment on the starting version, before the first cycle. The project cannot start until this passes.</span></div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid {{c.line}}">
         <h3 style="font-size: 15px; font-weight: 700; margin: 0">Protocol of record</h3>
@@ -197,6 +196,7 @@ Never use more than [amount] of reagent [name] in one experiment.]</textarea></d
       <div style="font-size: 13px; color: {{c.mut}}">With no LLM, you or your collaborators pose the hypotheses and write the experiments, and the mecha still chooses which to run, tracks what each result means, and decides when a hypothesis is settled.</div>
     </fieldset>
 
+    <div style="font-size: 14px; line-height: 1.5; padding: 12px 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.surf}}"><b>Start the project</b> first checks the setup. The mecha runs Set up, then one experiment on the starting version, on the executor you chose. When that run costs money or a person's time, it waits for your approval at AUTHORIZE. If the check fails, the project page shows what failed and no cycle starts. If it passes, its results are the starting version's first measurement, and the first cycle begins.</div>
     <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end">
       <a href="Projects.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; text-decoration: none">Cancel</a>
       <a href="Cycle.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}; text-decoration: none">Start the project</a>

@@ -1273,7 +1273,18 @@ only what is task knowledge, as commands and files in a new "How an experiment r
 | `constraints` | "Where it runs": one or more `dk0 add github-l2 [HOST/]OWNER/REPO[@TAG]` (the maintainer, 2026-10-10: "Use one or more `dk0 import`", corrected: "I meant `dk0 add` not dk0 import"), each pinned to its tag; "Hardware" (below); out of bounds |
 | `code_hash`, `snapshot`, `ingest`, `now`, `result_text` | done by `dk0 learn` and the driver from the surfaces; nothing for the PI |
 | `seed_hints` | the shared seed, when a project starts from a seeded template |
-| `check_prerequisites` | "Check by measuring the starting version", required before the first cycle |
+| `check_prerequisites` (refuses a cycle when the SUO has no root hypothesis, `common/suo.py`) | "Aim", required |
+
+**The setup check** (the maintainer, verbatim, 2026-10-10: "What does "Check by measuring the starting version"
+button do?", then "Yes" to the recommendation). An earlier draft mapped a "Check by measuring the starting
+version" button to `check_prerequisites`; that was wrong, since `check_prerequisites` measures nothing. The button
+is gone. "Start the project" first checks the setup: Set up, then one experiment on the starting version, on the
+chosen executor. A run that costs money or a person's time waits at AUTHORIZE first. A failed check is shown on
+the project page and no cycle starts; a passing check's results are the starting version's first measurement, the
+baseline. Engine request: `dk0 learn` records the setup check as the root's first measurement, and refuses the
+first cycle until one has passed; the checks are that each rule finishes within its time limit, returns a valid
+result for each case and every named outcome value, the hardware matches, and no grader-only item reaches the
+experiment.
 
 Templates carry these scripts: the two benchmark templates ship working ones, and a third template, "Fine-tune a
 classifier", comes from `cycle/finetune/`. The Cap'n Proto schema of R24 needs `outputs`, a parameter name on every
