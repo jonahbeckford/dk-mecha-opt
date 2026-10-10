@@ -1038,8 +1038,16 @@ struct Boundary {
 
 struct Outcome {
   name @0 :Text;
-  weight @1 :Float64;                # from the PI's comparisons, not typed
+  source @1 :OutcomeSource;
+  valueName @2 :Text;                # for a value or judge outcome: the key in each case's result
+  higherIsBetter @3 :Bool;
+  unit @4 :Text;
+  worst @5 :Float64;                 # the swing range used for weighting
+  best @6 :Float64;
+  weight @7 :Float64;                # from the PI's swing answers, not typed
 }
+
+enum OutcomeSource { casesThatPass @0; runRuleValue @1; judgeScore @2; }
 ```
 
   Secrets and the measuring apparatus are always out of bounds, so the schema has no field to switch them off.
@@ -1240,7 +1248,7 @@ only what is task knowledge, as commands and files in a new "How an experiment r
 
 | Hook in `cycle/` | In Mecha DK |
 | --- | --- |
-| `measure` (run and grade at a state) | "Run the experiment": `dk0 run-function` on the experiment rule, given the items as grouped parameters, returning one result per case (passed, or a value), with a time limit |
+| `measure` (run and grade at a state) | "Run the experiment": `dk0 run-function` on the experiment rule, given the items as grouped parameters, returning per case whether it passed and each named outcome value (R28), with a time limit |
 | the MLE grader container | optional "Grade out of sight": `dk0 run-function` on a separate grader rule, given only the hidden data and the experiment's output |
 | the MLE loader and `emit` | optional "Set up": `dk0 run-function` on a setup rule, once per executor, given the same items; the only step with network and setup secrets (the maintainer, 2026-10-10: "The Set up command should be a run-function as well.") |
 | `task_context`, `prompt_config` | "What the LLM is told": a task description file and standing instructions |
@@ -1257,6 +1265,46 @@ run-function` as module and version, the setup rule likewise, the task descripti
 Markdown text, and time limits). The per-case result format belongs to the function rule's output and is versioned
 with the schema. Standing instructions are edited in a multi-line Markdown editor with a preview (the maintainer,
 2026-10-10: "The Standing instructions should be a text editor.").
+
+### R28. Measurable outcomes and swing weighting for "What counts as a better result"
+
+The maintainer (verbatim, 2026-10-10): "The "What counts as a better result" section. Tell me where in cycle/
+these outcome measures are specified. I want to understand how to make that UI section actionable.", then
+"Yes" to the redesign below.
+
+**What `cycle/` does today.** One outcome, pass or fail, per case. `common/tree-schema.md` records each
+observation as `(state, outcome)` with "outcome 1 means the case exhibits the failure"; each case runner maps
+`exhibits_failure = 0 if passed else 1` (RunBugRun per test, Defects4J per bug-revealing test plus one
+regression case, MLE-bench one case per competition where "passed is `any_medal`"). The loss is the Beta mean
+of P(exhibits failure) with recency decay (`common/algorithms/posterior.py`: "mean() is the node loss"); SELECT
+is Thompson on those Betas (`selection.py`). "Better" is prose in the root hypothesis (`suo.py`). No weights.
+
+**Where weighted outcomes come from.** The dk-engine-opt harness scores several terms (design.typ: `NET =
+FINAL - 0.002·(policy tokens/1000)`, `DOC = 0.4·DOC_MECH + 0.6·judge`). The design's replacement (C62, C63) is
+an additive multi-attribute value function, its weights elicited by swing weighting and pairwise preferences,
+carried as a Dirichlet with uncertainty and sensitivity-tested; the risk attitude stays in the decision
+quantile (C2).
+
+**The GUI.** Section 2 is a list of outcomes, each with a name, where it comes from (cases that pass, a value
+the run rule returns by name, or a judge's score), the value name, which way is better, a unit, and the worst
+and best values that matter. With two or more outcomes, "Weigh outcomes" runs swing weighting: the PI picks the
+one move from worst to best they want most, rates each other move against it from 0 to 100, and sees the
+weights with their uncertainty and the weight the ranking is most sensitive to. A new weight later is a
+measurement change that recalculates scores from recorded results; a new outcome is measured again (R13,
+R14). "What you measure" keeps only where cases come from.
+
+**Engine requests.**
+
+- **Result format.** A run rule returns, per case, `{"id", "passed", "values": {NAME: number, ...}}`, one entry
+  per value or judge outcome. Defined and versioned by `dk0 learn` with the template schema (R24, R27).
+- **One belief per outcome.** A Beta for "cases that pass" (as today) and a Student-t from the NIG for each
+  numeric outcome, per hypothesis, with the same recency decay and state attribution (R26).
+- **The value function.** Normalise each outcome to 0 at its worst and 1 at its best, combine with the weights,
+  and propagate the weights' Dirichlet uncertainty into each hypothesis's expected value. SELECT and DECIDE use
+  that combined value; with one outcome it reduces to today's failure rate.
+- **Elicitation.** Turn the swing answers into Dirichlet parameters, and report a sensitivity check: the
+  smallest change of each weight that changes the order of the top hypotheses. The GUI shows the result; the
+  arithmetic is `dk0 learn`'s.
 
 ## Classification
 
