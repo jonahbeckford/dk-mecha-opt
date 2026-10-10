@@ -289,7 +289,15 @@
       "w": 1360,
       "h": 1500,
       "expand": "fill",
-      "title": "Web: new project from a template (sections 1 to 3 folded)"
+      "title": "Web: new project from a template (sections 1 to 3 folded, 4 from the template)"
+    },
+    "PIProjectDescribe.dc.html": {
+      "x": 2880,
+      "y": 2820,
+      "w": 1360,
+      "h": 1500,
+      "expand": "fill",
+      "title": "Web: new project drafted from a description"
     }
   },
   "order": [
@@ -300,6 +308,7 @@
     "Projects.dc.html",
     "PIProject.dc.html",
     "PIProjectTemplate.dc.html",
+    "PIProjectDescribe.dc.html",
     "Cycle.dc.html",
     "Tree.dc.html",
     "SuoBrowser.dc.html",

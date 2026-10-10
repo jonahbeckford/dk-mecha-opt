@@ -1421,6 +1421,52 @@ version, and its additions separately, so the template's entries stay locked and
 told apart from the project's own extensions. Open: whether a project can move to a newer version of its
 template, and whether that is a measurement change (R13).
 
+### R32. A New project drafted from a description, and problems and hypotheses to start with
+
+The maintainer (verbatim, 2026-10-10): "I want another flow for new project. If the user gives a prompt, a LLM
+infers what the values are for all sections except Section 4 and "Where the LLM looks" (and even Section 4 should
+get reasonable defaults relevant to the prompt). Part of the prompt may imply one or more posed problems or one or
+more posed hypotheses. All new project workflows should allow initial posed problems and hypotheses (this is
+important for templates)."
+
+**Every flow gets a new section 4, "Problems and hypotheses to start with".** Each entry is a problem or a
+hypothesis in the PI's words, with Delete, and "Add a problem" and "Add a hypothesis". They enter the tree as
+posed before the first cycle: OBSERVE lists them as posed, IDEATE turns each problem into hypotheses, DROP checks
+each hypothesis against the revelations (Main, Flow 1 and Flow 2). The later sections move down: "Who runs the
+experiments" is now 5 and "Who helps the mecha" is 6, so the maintainer's "Section 4" above is section 5 in the
+boards. A template now covers sections 1 to 4: "Save sections 1 to 4 as a template" also saves the starting
+problems and hypotheses, and a project from a template begins with them, tagged "From the template", each
+removable for that project while the template keeps it. This supersedes "sections 1 to 3" in R31 for saving; the
+template board still folds sections 1 to 3 and shows section 4 open, since starting problems are what a PI most
+often changes per project.
+
+**"Describe it" is a new Start from choice.** It needs a connected LLM. The PI writes a description and may add
+files (R30). The LLM drafts sections 1 to 4 and 6, the project title and the task description, and suggests the
+choice for section 5 from the description and what the desktop knows of its executors ("This computer. Your
+description asks for one GPU, and this computer has one."). "Where the LLM looks" is the PI's alone. Sections 1 to
+3 fold into a summary in which every line is marked "Drafted" or "Needs you"; "Show all settings" opens them with
+each drafted field marked, and a field the PI changes stops being a draft. "Draft again" keeps every field the PI
+changed. The description and files go to the chosen LLM and are kept in the project folder as the project's first
+note. Nothing starts until "Start the project".
+
+Four things always need the PI, listed in "Before you start the project": the project folder; the run and grade
+rules, where the draft states what each must do but chooses none; the secrets each step may use, which a draft
+always leaves unticked; and the weighing of outcomes, a preference the LLM can only guess from the PI's words. The
+same list warns that pasted text and added files can steer the draft, and asks the PI to read "What the mecha may
+change" and "Out of bounds" line by line (MECHA-DK.md, Security).
+
+**Engine requests.**
+
+- **Starting problems and hypotheses.** `dk0 learn init` accepts problems and hypotheses to pose before the first
+  cycle, each with who posed it (the PI, the template, or the PI's description), and the template schema (R24) gets
+  a list of them.
+- **One schema for a template and a draft.** The LLM writes its draft as a value of the template schema, with each
+  field marked as drafted, and `dk0 learn` checks it as it checks an imported template. A draft never carries a
+  secret or a run rule choice.
+- **Open:** whether the LLM may write a new run and grade rule into the project folder for the PI to review, or
+  only pick among the rules the added packages provide; and whether a description that matches a template should
+  start the draft from that template.
+
 ## Classification
 
 Not yet applied. A first reading, for the threads to confirm or overturn: R1 to R3 change what the

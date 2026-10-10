@@ -82,6 +82,21 @@ results are measured. The desktop runs the rules named in the project each cycle
 anything it measures with, is a measurement change: it waits for the next break between cycles and is
 applied with a fresh baseline. See Measurement changes in project settings.
 
+### Projects drafted from a description
+
+With **Describe it**, the LLM you choose reads your description and any files you add, then drafts the New project
+form. The description and files go to that LLM's provider. A draft never ticks a secret and never chooses the run
+and grade rules; you do both.
+
+Text and files from someone else can carry a prompt injection that steers the draft, for example by widening what
+the mecha may change or by dropping a line from Out of bounds. Read those two parts of a draft line by line before
+you start the project.
+
+### Problems and hypotheses from a template
+
+A template can carry problems and hypotheses for a project to start with. The LLM reads them like any posed
+problem or hypothesis. Read them before you start a project from a template someone else made.
+
 ### Judged outcomes
 
 An outcome can come from a judge's score: an LLM or a person rates each result against the judge's

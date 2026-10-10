@@ -14,7 +14,14 @@ s=s[:lab]+seg2+s[k:]
 # cut sections 1..3 and the save line
 a=s.index('    <fieldset',s.index('Project folder'))
 a=s.rindex('    <fieldset',0,s.index('1. Scope</legend>'))
-b=s.index('Also in project settings.</span></div>')+len('Also in project settings.</span></div>')
+b=s.rindex('    <fieldset',0,s.index('4. Problems and hypotheses to start with</legend>'))
+sv=s.index('    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: -8px"><button type="button"')
+sve=s.index('Also in project settings.</span></div>',sv)+len('Also in project settings.</span></div>')
+s=s[:sv]+s[sve:]
+from starting import section as start_section
+s4a=s.index('    <fieldset',b); s4b=s.index('</fieldset>',s4a)+len('</fieldset>\n')
+s=s[:s4a]+start_section([(1,'Problem','Find a change that makes the failing tests pass without breaking a passing test.','From the template'),(2,'Hypothesis','[A change to try, and what it should do]','',True)],
+  'The template\'s problems and hypotheses are a starting point. Delete any you do not want for this project; the template keeps them.')+s[s4b:]
 row_=lambda title, body, act: (f'<li style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 14px; padding: 12px 0; border-top: 1px solid {{{{c.line}}}}">'
     f'<span style="flex: 0 0 200px; font-size: 15px; font-weight: 600">{title}</span><span style="flex: 1 1 320px; font-size: 14px; line-height: 1.5">{body}</span>{act}</li>')
 ext=lambda t: f'<button type="button" style="{BTN}">{t}</button>'
@@ -48,6 +55,6 @@ s=s[:a]+summary+s[b:]
 s=s.replace('<title>New project</title>','<title>New project from a template</title>',1)
 open(os.path.join(OUT,'PIProjectTemplate.dc.html'),'w').write(s)
 d=json.load(open(os.path.join(OUT,'canvas.json')))
-d['boards']['PIProjectTemplate.dc.html']={'x':1440,'y':2480,'w':1360,'h':1500,'expand':'fill','title':'Web: new project from a template (sections 1 to 3 folded)'}
+d['boards']['PIProjectTemplate.dc.html']={'x':1440,'y':2480,'w':1360,'h':1500,'expand':'fill','title':'Web: new project from a template (sections 1 to 3 folded, 4 from the template)'}
 if 'PIProjectTemplate.dc.html' not in d['order']: d['order'].insert(d['order'].index('PIProject.dc.html')+1,'PIProjectTemplate.dc.html')
 json.dump(d,open(os.path.join(OUT,'canvas.json'),'w'),indent=2)
