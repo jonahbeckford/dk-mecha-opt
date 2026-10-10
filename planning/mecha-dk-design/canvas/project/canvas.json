@@ -282,6 +282,14 @@
       "h": 1300,
       "expand": "fill",
       "title": "Web: browse a version of what the mecha works on"
+    },
+    "PIProjectTemplate.dc.html": {
+      "x": 1440,
+      "y": 2480,
+      "w": 1360,
+      "h": 1500,
+      "expand": "fill",
+      "title": "Web: new project from a template (sections 1 to 3 folded)"
     }
   },
   "order": [
@@ -291,6 +299,7 @@
     "Welcome.dc.html",
     "Projects.dc.html",
     "PIProject.dc.html",
+    "PIProjectTemplate.dc.html",
     "Cycle.dc.html",
     "Tree.dc.html",
     "SuoBrowser.dc.html",

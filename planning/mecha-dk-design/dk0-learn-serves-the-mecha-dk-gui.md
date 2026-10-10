@@ -1376,6 +1376,40 @@ Engine side: nothing new for `dk0 learn` beyond the project folder; the driver n
 iroh channel with a size limit, and the threads should say what that limit is and whether large files go through
 the "model or dataset" references of R27 instead.
 
+### R31. Task description and standing instructions, and a short New project page from a template
+
+The maintainer (verbatim, 2026-10-10): "What is the difference between Task description and Standing
+instructions?", then "Yes. But I want standing instructions to be readonly if a template was used. And I want
+standing instructions to be clearly associated with the Save as template feature. More generally, the new project
+page is way too long if a template is used. When a template is used, the sections 1-3 can be overridden (more
+accurately, can be extended) but typically won't be."
+
+**The difference**, from `cycle/`: the task description is `task_context`, "the task text for the prompt", facts
+that change with every task (MLE-bench's `description.md`, the program and its failing tests). The standing
+instructions are `prompt_config`'s "IDEATE and FIX framings and the validation (holdout) discipline", method that
+holds for every task of a kind (`ML_HOLDOUT_DISCIPLINE`). `suo.py` assembles the root hypothesis from the
+objective preamble, a pointer to the task description, the baseline, the discipline and the target, so the engine
+builds the root from the Aim, the task description and the standing instructions. A rule the mecha must never
+break is a revelation, not a standing instruction. The form now says so under each field.
+
+**Standing instructions belong to the template.** They carry a "Saved with the template" label, and "Save
+sections 1 to 3 as a template" says it saves the scope, outcomes, revelations and standing instructions. In a
+project started from a template they are read-only; to change them the PI starts from Blank and saves a new
+template.
+
+**From a template, sections 1 to 3 fold into one summary.** A new board shows the page with "Fix a program until
+its tests pass" chosen: "Fill in for this project" asks only for what the template cannot know (the repository,
+its source folder and branch, and an optional task description); below it, one line each for the aim, what the
+mecha works on, how an experiment runs, what counts as better, revelations and out of bounds, with "Add items",
+"Add an outcome", "Add a revelation" and "Add to it"; then the read-only standing instructions; "Show all
+settings" opens the full sections with the template's entries locked. Additions are saved with the project only.
+
+Engine and schema requests: a template marks which fields each project must fill (slots: here the repository,
+source folder and branch, and the task description), and a project records the template it came from, its
+version, and its additions separately, so the template's entries stay locked and a later template version can be
+told apart from the project's own extensions. Open: whether a project can move to a newer version of its
+template, and whether that is a measurement change (R13).
+
 ## Classification
 
 Not yet applied. A first reading, for the threads to confirm or overturn: R1 to R3 change what the
