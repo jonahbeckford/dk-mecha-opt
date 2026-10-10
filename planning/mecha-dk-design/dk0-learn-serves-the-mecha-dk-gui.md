@@ -852,8 +852,9 @@ harness's own rules for windows (`declare-unattended-window`, `plan-unattended-w
   unattended, pause until working hours, or keep waiting (attended). With "run unattended", each evening and
   weekend is its own window ending when working hours start.
 - **A window permits running, not spending.** Its limits are a cycle cap (default 6, the harness default) and a
-  stop after N cycles in a row that learn nothing (default 2); spends and sending experiments to a person happen
-  only when the window allows them. Anything else stays parked. Measurement changes and revelations are never
+  stop after N cycles in a row that learn nothing (default 2). Paid runs happen inside a window only up to the
+  amount the PI pre-approved for it (R33), and experiments go to a person only when the window allows it; a run
+  using a secret marked Approve each use never happens inside a window. Anything else stays parked. Measurement changes and revelations are never
   made inside a window.
 - **Before a window opens** the GUI lists what will stay parked (spends, REVIEW owed, revelations owed) and
   offers attended cycles first, the prep cycles of `plan-unattended-window`.
@@ -1610,14 +1611,20 @@ that wait for your approval" section belongs in MECHA-DK.md, not in the UI."); t
 each use" checkbox on each secret and the reason on each parked row.
 
 Each approval releases one run of one hypothesis and is recorded with who gave it and when, the GUI's form of a
-written single-use grant. An unattended window never approves, and parked hypotheses keep their class alive at
-IDEATE. The setup check at "Start the project" follows the same rule. SELECT still weighs cost when choosing
+written single-use grant. **A window can carry a pre-approval** (the maintainer, verbatim, 2026-10-10: "A window
+can carry a pre-approval.", choosing it over "windows never approve"): when the PI schedules an unattended window,
+"Approve paid runs up to [amount] in total during this window" releases paid-executor runs until their worked
+costs reach the amount, each recorded as approved by that window. The window's other pre-approval is unchanged
+(R22): "Allow experiments that a person runs to be sent". A run that uses a secret marked Approve each use is
+never pre-approved and always waits for the PI. Parked hypotheses keep
+their class alive at IDEATE. The setup check at "Start the project" follows the same rule. SELECT still weighs cost when choosing
 (R12 and the hourly price above), but cost alone never parks a run.
 
 **Engine requests.** `dk0 learn` records a park with its reason (executor, secret or person) and the worked cost,
 records each approval as a single-use grant tied to one hypothesis's run, and refuses to dispatch a parked run
-without one. Executors report whether they are paid and their hourly price. Open: whether a PI who runs everything
-on Diskuv SaaS may approve paid runs for a whole attended window at once, rather than run by run.
+without one, or without an unspent window pre-approval that covers its worked cost. Executors report whether
+they are paid and their hourly price. The window's pre-approval is stored with the window (R22) and counted down
+by each paid run's worked cost, so a run whose cost would exceed what is left parks.
 
 ## Classification
 

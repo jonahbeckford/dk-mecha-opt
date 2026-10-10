@@ -23,7 +23,7 @@ html = (HEAD.format(title='Windows and pausing') + f'''<div style="min-height: {
   <main style="width: 100%; max-width: 1080px; box-sizing: border-box; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 18px">
     <div style="display: flex; flex-direction: column; gap: 6px">
       <h1 style="margin: 0; font-size: 26px">Attended and unattended windows</h1>
-      <div style="font-size: 15px; color: {{{{c.mut}}}}; line-height: 1.5; max-width: 820px">In an attended window, cycles stop at AUTHORIZE, REVIEW and CALIBRATE to ask you. In an unattended window they run back to back, skip those stages, and leave anything that needs you parked. An unattended window lets the mecha run; it never lets it spend unless you say so below.</div>
+      <div style="font-size: 15px; color: {{{{c.mut}}}}; line-height: 1.5; max-width: 820px">In an attended window, cycles stop at AUTHORIZE, REVIEW and CALIBRATE to ask you. In an unattended window they run back to back, skip those stages, and leave anything that needs you parked. An unattended window lets the mecha run; paid runs wait for you unless you approve an amount for them below. Experiments for a person are sent only if you allow it below. Runs that use a secret you approve each use always wait.</div>
     </div>
 ''' + section('Now', '''        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px">
           <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 700">Attended</span><span style="font-size: 14px; color: {{c.mut}}">Working hours, until 18:00 today. Then unattended until 09:00 tomorrow.</span></div>
@@ -38,7 +38,7 @@ html = (HEAD.format(title='Windows and pausing') + f'''<div style="min-height: {
  + p('With "Run unattended", each evening and weekend becomes its own window that ends when working hours start. Holidays: add a window below or pause.', True), 'h-hours')
  + section('Upcoming windows', table(['When', 'Why', 'Limits', ''], [
    ['Fri 18:00 to Mon 09:00', 'Weekend (working hours)', 'Up to 6 cycles', ''],
-   ['[Mon 12 Oct] 09:00 to [Wed 14 Oct] 09:00', '[Away at a conference]', 'Up to [10] cycles; spends up to [amount]', btn('Edit') + ' ' + btn('Cancel')]], 700)
+   ['[Mon 12 Oct] 09:00 to [Wed 14 Oct] 09:00', '[Away at a conference]', 'Up to [10] cycles; paid runs up to [amount] in total', btn('Edit') + ' ' + btn('Cancel')]], 700)
    + '        <div>' + btn('Add an unattended window') + '</div>', 'h-up')
  + section('Before the next window opens', p('These need you, and stay parked while you are away. Clear them in an attended cycle first, or leave them.')
    + ul(['<span style="flex: 1 1 300px">[n] hypotheses parked for your approval</span>' + a('AUTHORIZE','StageAuthorize.dc.html'),
@@ -46,10 +46,10 @@ html = (HEAD.format(title='Windows and pausing') + f'''<div style="min-height: {
          '<span style="flex: 1 1 300px">[n] hypotheses waiting for a revelation from you</span>' + a('Tree','Tree.dc.html')])
    + row(sel('Attended cycles to run first', ['None', '1', '2'])), 'h-prep')
  + section('Every unattended window', row(inp('Stop after this many cycles', 'number', '6'), inp('Stop after this many cycles in a row that learn nothing', 'number', '2'))
-   + chk('Allow spends up to [amount] per window without asking') 
+   + chk('Approve paid runs up to [amount] in total during this window') 
    + chk('Allow experiments that a person runs to be sent (they wait for the person)')
    + p('Anything not allowed here stays parked. Measurement changes and revelations are never made inside a window.', True), 'h-lim')
- + section('Pausing', p('Pause now stops the mecha after the step it is doing, and starts nothing new: no new experiment, no new spend. Experiments already running finish and their results are kept. Nothing already done is undone. The project stays paused until you resume it, even when a window would open.')
+ + section('Pausing', p('Pause now stops the mecha after the step it is doing, and starts nothing new: no new experiment, no new paid run. Experiments already running finish and their results are kept. Nothing already done is undone. The project stays paused until you resume it, even when a window would open.')
    + p('Pause works from any device signed in to this project, including your phone. If the desktop running the project cannot be reached, the pause waits and is applied the moment it can.', True)
    + '        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 10px 12px; border: 2px solid {{c.bad}}; border-radius: 6px"><span style="flex: 1 1 260px; font-size: 15px"><strong>When paused:</strong> Paused by [you] at [time] from [phone]. [n] experiments still finishing.</span>' + btn('Resume', True) + '</div>', 'h-pause')
  + section('Past windows', table(['When', 'Cycles', 'Ended because', ''], [

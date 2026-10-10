@@ -79,8 +79,10 @@ instead of sending it to DISPATCH, when the plan has any of these:
 
 "Start the project" applies the same check to its setup check, before the first cycle.
 
-Each approval releases one run of one hypothesis, and is recorded with who gave it and when. In an unattended
-window nothing is approved: parked runs wait, and the mecha keeps proposing hypotheses like them.
+Each approval releases one run of one hypothesis, and is recorded with who gave it and when. An unattended window
+can carry pre-approvals you set when you schedule it: paid runs up to an amount, counted in total across the
+window, and sending experiments to a person. A run that uses a secret you marked Approve each use always waits
+until you return. Parked hypotheses stay in the tree, and the mecha keeps proposing hypotheses like them.
 
 The check reads only the run plan. An LLM that writes an experiment cannot add or remove a request: it cannot
 choose the executor or the secrets a step receives. A function rule that calls a paid service needs that

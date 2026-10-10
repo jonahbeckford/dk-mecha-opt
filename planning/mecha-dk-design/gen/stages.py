@@ -126,7 +126,7 @@ page('OBSERVE','StageObserve','read where things stand',
  'nothing new to the tree; it hands the matched problems to IDEATE and SELECT.', 1250)
 
 page('AUTHORIZE','StageAuthorize','release what is waiting on you',
- 'Some hypotheses wait for you before the mecha may choose them: a run that does something you asked to approve, a revelation only you can make, or an experiment a person must run. Release them here, or leave them parked. In an unattended window this stage is skipped and they stay parked.',
+ 'Some hypotheses wait for you before the mecha may choose them: a run that does something you asked to approve, a revelation only you can make, or an experiment a person must run. Release them here, or leave them parked. In an unattended window this stage is skipped and they stay parked, except what you pre-approved for the window: paid runs up to an amount, and experiments for a person.',
  [('Status', tag('Needs you','warn') + ' <span style="font-weight: 400; color: {{c.mut}}">since [time]</span>'), ('Done by', 'You'), ('Runs', 'Attended windows only')],
  section('Parked for what the run does ([n])', table(['Hypothesis','What needs you','Cost, worked out now','Value of what it would tell us',''], [
    ['[Hypothesis]', 'Runs on a paid executor: [Diskuv SaaS]', 'Up to [$3.20]: time limit [2 h] at [$1.60] an hour. ' + a('Show the calculation','#calc'), '[VoI], expected loss [L]', '<span style="display: flex; flex-wrap: wrap; gap: 6px">' + btn('Authorize, up to [$3.20]', True) + btn('Run on this computer') + btn('Keep parked') + '</span>'],
