@@ -1295,8 +1295,15 @@ outcomes?"), then values each outcome compared to the previous one on a slider f
 outcome", and "Use "outcomes" consistently"). Each outcome is valued over its range from worst to best. The
 weights follow by chaining the ratings: the first outcome's raw weight is 1, each next one is the previous raw
 weight times its rating over 100, and the raw weights are divided by their sum to add up to 1.00 (ratings 60
-and 25 give 1, 0.60 and 0.15, so 0.57, 0.34 and 0.09). The GUI shows the
-weights with their uncertainty and the weight the ranking is most sensitive to. A new weight later is a
+and 25 give 1, 0.60 and 0.15, so 0.57, 0.34 and 0.09). The New project form shows the
+weights alone. An earlier draft also showed an interval per weight and a note such as "The best hypotheses
+change order if Accuracy's weight falls below 0.25"; the maintainer did not understand either (verbatim,
+2026-10-10: "I don't understand what "The best hypotheses change order if Accuracy's weight falls below [0.25]"
+means on that page. And I don't understand what the intervals mean in that section"). The interval was the spread
+of the Dirichlet the design carries over the weights (C62, C63), and the note was the sensitivity analysis; on a new
+project there are no hypotheses to reorder. Both stay in the engine. The sensitivity result reaches the PI later,
+once there are results, in project settings and in the slider's own terms, for example "If Accuracy were valued
+below 40 compared to Tests pass, a different hypothesis would lead". A new weight later is a
 measurement change that recalculates scores from recorded results; a new outcome is measured again (R13,
 R14). "What you measure" keeps only where cases come from.
 
@@ -1309,8 +1316,8 @@ R14). "What you measure" keeps only where cases come from.
 - **The value function.** Normalise each outcome to 0 at its worst and 1 at its best, combine with the weights,
   and propagate the weights' Dirichlet uncertainty into each hypothesis's expected value. SELECT and DECIDE use
   that combined value; with one outcome it reduces to today's failure rate.
-- **Elicitation.** Turn the order and the chained ratings into Dirichlet parameters, and report a sensitivity check: the
-  smallest change of each weight that changes the order of the top hypotheses. The GUI shows the result; the
+- **Elicitation.** Turn the order and the chained ratings into Dirichlet parameters, and, once there are results, report a sensitivity
+  check: the smallest change of each rating that changes which hypothesis leads, expressed as a rating. The GUI shows the result; the
   arithmetic is `dk0 learn`'s.
 
 ### R29. Revelations seed IDEATE as well as bound it
