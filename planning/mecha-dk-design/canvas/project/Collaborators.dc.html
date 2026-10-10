@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Collaborators</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3{font-family:Lato,Inter,sans-serif;font-weight:700}
+button,input{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 900px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}">/ [Study title] / Collaborators</div>
+  </header>
+
+  <main style="width: 100%; max-width: 880px; box-sizing: border-box; margin: 0 auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 18px">
+    <h1 style="margin: 0; font-size: 26px">Collaborators</h1>
+    <div style="font-size: 15px; color: {{c.mut}}; line-height: 1.5">People you invite can receive experiments to run and send back results. The study is shared through Diskuv SaaS, signed in as [email].</div>
+
+    <section aria-labelledby="inv" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+      <h2 id="inv" style="margin: 0; font-size: 18px">Invite someone</h2>
+      <label for="em" style="font-size: 14px; font-weight: 600">Their email</label>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <input id="em" type="email" style="flex: 1 1 280px; min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+        <button type="button" style="min-height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Send invitation</button>
+      </div>
+      <div style="font-size: 13px; color: {{c.mut}}">A collaborator sees the whole hypothesis tree, poses hypotheses, runs the experiments you send them, and can request measurement changes for you to approve. Only you approve experiments, reviews and calibrations.</div>
+      <div role="note" style="border: 2px solid {{c.bad}}; border-radius: 6px; padding: 12px 14px; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 6px">
+        <strong>A collaborator can end up with your full control.</strong>
+        <span>What a collaborator writes, such as a hypothesis, a note or an experiment result, is read by the LLMs and coding agents this project uses. Text written to trick an LLM (a prompt injection) can make them act as if you asked: run code with your secrets, change files the mecha may change, or word a request so that you approve it. Invite only people you would trust with this computer.</span>
+        <a href="#security" style="min-height: 44px; display: inline-flex; align-items: center; color: {{c.acc}}">Read the security notes</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="ppl" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 0; overflow: hidden">
+      <h2 id="ppl" style="margin: 0; font-size: 18px; padding: 16px 20px; border-bottom: 1px solid {{c.line}}">People on this study</h2>
+      <ul style="list-style: none; margin: 0; padding: 0">
+        <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 8px 20px"><span style="flex: 1 1 240px; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">You</span><span style="font-size: 13px; color: {{c.mut}}">[email]</span></span><span style="font-size: 14px; color: {{c.mut}}">Principal investigator</span></li>
+        <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 8px 20px; border-top: 1px solid {{c.line}}"><span style="flex: 1 1 240px; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">[Name]</span><span style="font-size: 13px; color: {{c.mut}}">[email]</span></span><span style="font-size: 14px">[n] experiments open</span><button type="button" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Remove</button></li>
+        <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 8px 20px; border-top: 1px solid {{c.line}}"><span style="flex: 1 1 240px; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">[email]</span><span style="font-size: 13px; color: {{c.warn}}; font-weight: 600">Invited, not yet joined</span></span><button type="button" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Resend</button><button type="button" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Cancel invitation</button></li>
+      </ul>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

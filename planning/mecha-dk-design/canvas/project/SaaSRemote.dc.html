@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Diskuv SaaS executor</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code{font-family:"Ubuntu Mono",monospace}
+button,input{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 1000px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}">/ Diskuv SaaS account</div>
+  </header>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 24px; align-items: flex-start">
+    <section aria-labelledby="si" style="flex: 1 1 320px; max-width: 420px; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+      <h2 id="si" style="margin: 0; font-size: 20px">Sign in</h2>
+      <div style="font-size: 14px; color: {{c.mut}}">To run experiments on the Diskuv SaaS executor.</div>
+      <label for="e" style="font-size: 14px; font-weight: 600">Email</label>
+      <input id="e" type="email" autocomplete="username webauthn" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+      <button type="button" style="min-height: 44px; font-size: 16px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Continue with a passkey</button>
+      <button type="button" style="min-height: 44px; font-size: 15px; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Email me a sign-in link</button>
+      <details style="border-top: 1px solid {{c.line}}; padding-top: 8px">
+        <summary style="min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; color: {{c.acc}}">Use a password instead</summary>
+        <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 6px">
+          <label for="p" style="font-size: 14px; font-weight: 600">Password</label>
+          <input id="p" type="password" autocomplete="current-password" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+          <button type="button" style="min-height: 44px; font-size: 16px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Sign in</button>
+          <a href="#fp" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; color: {{c.acc}}">Forgot your password?</a>
+        </div>
+      </details>
+      <div style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+        <label for="otp" style="font-size: 14px; font-weight: 600">[Shown next if you set up an authenticator app, after a password or an emailed sign-in link] Enter the 6-digit code from your authenticator app</label>
+        <input id="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+      </div>
+      <div role="alert" style="font-size: 14px; color: {{c.bad}}">[Shown on failure: That did not work. Try again, or use another way to sign in.]</div>
+      <a href="#ca" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; color: {{c.acc}}">New here? Create an account</a>
+    </section>
+
+    <section id="ca" aria-labelledby="cah" style="flex: 1 1 320px; max-width: 420px; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+      <h2 id="cah" style="margin: 0; font-size: 20px">Create an account</h2>
+      <label for="cn" style="font-size: 14px; font-weight: 600">Your name</label>
+      <input id="cn" type="text" autocomplete="name" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+      <label for="ce" style="font-size: 14px; font-weight: 600">Email</label>
+      <input id="ce" type="email" autocomplete="email" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+      <label style="display: flex; align-items: flex-start; gap: 10px; min-height: 44px; font-size: 14px; line-height: 1.4"><input type="checkbox" style="width: 20px; height: 20px; margin: 2px 0 0"> <span>I agree to the <a href="#terms" style="color: {{c.acc}}">terms of service</a> and <a href="#privacy" style="color: {{c.acc}}">privacy policy</a> on diskuv.com. [Updated terms that cover Mecha DK and Diskuv SaaS.]</span></label>
+      <button type="button" style="min-height: 44px; font-size: 16px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Create with a passkey</button>
+      <details style="border-top: 1px solid {{c.line}}; padding-top: 8px">
+        <summary style="min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; color: {{c.acc}}">Use a password instead</summary>
+        <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 6px">
+          <label for="cp" style="font-size: 14px; font-weight: 600">Password</label>
+          <input id="cp" type="password" autocomplete="new-password" aria-describedby="cph" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+          <div id="cph" style="font-size: 13px; color: {{c.mut}}; line-height: 1.4">At least 12 characters. Any characters, spaces too. We refuse passwords known from data breaches. It never expires.</div>
+          <button type="button" style="min-height: 44px; font-size: 16px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Create account</button>
+        </div>
+      </details>
+      <div style="font-size: 13px; color: {{c.mut}}; line-height: 1.4">You can also sign in later with a link sent to your email. After creating the account, you can add an authenticator app as a second step at sign-in (recommended with a password). Setting it up shows recovery codes to keep in case you lose the app.</div>
+      <div role="status" style="font-size: 14px; color: {{c.ok}}">[After creating: We sent a confirmation to [email].]</div>
+    </section>
+
+    <section id="fp" aria-labelledby="fph" style="flex: 1 1 320px; max-width: 420px; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+      <h2 id="fph" style="margin: 0; font-size: 20px">Reset your password</h2>
+      <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Enter your account email and we will send you a link to set a new password. If you use an authenticator app, you will also need its code, or one of your recovery codes, before the new password is accepted.</div>
+      <label for="fe" style="font-size: 14px; font-weight: 600">Email</label>
+      <input id="fe" type="email" autocomplete="username" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}">
+      <button type="button" style="min-height: 44px; font-size: 16px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Send reset</button>
+      <div role="status" style="font-size: 14px; color: {{c.ok}}; line-height: 1.45">[After sending: If an account uses that email, a reset link is on its way.]</div>
+      <a href="#si" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; color: {{c.acc}}">Back to sign in</a>
+    </section>
+
+    <section aria-labelledby="us" style="flex: 999 1 420px; min-width: 0; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <h2 id="us" style="margin: 0; font-size: 20px; flex: 1 1 auto">Usage</h2>
+        <span style="font-size: 14px; color: {{c.mut}}">Signed in as [email]</span>
+        <button type="button" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Sign out</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between; font-size: 15px"><span>Credits this month</span><span style="font-weight: 600">[used] of [allowance]</span></div>
+        <div role="progressbar" aria-label="Usage this period" aria-valuetext="[used] of [allowance]" style="height: 12px; border-radius: 6px; background: {{c.track}}; overflow: hidden"><div style="width: 62%; height: 100%; background: {{c.acc}}"></div></div>
+        <div style="font-size: 13px; color: {{c.mut}}">Resets [date]. [Plan name]</div>
+        <dl style="margin: 4px 0 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; font-size: 14px"><dt>Experiments (minutes run)</dt><dd style="margin: 0">[credits]</dd><dt>LLM use through Diskuv</dt><dd style="margin: 0">[credits]</dd><dt>Storage</dt><dd style="margin: 0">[credits]</dd></dl>
+      </div>
+      <h3 style="margin: 6px 0 0; font-size: 16px">Recent experiments</h3>
+      <div style="overflow-x: auto; border: 1px solid {{c.line}}; border-radius: 6px">
+        <table style="width: 100%; min-width: 480px; border-collapse: collapse; font-size: 14px">
+          <thead><tr style="text-align: left; color: {{c.mut}}"><th scope="col" style="padding: 10px 12px; font-weight: 600">Project</th><th scope="col" style="padding: 10px 12px; font-weight: 600">Hypothesis</th><th scope="col" style="padding: 10px 12px; font-weight: 600">Cycle</th><th scope="col" style="padding: 10px 12px; font-weight: 600">Credits</th></tr></thead>
+          <tbody>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 12px">[Project]</td><td style="padding: 10px 12px">[Hypothesis]</td><td style="padding: 10px 12px">[n]</td><td style="padding: 10px 12px">[amount]</td></tr>
+            <tr style="border-top: 1px solid {{c.line}}"><td style="padding: 10px 12px">[Project]</td><td style="padding: 10px 12px">[Hypothesis]</td><td style="padding: 10px 12px">[n]</td><td style="padding: 10px 12px">[amount]</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size: 13px; color: {{c.mut}}">Available on every device the SaaS module is allowed on.</div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Browse a version</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code{font-family:"Ubuntu Mono",monospace}
+button,input,textarea,select{font-family:inherit}
+a{color:inherit}
+label{min-width:0}
+select{max-width:100%;min-width:0}
+th{font-weight:600}
+</style>
+</helmet>
+<div style="min-height: 1300px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}; flex: 1 1 auto">/ [Project name] / <a href="Tree.dc.html">Hypothesis tree</a> / [Hypothesis] / Version S3</div>
+  </header>
+  <div style="padding: 14px 24px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}; display: flex; flex-direction: column; gap: 8px">
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end"><label style="display: flex; flex-direction: column; gap: 4px; flex: 2 1 360px; font-size: 14px; font-weight: 600">Version<select style="min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"><option selected>S3: from [Hypothesis: fix the end-of-input check], fix attempt, [time]</option><option>S2: from [Hypothesis], fix attempt</option><option>S1: from [Hypothesis], fix attempt</option><option>S0: the starting version</option></select></label><label style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 240px; font-size: 14px; font-weight: 600">Compare with<select style="min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"><option selected>S2, the version it started from</option><option>S0, the starting version</option><option>Nothing: show whole files</option></select></label><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Copy commit <code>[abc1234]</code></button><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Open a copy on this computer</button></div>
+    <div style="font-size: 13px; color: {{c.mut}}; line-height: 1.45">Every fix attempt makes a new version of what the mecha works on. This hypothesis made S3; its results were measured at S2 and S3. Read-only, like a commit: nothing here changes the project.</div>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; flex: 1 1 auto; align-items: stretch">
+    <nav aria-label="Files" style="flex: 1 1 260px; max-width: 320px; box-sizing: border-box; padding: 12px 10px; border-right: 1px solid {{c.line}}; background: {{c.surf}}"><ul role="tree" aria-label="Files and parameters" style="list-style: none; margin: 0; padding: 0"><li style="padding: 10px 10px 2px; font-size: 12px; font-weight: 700; color: {{c.mut}}; letter-spacing: 0.02em">MAY CHANGE</li><li><a href="#f" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 10px; border-radius: 6px; font-size: 14px; text-decoration: none; "><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">[github.com/owner/app]</span></a></li><li><a href="#f" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 26px; border-radius: 6px; font-size: 14px; text-decoration: none; "><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">src/</span></a></li><li><a href="#f" aria-current="page" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 42px; border-radius: 6px; font-size: 14px; text-decoration: none; background: {{c.sel}}; font-weight: 600"><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">Parser.java</span><span style="font-size: 12px; font-weight: 700; color: {{c.warn}}">changed</span></a></li><li><a href="#f" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 42px; border-radius: 6px; font-size: 14px; text-decoration: none; "><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">Lexer.java</span></a></li><li><a href="#f" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 26px; border-radius: 6px; font-size: 14px; text-decoration: none; "><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">build.gradle</span></a></li><li style="padding: 10px 10px 2px; font-size: 12px; font-weight: 700; color: {{c.mut}}; letter-spacing: 0.02em">MAY READ</li><li><a href="#f" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 10px; border-radius: 6px; font-size: 14px; text-decoration: none; "><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">[github.com/owner/spec] @ v1.2</span></a></li><li><a href="#f" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 10px; border-radius: 6px; font-size: 14px; text-decoration: none; "><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">description.md</span></a></li><li><a href="#f" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 10px; border-radius: 6px; font-size: 14px; text-decoration: none; "><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">data/train.csv</span></a></li><li><a href="#f" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 10px; border-radius: 6px; font-size: 14px; text-decoration: none; "><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">figures/yield.png</span></a></li><li style="padding: 10px 10px 2px; font-size: 12px; font-weight: 700; color: {{c.mut}}; letter-spacing: 0.02em">PARAMETERS</li><li><a href="#f" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 10px; border-radius: 6px; font-size: 14px; text-decoration: none; "><span style="flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">[Incubation temperature]</span><span style="font-size: 12px; font-weight: 700; color: {{c.warn}}">changed</span></a></li></ul>
+      <div style="padding: 10px; font-size: 12px; color: {{c.mut}}; line-height: 1.4">The same lists as Scope: what the mecha may change, what it may only read, and its parameters.</div>
+    </nav>
+    <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px">
+      <section aria-labelledby="fv" style="display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px"><h1 id="fv" style="margin: 0; font-size: 20px; flex: 1 1 auto; font-family: 'Ubuntu Mono', monospace">src/Parser.java</h1><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Changes</button><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Whole file</button></div>
+        <div role="region" aria-label="Changes in Parser.java" style="overflow-x: auto; border: 1px solid {{c.line}}; border-radius: 6px; padding: 8px 0; font-family: 'Ubuntu Mono', monospace; font-size: 14px; line-height: 1.6; background: {{c.surf}}"><div style="display: flex; "><span style="width: 44px; flex: none; text-align: right; padding-right: 8px; color: {{c.mut}}">41</span><span aria-label="" style="width: 18px; flex: none; color: {{c.mut}}; font-weight: 700"></span><span style="white-space: pre">  Token next() {</span></div><div style="display: flex; "><span style="width: 44px; flex: none; text-align: right; padding-right: 8px; color: {{c.mut}}">42</span><span aria-label="" style="width: 18px; flex: none; color: {{c.mut}}; font-weight: 700"></span><span style="white-space: pre">    skipWhitespace();</span></div><div style="display: flex; background: {{c.att}}"><span style="width: 44px; flex: none; text-align: right; padding-right: 8px; color: {{c.mut}}">43</span><span aria-label="removed" style="width: 18px; flex: none; color: {{c.bad}}; font-weight: 700">-</span><span style="white-space: pre">    if (pos > input.length()) return Token.EOF;</span></div><div style="display: flex; background: {{c.done}}"><span style="width: 44px; flex: none; text-align: right; padding-right: 8px; color: {{c.mut}}">43</span><span aria-label="added" style="width: 18px; flex: none; color: {{c.ok}}; font-weight: 700">+</span><span style="white-space: pre">    if (pos >= input.length()) return Token.EOF;</span></div><div style="display: flex; "><span style="width: 44px; flex: none; text-align: right; padding-right: 8px; color: {{c.mut}}">44</span><span aria-label="" style="width: 18px; flex: none; color: {{c.mut}}; font-weight: 700"></span><span style="white-space: pre">    char ch = input.charAt(pos);</span></div><div style="display: flex; "><span style="width: 44px; flex: none; text-align: right; padding-right: 8px; color: {{c.mut}}">45</span><span aria-label="" style="width: 18px; flex: none; color: {{c.mut}}; font-weight: 700"></span><span style="white-space: pre">    ...</span></div></div>
+      </section>
+      <section aria-labelledby="iv" style="display: flex; flex-direction: column; gap: 8px">
+        <h2 id="iv" style="margin: 0; font-size: 16px">An image: <code>figures/yield.png</code></h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+            <figure style="flex: 1 1 240px; margin: 0; display: flex; flex-direction: column; gap: 6px"><div role="img" aria-label="[figures/yield.png at S2]" style="height: 150px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.track}}"></div><figcaption style="font-size: 13px; color: {{c.mut}}">S2, before</figcaption></figure>
+            <figure style="flex: 1 1 240px; margin: 0; display: flex; flex-direction: column; gap: 6px"><div role="img" aria-label="[figures/yield.png at S3]" style="height: 150px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.track}}"></div><figcaption style="font-size: 13px; color: {{c.mut}}">S3, this version</figcaption></figure>
+          </div>
+        <div style="font-size: 13px; color: {{c.mut}}">Images, PDFs and data files open in a preview; a table shows its first rows and columns.</div>
+      </section>
+      <section aria-labelledby="pv" style="display: flex; flex-direction: column; gap: 8px">
+        <h2 id="pv" style="margin: 0; font-size: 16px">Parameters at this version</h2>
+                <div style="overflow-x: auto"><table style="width: 100%; min-width: 480px; border-collapse: collapse; font-size: 14px"><thead><tr><th scope="col" style="padding: 8px 12px; text-align: left; color: {{c.mut}}">Parameter</th><th scope="col" style="padding: 8px 12px; text-align: left; color: {{c.mut}}">At S2</th><th scope="col" style="padding: 8px 12px; text-align: left; color: {{c.mut}}">At S3</th><th scope="col" style="padding: 8px 12px; text-align: left; color: {{c.mut}}">Allowed</th></tr></thead><tbody><tr style="border-top: 1px solid {{c.line}}"><td style="padding: 8px 12px; vertical-align: top">[Incubation temperature]</td><td style="padding: 8px 12px; vertical-align: top">[35] °C</td><td style="padding: 8px 12px; vertical-align: top"><strong>[37] °C</strong></td><td style="padding: 8px 12px; vertical-align: top">[30] to [40] °C</td></tr></tbody></table></div>
+      </section>
+      <section aria-labelledby="cv" style="display: flex; flex-direction: column; gap: 8px">
+        <h2 id="cv" style="margin: 0; font-size: 16px">Cases measured at S3</h2>
+                <ul style="list-style: none; margin: 0; padding: 0; font-size: 15px"><li style="padding: 10px 0; border-top: 1px solid {{c.line}}; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline"><span style="font-weight: 600; color: {{c.ok}}">Passed</span><span style="flex: 1 1 200px"><code>[ParserTest.testEof]</code></span><a href="#log" style="min-height: 44px; display: inline-flex; align-items: center; color: {{c.acc}}">Log</a></li><li style="padding: 10px 0; border-top: 1px solid {{c.line}}; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline"><span style="font-weight: 600; color: {{c.bad}}">Failed</span><span style="flex: 1 1 200px"><code>relevant-suite-regressions</code></span><span style="color: {{c.mut}}">[LexerTest.testEmpty] regressed</span></li></ul>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

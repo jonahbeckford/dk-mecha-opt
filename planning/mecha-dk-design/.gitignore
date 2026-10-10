@@ -1,0 +1,5 @@
+artifact-files/
+pubcheck/
+shot/
+__pycache__/
+gen/scan.out

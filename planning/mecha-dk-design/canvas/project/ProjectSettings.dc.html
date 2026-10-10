@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Project settings</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+button,input,textarea,select{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 1400px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}">/ [Project title] / Settings</div>
+  </header>
+
+  <div style="display: flex; flex-wrap: wrap; flex: 1 1 auto; align-items: stretch">
+    <nav aria-label="Settings sections" style="flex: 1 1 240px; max-width: 280px; box-sizing: border-box; padding: 18px 14px; border-right: 1px solid {{c.line}}; background: {{c.surf}}; display: flex; flex-direction: column; gap: 4px">
+      <div style="font-size: 13px; font-weight: 600; color: {{c.mut}}; padding: 4px 12px">Change by request, between cycles</div>
+      <a href="#m" aria-current="page" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; background: {{c.sel}}; font-size: 15px; font-weight: 600; text-decoration: none">What you measure</a>
+      <a href="#m" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">What counts as better</a>
+      <a href="#m" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">What the mecha may vary</a>
+      <a href="#m" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Out of bounds</a>
+      <a href="#m" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Protocol of record</a>
+      <div style="font-size: 13px; font-weight: 600; color: {{c.mut}}; padding: 16px 12px 4px">Change now</div>
+      <a href="#n" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Revelations</a>
+      <a href="#n" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Who runs the experiments</a>
+      <a href="#n" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Who helps the mecha</a>
+      <a href="#s" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Sources for hypotheses</a>
+      <a href="Environment.dc.html" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Experiment environment</a>
+      <a href="Collaborators.dc.html" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 15px; text-decoration: none">Collaborators</a>
+      <a href="MeasurementChanges.dc.html" style="margin-top: 12px; min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 6px; border: 1px solid {{c.line}}; font-size: 15px; text-decoration: none">Measurement changes ([n] open)</a>
+    </nav>
+
+    <main id="m" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 18px; max-width: 900px">
+      <h1 style="margin: 0; font-size: 26px">What you measure</h1>
+      <div style="border: 2px solid {{c.warn}}; background: {{c.att}}; border-radius: 6px; padding: 12px 14px; font-size: 15px; line-height: 1.5; display: flex; flex-direction: column; gap: 8px">
+        <div>Changes here are not applied right away. They become a request on <a href="MeasurementChanges.dc.html" style="color: {{c.acc}}">Measurement changes</a>, applied in the next break between cycles.</div>
+        <div><strong>What this draft will do</strong> (it adds a case):</div>
+        <ul style="margin: 0; padding-left: 20px">
+          <li>The mecha will measure the new case on the current best version, run by [executor]. Estimated cost: [cost]. If that needs your approval, it will wait at AUTHORIZE.</li>
+          <li>Every hypothesis keeps what was learned so far, but the mecha will be less sure of each one until the new case has been measured. Rankings may shift.</li>
+          <li>Results from before the change stay on record, marked as measured the old way, and are not compared directly with new ones.</li>
+        </ul>
+        <div style="font-size: 13px">[Variant for a weight change: Nothing needs measuring again; scores are recalculated from results already recorded.] [Variant for a changed judge or scoring code: Everything is measured again on the current best version; this costs [cost].]</div>
+      </div>
+
+      <section aria-labelledby="oc" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="oc" style="margin: 0; font-size: 18px">Cases</h2>
+        <div style="font-size: 14px; color: {{c.mut}}">The tests and inputs, or samples, subjects and sites, that each outcome is measured on.</div>
+        <ul style="list-style: none; margin: 0; padding: 0; border: 1px solid {{c.line}}; border-radius: 6px">
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 52px; padding: 6px 14px"><span style="flex: 1 1 260px; font-size: 15px">[case]</span><button type="button" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Remove</button></li>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 52px; padding: 6px 14px; border-top: 1px solid {{c.line}}; background: {{c.done}}"><span style="flex: 1 1 260px; font-size: 15px">[new case]</span><span style="font-size: 13px; font-weight: 600; color: {{c.ok}}">Added in this draft</span></li>
+        </ul>
+        <button type="button" style="align-self: flex-start; min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px dashed {{c.line}}; border-radius: 6px; background: transparent; color: {{c.acc}}">Add case</button>
+      </section>
+
+      <section aria-labelledby="cd" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+        <h2 id="cd" style="margin: 0; font-size: 18px">Measured by code</h2>
+        <div style="font-size: 14px; color: {{c.mut}}">If results are scored by scripts, attach your change to them.</div>
+        <button type="button" style="align-self: flex-start; min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px dashed {{c.line}}; border-radius: 6px; background: transparent; color: {{c.acc}}">Attach a patch or changed files</button>
+      </section>
+
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <label for="why" style="font-size: 15px; font-weight: 600">Why (kept with the change)</label>
+        <textarea id="why" rows="2" style="box-sizing: border-box; width: 100%; padding: 10px 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.surf}}; color: {{c.ink}}"></textarea>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end">
+        <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Discard draft</button>
+        <button type="button" style="min-height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Request this change</button>
+      </div>
+      <div style="font-size: 13px; color: {{c.mut}}">Your request is approved by making it. A collaborator's request waits for your approval. With an LLM assigned to propose measurement changes, you can also describe a change in your own words and the mecha researches it at CALIBRATE.</div>
+
+      <section id="n" aria-labelledby="nw" style="margin-top: 8px; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
+        <h2 id="nw" style="margin: 0; font-size: 18px">Sections that change now</h2>
+        <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.5">Revelations change as soon as they pass the contradiction check. Who runs experiments, who helps the mecha, and collaborators change immediately, because they do not change how results are measured. These pages look like the matching sections of New project.</div>
+      </section>
+
+      <section id="s" aria-labelledby="sh" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
+        <h2 id="sh" style="margin: 0; font-size: 18px">Sources for hypotheses</h2>
+        <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.5">Which sources the LLM may search when it proposes hypotheses for this project, and their search options. Each starts with your defaults from <a href="LLMs.dc.html" style="color: {{c.acc}}">Settings, LLMs</a>; set one here to fit this project's question. Changes apply from the next IDEATE and do not change how results are measured.</div>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 6px 0"><span style="flex: 1 1 160px; font-size: 15px; font-weight: 600">Zotero</span><span style="flex: 2 1 220px; font-size: 14px; color: {{c.mut}}">Uses your defaults: [library]</span><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Set for this project</button></li>
+          <li style="padding: 6px 0 12px; border-top: 1px solid {{c.line}}; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 44px"><span style="flex: 1 1 160px; font-size: 15px; font-weight: 600">Exa</span><span style="flex: 2 1 220px; font-size: 14px; font-weight: 600">Set for this project</span><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Use my defaults</button></div>
+            <fieldset style="margin: 0; padding: 6px 10px; border: 1px solid {{c.line}}; border-radius: 6px; display: flex; flex-wrap: wrap; gap: 0 16px"><legend style="font-size: 14px; font-weight: 600; padding: 0 4px">Categories the LLM may pick</legend><label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px"><input type="checkbox" style="width: 20px; height: 20px; margin: 0"> Company</label><label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px"><input type="checkbox" checked style="width: 20px; height: 20px; margin: 0"> Publication</label><label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px"><input type="checkbox" checked style="width: 20px; height: 20px; margin: 0"> News</label><label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px"><input type="checkbox" style="width: 20px; height: 20px; margin: 0"> Personal site</label><label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px"><input type="checkbox" style="width: 20px; height: 20px; margin: 0"> Financial report</label><label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px"><input type="checkbox" style="width: 20px; height: 20px; margin: 0"> People</label></fieldset>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px"><label style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 200px; font-size: 14px; font-weight: 600">Only these sites<input type="text" value="[domains]" style="min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></label><label style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 200px; font-size: 14px; font-weight: 600">Published after<input type="date" style="min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></label></div>
+            <div style="font-size: 13px; color: {{c.mut}}">Options not shown here keep your defaults from <a href="LLMs.dc.html" style="color: {{c.acc}}">Settings, LLMs</a>.</div>
+          </li>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 6px 0; border-top: 1px solid {{c.line}}"><span style="flex: 1 1 160px; font-size: 15px; font-weight: 600">Semantic Scholar</span><span style="flex: 2 1 220px; font-size: 14px; color: {{c.mut}}">Uses your defaults</span><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Set for this project</button></li>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 6px 0; border-top: 1px solid {{c.line}}"><span style="flex: 1 1 160px; font-size: 15px; font-weight: 600">Tavily</span><span style="flex: 2 1 220px; font-size: 14px; color: {{c.mut}}">Not used by this project</span><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Use</button></li>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 6px 0; border-top: 1px solid {{c.line}}"><span style="flex: 1 1 160px; font-size: 15px; font-weight: 600">Brave Search</span><span style="flex: 2 1 220px; font-size: 14px; color: {{c.mut}}">Not connected</span><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Connect in Settings, LLMs</button></li>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-height: 56px; padding: 6px 0; border-top: 1px solid {{c.line}}"><span style="flex: 1 1 160px; font-size: 15px; font-weight: 600">The LLM's own search</span><span style="flex: 2 1 220px; font-size: 14px; color: {{c.mut}}">Used</span><button type="button" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Stop using</button></li>
+        </ul>
+        <div style="font-size: 13px; color: {{c.mut}}">A collaborator can see these but only you can change them. Keys stay in Settings, LLMs, on your computer.</div>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone connect to your computer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3{font-family:Lato,Inter,sans-serif;font-weight:700}
+button,input{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 1000px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; align-items: center; gap: 8px; padding: 4px 16px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <div style="font-size: 17px; font-weight: 700">Mecha DK</div>
+  </header>
+  <main style="flex: 1 1 auto; padding: 20px 16px; display: flex; flex-direction: column; gap: 16px">
+    <h1 style="margin: 0; font-size: 24px">Connect to your computer</h1>
+    <p style="margin: 0; font-size: 16px; line-height: 1.5; color: {{c.mut}}">Your projects run on a computer with Mecha DK. On that computer, open Settings, Devices, and show the code.</p>
+    <div style="font-size: 14px; line-height: 1.45; padding: 10px 12px; border-radius: 6px; background: {{c.surf2}}">Using Mecha DK from a phone needs a Diskuv SaaS subscription. <a href="SaaSRemote.dc.html" style="color: {{c.acc}}">Sign in or subscribe</a></div>
+    <button type="button" style="min-height: 56px; font-size: 17px; font-weight: 600; border: 0; border-radius: 8px; background: {{c.acc}}; color: {{c.accInk}}">Scan the code</button>
+    <div role="alert" style="font-size: 14px; color: {{c.bad}}">[Shown on failure: This code has expired. Show a new one on your computer.] [Or: This code is for [email]. Sign in to that account on this phone.]</div>
+
+    <section aria-labelledby="st" style="margin-top: 8px; background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px">
+      <h2 id="st" style="margin: 0; font-size: 16px">After connecting</h2>
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 15px"><span style="width: 12px; height: 12px; border-radius: 50%; background: {{c.ok}}" aria-hidden="true"></span><span><strong>Connected</strong> to [computer name]</span></div>
+      <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">[Direct / Through a relay]. When your computer is off or asleep, you can still read what was last synced; approvals and results wait until it is back.</div>
+      <div role="status" style="font-size: 14px; color: {{c.warn}}; font-weight: 600">[Shown when offline: [computer name] is not reachable. Last synced [time].]</div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

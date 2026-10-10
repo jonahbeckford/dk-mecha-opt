@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>REVIEW and CALIBRATE decisions</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code,pre{font-family:"Ubuntu Mono",monospace}
+button,input,textarea{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 1300px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}; flex: 1 1 auto">/ [Project title] / <a href="Cycle.dc.html">Cycle [n]</a></div>
+    <span style="font-size: 14px; color: {{c.mut}}">Connected to [computer], full control</span>
+  </header>
+
+  <main style="width: 100%; max-width: 1000px; box-sizing: border-box; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+    <section aria-labelledby="rv" style="background: {{c.surf}}; border: 2px solid {{c.warn}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px">
+        <h1 id="rv" style="margin: 0; font-size: 22px; flex: 1 1 auto">REVIEW: check an adopted change against the protocol of record</h1>
+        <span style="font-size: 14px; font-weight: 600; color: {{c.warn}}">[n] waiting</span>
+      </div>
+      <div style="font-size: 15px; line-height: 1.5">[Hypothesis] was adopted in cycle [n]. Read the change beside the parts of the protocol it touches, then sign off or record what the protocol is missing.</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px">
+        <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+          <h2 style="margin: 0; font-size: 15px; color: {{c.mut}}">The change</h2>
+          <pre style="margin: 0; padding: 12px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap">[diff, or the protocol steps that changed]</pre>
+        </div>
+        <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+          <h2 style="margin: 0; font-size: 15px; color: {{c.mut}}">Protocol of record, the parts it touches</h2>
+          <div style="padding: 12px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; font-size: 14px; line-height: 1.5">[sections of the specification, protocol or pre-registration]</div>
+        </div>
+      </div>
+      <a href="#rep" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; color: {{c.acc}}">Open the full REVIEW reconciliation report</a>
+      <label for="gap" style="font-size: 14px; font-weight: 600">What the protocol is missing (leave empty to sign off)</label>
+      <textarea id="gap" rows="3" style="box-sizing: border-box; width: 100%; padding: 10px 12px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></textarea>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <button type="button" style="min-height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Sign off</button>
+        <button type="button" style="min-height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Record a protocol gap</button>
+        <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Later</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 12px; border-top: 1px solid {{c.line}}">
+        <h2 style="margin: 0; font-size: 16px">Changes to the protocol of record ([n])</h2>
+        <div style="font-size: 14px; color: {{c.mut}}; line-height: 1.45">Every change to a specification file waits here for your sign-off before it takes effect, whoever made it.</div>
+        <ul style="list-style: none; margin: 0; padding: 0"><li style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; min-height: 52px; padding: 6px 0; border-top: 1px solid {{c.line}}"><span style="flex: 1 1 300px; font-size: 15px"><code>SPECIFICATION.md</code>: [section] rewritten</span><span style="font-size: 13px; color: {{c.mut}}">by [hypothesis], cycle [n]</span><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Review</button></li><li style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; min-height: 52px; padding: 6px 0; border-top: 1px solid {{c.line}}"><span style="flex: 1 1 300px; font-size: 15px"><code>Assumptions.ml</code>: [n] assumptions added</span><span style="font-size: 13px; color: {{c.mut}}">by [hypothesis], cycle [n]</span><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Review</button></li><li style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; min-height: 52px; padding: 6px 0; border-top: 1px solid {{c.line}}"><span style="flex: 1 1 300px; font-size: 15px"><code>DK0-REFERENCE.md</code> added to the protocol of record</span><span style="font-size: 13px; color: {{c.mut}}">requested by [collaborator] in project settings</span><button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Review</button></li></ul>
+        <div style="font-size: 13px; color: {{c.mut}}">Each opens the change beside the files it touches, with Accept and Reject. A rejected change is undone; a rejected request is closed.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="sl" style="background: {{c.surf}}; border: 2px solid {{c.warn}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px">
+        <h1 id="sl" style="margin: 0; font-size: 22px; flex: 1 1 auto">CALIBRATE: approve changes to how the mecha measures</h1>
+        <span style="font-size: 14px; font-weight: 600; color: {{c.warn}}">[n] proposed</span>
+      </div>
+      <div style="font-size: 15px; line-height: 1.5">From this cycle's evidence the LLM assigned to this role researched these changes. An approved change joins <a href="MeasurementChanges.dc.html" style="color: {{c.acc}}">Measurement changes</a> and is applied in the next break between cycles. Projects with no such LLM have no CALIBRATE stage.</div>
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
+        <li style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline"><span style="font-size: 16px; font-weight: 600; flex: 1 1 280px">[Proposed change, e.g. a new test case for what you measure]</span><span style="font-size: 13px; color: {{c.mut}}">[kind: measure, case, threshold, policy]</span></div>
+          <div style="font-size: 14px; color: {{c.mut}}">Why: [evidence from cycle [n]].</div>
+          <div style="font-size: 14px; line-height: 1.45; padding: 10px 12px; border-radius: 6px; background: {{c.att}}">If approved: [the mecha measures [what] again on the current best version, cost [cost]]. Until then it will be less sure about every hypothesis, and rankings may shift. Earlier results stay on record, marked as measured the old way.</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px">
+            <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Approve</button>
+            <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Decline</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <div style="font-size: 13px; color: {{c.mut}}">The same decisions appear on the desktop, a phone, and the web app. Whichever device answers first wins; the others update.</div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

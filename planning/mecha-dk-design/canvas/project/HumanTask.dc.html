@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>An experiment for a person</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code{font-family:"Ubuntu Mono",monospace}
+button,input,textarea{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 1100px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}; flex: 1 1 auto">/ Experiments for you</div>
+    <span style="font-size: 14px; color: {{c.mut}}">[n] waiting</span>
+  </header>
+
+  <div style="display: flex; flex-wrap: wrap; flex: 1 1 auto; align-items: stretch">
+    <nav aria-label="Experiments for you" style="flex: 1 1 260px; max-width: 300px; box-sizing: border-box; padding: 18px 14px; border-right: 1px solid {{c.line}}; background: {{c.surf}}; display: flex; flex-direction: column; gap: 6px">
+      <a href="#t" aria-current="page" style="display: flex; flex-direction: column; gap: 2px; min-height: 44px; box-sizing: border-box; padding: 8px 12px; border-radius: 6px; background: {{c.sel}}; text-decoration: none"><span style="font-size: 15px; font-weight: 600">[Experiment title]</span><span style="font-size: 13px; color: {{c.mut}}">[Project], sent [date]</span></a>
+      <a href="#t" style="display: flex; flex-direction: column; gap: 2px; min-height: 44px; box-sizing: border-box; padding: 8px 12px; border-radius: 6px; text-decoration: none"><span style="font-size: 15px; font-weight: 600">[Experiment title]</span><span style="font-size: 13px; color: {{c.mut}}">[Project], in progress</span></a>
+    </nav>
+
+    <main id="t" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 18px; max-width: 920px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h1 style="margin: 0; font-size: 26px">[Experiment title]</h1>
+        <div style="font-size: 14px; color: {{c.mut}}">From [project], cycle [n]. Tests: [hypothesis, in plain words]. Authorized by [maintainer] on [date].</div>
+      </div>
+
+      <section aria-labelledby="pr" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+        <h2 id="pr" style="margin: 0; font-size: 18px">Protocol</h2>
+        <ol style="margin: 0; padding-left: 22px; font-size: 16px; line-height: 1.6">
+          <li>[Step the mecha wrote]</li>
+          <li>[Step]</li>
+          <li>[Step]</li>
+        </ol>
+        <div style="font-size: 14px; color: {{c.mut}}">Materials: [list]. Expected time: [estimate].</div>
+        <div style="border: 2px solid {{c.warn}}; background: {{c.att}}; border-radius: 6px; padding: 10px 12px; font-size: 14px; line-height: 1.45"><strong>Stop if</strong> [a condition from the project's boundary]. Never [an excluded act].</div>
+      </section>
+
+      <section aria-labelledby="ms" style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="ms" style="margin: 0; font-size: 18px">Record what you measured</h2>
+        <div style="font-size: 14px; color: {{c.mut}}">One row per case. The form follows the project's declared loss: a value with its unit here; pass or fail when the loss is a yes or no.</div>
+        <div style="overflow-x: auto; border: 1px solid {{c.line}}; border-radius: 6px">
+          <table style="width: 100%; min-width: 520px; border-collapse: collapse; font-size: 15px">
+            <thead><tr style="text-align: left; color: {{c.mut}}"><th scope="col" style="padding: 10px 12px; font-weight: 600">Case</th><th scope="col" style="padding: 10px 12px; font-weight: 600">Measured</th><th scope="col" style="padding: 10px 12px; font-weight: 600">Unit</th><th scope="col" style="padding: 10px 12px; font-weight: 600">Note</th></tr></thead>
+            <tbody>
+              <tr style="border-top: 1px solid {{c.line}}"><th scope="row" style="padding: 8px 12px; text-align: left; font-weight: 600">[case 1]</th><td style="padding: 6px 12px"><input type="text" inputmode="decimal" aria-label="Measured, case 1" style="width: 100%; min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></td><td style="padding: 8px 12px">[unit]</td><td style="padding: 6px 12px"><input type="text" aria-label="Note, case 1" style="width: 100%; min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></td></tr>
+              <tr style="border-top: 1px solid {{c.line}}"><th scope="row" style="padding: 8px 12px; text-align: left; font-weight: 600">[case 2]</th><td style="padding: 6px 12px"><input type="text" inputmode="decimal" aria-label="Measured, case 2" style="width: 100%; min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 16px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></td><td style="padding: 8px 12px">[unit]</td><td style="padding: 6px 12px"><input type="text" aria-label="Note, case 2" style="width: 100%; min-height: 44px; box-sizing: border-box; padding: 0 10px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.bg}}; color: {{c.ink}}"></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+          <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px dashed {{c.line}}; border-radius: 6px; background: transparent; color: {{c.acc}}">Attach files</button>
+          <span style="font-size: 14px; color: {{c.mut}}">Photos, instrument exports, notebooks</span>
+        </div>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end">
+        <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Could not run it</button>
+        <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; border: 1px solid {{c.line}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Save, finish later</button>
+        <button type="button" style="min-height: 44px; padding: 0 20px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Send results</button>
+      </div>
+      <div style="font-size: 13px; color: {{c.mut}}">Results are folded in at the next UPDATE after they arrive. "Could not run it" asks for a reason, which the mecha reads as evidence about the protocol, not about the hypothesis.</div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

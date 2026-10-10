@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hypothesis tree</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code{font-family:"Ubuntu Mono",monospace}
+button,input,textarea{font-family:inherit}
+a{color:inherit}
+</style>
+</helmet>
+<div style="min-height: 1100px; box-sizing: border-box; display: flex; flex-direction: column; background: {{c.bg}}; color: {{c.ink}}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 6px 24px; min-height: 56px; background: {{c.surf}}; border-bottom: 1px solid {{c.line}}">
+    <a href="Projects.dc.html" style="font-size: 18px; font-weight: 700; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Mecha DK</a>
+    <div style="font-size: 15px; color: {{c.mut}}">/ [Project name] /</div>
+    <a href="Cycle.dc.html" style="font-size: 15px; min-height: 44px; display: inline-flex; align-items: center">Cycle [n]</a>
+    <div style="font-size: 15px; font-weight: 600; flex: 1 1 auto">/ Hypothesis tree</div>
+  </header>
+
+  <div style="display: flex; flex-wrap: wrap; flex: 1 1 auto; align-items: stretch">
+    <main style="flex: 999 1 640px; min-width: 0; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+        <h1 style="margin: 0; font-size: 24px; flex: 1 1 auto">Hypothesis tree</h1>
+        <button type="button" style="min-height: 44px; padding: 0 18px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Pose a hypothesis</button>
+      </div>
+      <div role="group" aria-label="Show" style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" aria-pressed="true" style="min-height: 44px; padding: 0 14px; font-size: 14px; font-weight: 600; border: 1px solid {{c.acc}}; border-radius: 22px; background: {{c.sel}}; color: {{c.ink}}">All open</button>
+        <button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 22px; background: transparent; color: {{c.ink}}">Dispatchable</button>
+        <button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 22px; background: transparent; color: {{c.ink}}">Awaiting authorization</button>
+        <button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 22px; background: transparent; color: {{c.ink}}">Awaiting a revelation from you</button>
+        <button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 14px; font-size: 14px; border: 1px solid {{c.line}}; border-radius: 22px; background: transparent; color: {{c.ink}}">Merged or pruned</button>
+      </div>
+
+      <div style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; overflow-x: auto">
+        <div style="min-width: 640px; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 0.8fr); gap: 0 16px; padding: 10px 16px; font-size: 13px; font-weight: 600; color: {{c.mut}}; border-bottom: 1px solid {{c.line}}">
+          <span>Hypothesis</span><span>State</span><span>Expected loss (90% interval)</span><span>VoI / cost</span>
+        </div>
+        <ul role="tree" aria-label="Hypotheses" style="list-style: none; margin: 0; padding: 0; min-width: 640px">
+          <li role="treeitem" aria-expanded="true" style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 0.8fr); gap: 0 16px; align-items: center; min-height: 52px; padding: 6px 16px; border-bottom: 1px solid {{c.line}}">
+            <span style="display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">[Root: the project's SUO]</span></span>
+            <span style="font-size: 14px; color: {{c.mut}}">root</span><span></span><span></span>
+          </li>
+          <li role="treeitem" aria-expanded="true" style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 0.8fr); gap: 0 16px; align-items: center; min-height: 52px; padding: 6px 16px 6px 40px; border-bottom: 1px solid {{c.line}}">
+            <span style="display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">[Hypothesis]</span><span style="font-size: 12px; color: {{c.mut}}">From question: [research question]</span></span>
+            <span style="font-size: 14px; color: {{c.ok}}; font-weight: 600">Merged</span>
+            <div role="img" aria-label="Expected loss [L], interval [a] to [b]" style="position: relative; height: 12px; border-radius: 6px; background: {{c.track}}"><div style="position: absolute; left: 10%; width: 20%; top: 0; bottom: 0; border-radius: 6px; background: {{c.acc}}"></div><div style="position: absolute; left: 18%; width: 3px; top: -3px; bottom: -3px; background: {{c.ink}}"></div></div>
+            <span style="font-size: 14px; color: {{c.mut}}">n/a</span>
+          </li>
+          <li role="treeitem" aria-selected="true" style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 0.8fr); gap: 0 16px; align-items: center; min-height: 52px; padding: 6px 16px 6px 64px; border-bottom: 1px solid {{c.line}}; background: {{c.sel}}">
+            <span style="display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">[Refinement: narrower scope]</span><span style="font-size: 12px; color: {{c.mut}}">Ideated, seeded by a revelation</span></span>
+            <span style="font-size: 14px; color: {{c.warn}}; font-weight: 600">Awaiting authorization</span>
+            <div role="img" aria-label="Expected loss [L], interval [a] to [b]" style="position: relative; height: 12px; border-radius: 6px; background: {{c.track}}"><div style="position: absolute; left: 6%; width: 44%; top: 0; bottom: 0; border-radius: 6px; background: {{c.acc}}"></div><div style="position: absolute; left: 24%; width: 3px; top: -3px; bottom: -3px; background: {{c.ink}}"></div></div>
+            <span style="font-size: 14px">[1.8]</span>
+          </li>
+          <li role="treeitem" style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 0.8fr); gap: 0 16px; align-items: center; min-height: 52px; padding: 6px 16px 6px 64px; border-bottom: 1px solid {{c.line}}">
+            <span style="display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">[Refinement: other method]</span><span style="font-size: 12px; color: {{c.mut}}">Ideated, data-driven</span></span>
+            <span style="font-size: 14px; color: {{c.acc}}; font-weight: 600">Dispatchable</span>
+            <div role="img" aria-label="Expected loss [L], interval [a] to [b]" style="position: relative; height: 12px; border-radius: 6px; background: {{c.track}}"><div style="position: absolute; left: 20%; width: 60%; top: 0; bottom: 0; border-radius: 6px; background: {{c.acc}}"></div><div style="position: absolute; left: 46%; width: 3px; top: -3px; bottom: -3px; background: {{c.ink}}"></div></div>
+            <span style="font-size: 14px">[1.2]</span>
+          </li>
+          <li role="treeitem" style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 0.8fr); gap: 0 16px; align-items: center; min-height: 52px; padding: 6px 16px 6px 40px; border-bottom: 1px solid {{c.line}}">
+            <span style="display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">[Hypothesis you posed]</span><span style="font-size: 12px; color: {{c.mut}}">Posed by you</span></span>
+            <span style="font-size: 14px; color: {{c.warn}}; font-weight: 600">Flagged at DROP</span>
+            <div role="img" aria-label="Prior only, no experiment yet" style="position: relative; height: 12px; border-radius: 6px; background: {{c.track}}"><div style="position: absolute; left: 4%; width: 90%; top: 0; bottom: 0; border-radius: 6px; background: {{c.wide}}"></div></div>
+            <span style="font-size: 14px">[0.6]</span>
+          </li>
+          <li role="treeitem" style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 0.8fr); gap: 0 16px; align-items: center; min-height: 52px; padding: 6px 16px 6px 40px">
+            <span style="display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">[Hypothesis]</span><span style="font-size: 12px; color: {{c.mut}}">From question: [research question]</span></span>
+            <span style="font-size: 14px; color: {{c.warn}}; font-weight: 600">Awaiting a revelation from you</span>
+            <div role="img" aria-label="Expected loss [L], interval [a] to [b]" style="position: relative; height: 12px; border-radius: 6px; background: {{c.track}}"><div style="position: absolute; left: 30%; width: 50%; top: 0; bottom: 0; border-radius: 6px; background: {{c.acc}}"></div><div style="position: absolute; left: 52%; width: 3px; top: -3px; bottom: -3px; background: {{c.ink}}"></div></div>
+            <span style="font-size: 14px">[0.9]</span>
+          </li>
+        </ul>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <div style="font-size: 13px; color: {{c.mut}}; flex: 1 1 320px">A wide grey bar is a prior with no experiment yet. Bars narrow as UPDATE folds in results.</div>
+        <label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px"><input type="checkbox" style="width: 20px; height: 20px; margin: 0"> Show curves and formulas in the list</label>
+      </div>
+    </main>
+
+    <aside aria-labelledby="h-node" style="flex: 1 1 340px; max-width: 420px; box-sizing: border-box; padding: 24px 20px; border-left: 1px solid {{c.line}}; background: {{c.surf}}; display: flex; flex-direction: column; gap: 14px">
+      <h2 id="h-node" style="margin: 0; font-size: 18px">[Refinement: narrower scope]</h2>
+      <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 14px; font-size: 14px">
+        <dt style="color: {{c.mut}}">Parent</dt><dd style="margin: 0">[Hypothesis]</dd>
+        <dt style="color: {{c.mut}}">Origin</dt><dd style="margin: 0">Ideated from [research question], seeded by revelation [n]</dd>
+        <dt style="color: {{c.mut}}">Expected loss</dt><dd style="margin: 0">[L], 90% interval [a] to [b]</dd>
+        <dt style="color: {{c.mut}}">Option value</dt><dd style="margin: 0">[V]</dd>
+        <dt style="color: {{c.mut}}">Next experiment</dt><dd style="margin: 0">Cost [c], value of information [VoI]</dd>
+        <dt style="color: {{c.mut}}">Parked</dt><dd style="margin: 0; color: {{c.warn}}; font-weight: 600">For a spend of [cost]</dd>
+      </dl>
+      <section aria-labelledby="dist" style="border: 1px solid {{c.line}}; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+          <h3 id="dist" style="margin: 0; font-size: 15px; flex: 1 1 auto">Expected loss</h3>
+          <div role="radiogroup" aria-label="Show as" style="display: inline-flex; border: 1px solid {{c.line}}; border-radius: 6px; overflow: hidden">
+            <button type="button" role="radio" aria-checked="false" style="min-height: 44px; padding: 0 12px; font-size: 14px; border: 0; background: transparent; color: {{c.ink}}">Interval</button>
+            <button type="button" role="radio" aria-checked="true" style="min-height: 44px; padding: 0 12px; font-size: 14px; font-weight: 600; border: 0; border-left: 1px solid {{c.line}}; background: {{c.sel}}; color: {{c.ink}}">Distribution</button>
+          </div>
+        </div>
+        <svg role="img" aria-label="Posterior density of the expected loss, Beta(0.5, 2.3) as an example; most of the probability is at low loss" viewBox="0 0 300 120" width="100%" style="max-width: 360px; height: auto">
+          <line x1="20" y1="100" x2="290" y2="100" stroke="{{c.mut}}" stroke-width="1"/>
+          <rect x="20" y="10" width="118" height="90" fill="{{c.sel}}"/>
+          <path d="M22 12 C 30 50, 45 75, 70 86 S 150 98, 288 99" fill="none" stroke="{{c.acc}}" stroke-width="3" stroke-linecap="round"/>
+          <line x1="58" y1="10" x2="58" y2="100" stroke="{{c.ink}}" stroke-width="2"/>
+          <text x="20" y="116" font-size="11" fill="{{c.mut}}">0</text>
+          <text x="276" y="116" font-size="11" fill="{{c.mut}}">1</text>
+          <text x="62" y="22" font-size="11" fill="{{c.ink}}">mean</text>
+        </svg>
+        <div style="font-size: 14px; line-height: 1.5"><code style="font-family: 'Ubuntu Mono', monospace; font-size: 15px">[Beta(0.5, 2.3)]</code> <span style="color: {{c.mut}}">example; a Student-t for a continuous loss</span></div>
+        <div style="font-size: 13px; color: {{c.mut}}; line-height: 1.45">Mean [L]. Shaded: the 90% interval, [a] to [b]. Lower is better. Measured under version [v] of how results are measured.</div>
+        <a href="#how" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 14px; color: {{c.acc}}">What this curve means</a>
+      </section>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: {{c.acc}}; color: {{c.accInk}}">Authorize spend</button>
+        <button type="button" style="min-height: 44px; padding: 0 16px; font-size: 15px; border: 1px solid {{c.ink}}; border-radius: 6px; background: transparent; color: {{c.ink}}">Keep parked</button>
+      </div>
+      <h3 style="margin: 8px 0 0; font-size: 15px; padding-top: 14px; border-top: 1px solid {{c.line}}">Versions</h3>
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; font-size: 14px">
+        <li style="display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center"><a href="SuoBrowser.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; color: {{c.acc}}; font-weight: 600">S3</a><span style="flex: 1 1 160px">made by this hypothesis's fix attempt</span></li>
+        <li style="display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center"><a href="SuoBrowser.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; color: {{c.acc}}; font-weight: 600">S2</a><span style="flex: 1 1 160px">where it started; also measured here</span></li>
+      </ul>
+      <div style="font-size: 13px; color: {{c.mut}}">Open a version to browse its files, images, data and parameters, and what changed.</div>
+      <h3 style="margin: 8px 0 0; font-size: 15px; padding-top: 14px; border-top: 1px solid {{c.line}}">Experiments</h3>
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px">
+        <li style="display: flex; gap: 10px; align-items: center"><span style="min-width: 70px; color: {{c.mut}}">Cycle [n]</span><span style="flex: 1 1 auto">[outcome y]</span><a href="SuoBrowser.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; color: {{c.acc}}">at S3</a></li>
+        <li style="display: flex; gap: 10px; align-items: center"><span style="min-width: 70px; color: {{c.mut}}">Cycle [n]</span><span style="flex: 1 1 auto">[outcome y]</span><a href="SuoBrowser.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; color: {{c.acc}}">at S3</a></li>
+      </ul>
+      <a href="#explain" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; color: {{c.acc}}">Open the explanation for this branch</a>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1360,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>

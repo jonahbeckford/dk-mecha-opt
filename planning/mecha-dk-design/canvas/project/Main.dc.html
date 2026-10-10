@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flow overview</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&amp;family=Lato:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif}
+h1,h2,h3,legend{font-family:Lato,Inter,sans-serif;font-weight:700}
+code{font-family:"Ubuntu Mono",monospace}
+</style>
+</helmet>
+<div style="width: 1200px; height: 920px; box-sizing: border-box; padding: 48px; display: flex; flex-direction: column; gap: 24px; background: {{c.bg}}; color: {{c.ink}}">
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <h1 style="margin: 0; font-size: 32px; line-height: 1.15">Pose a problem or a hypothesis. Both land in one hypothesis tree, and the mecha works the tree in cycles.</h1>
+    <p style="margin: 0; font-size: 16px; line-height: 1.5; color: {{c.mut}}; max-width: 900px">Source: Paper I section 2 and design.typ part 4. A problem is a prompt that IDEATE turns into hypotheses. A hypothesis is a proposed change to the system under optimization (SUO), carried as a node with a posterior over the project's loss.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+    <div style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 13px; font-weight: 600; color: {{c.acc}}">Once per project</div>
+      <div style="font-size: 19px; font-weight: 600">Create a project</div>
+      <div style="font-size: 14px; line-height: 1.45; color: {{c.mut}}">Declare the SUO (edit surface, measured surface, public spec, boundary), the objective function, the revelations, and a model per role. This is <code>dk0 learn init</code>.</div>
+    </div>
+    <div style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 13px; font-weight: 600; color: {{c.acc}}">Flow 1</div>
+      <div style="font-size: 19px; font-weight: 600">Pose a problem</div>
+      <div style="font-size: 14px; line-height: 1.45; color: {{c.mut}}">Free text. At the next IDEATE the mecha breaks it into hypotheses and places each under the node it best refines. Progress is tracked per problem.</div>
+    </div>
+    <div style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 13px; font-weight: 600; color: {{c.acc}}">Flow 2</div>
+      <div style="font-size: 19px; font-weight: 600">Pose a hypothesis</div>
+      <div style="font-size: 14px; line-height: 1.45; color: {{c.mut}}">A proposed change, stated directly. It is placed in the tree and checked against the revelations at DROP. Progress is tracked per hypothesis, as its posterior.</div>
+    </div>
+  </div>
+
+  <div style="background: {{c.surf}}; border: 1px solid {{c.line}}; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px">
+      <div style="font-size: 19px; font-weight: 600">One cycle, OBSERVE to PERSIST</div>
+      <div style="font-size: 14px; color: {{c.mut}}">Shaded stages are attended: they wait for the human, and are skipped in an unattended window.</div>
+    </div>
+    <ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 6px">
+      <li style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 10px 6px; font-size: 12px; font-weight: 600; text-align: center">OBSERVE</li>
+      <li style="border: 2px solid {{c.warn}}; background: {{c.att}}; border-radius: 6px; padding: 9px 4px; font-size: 12px; font-weight: 700; text-align: center">AUTHORIZE</li>
+      <li style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 10px 6px; font-size: 12px; font-weight: 600; text-align: center">IDEATE</li>
+      <li style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 10px 6px; font-size: 12px; font-weight: 600; text-align: center">DROP</li>
+      <li style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 10px 6px; font-size: 12px; font-weight: 600; text-align: center">SELECT</li>
+      <li style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 10px 6px; font-size: 12px; font-weight: 600; text-align: center">DISPATCH</li>
+      <li style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 10px 6px; font-size: 12px; font-weight: 600; text-align: center">UPDATE</li>
+      <li style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 10px 6px; font-size: 12px; font-weight: 600; text-align: center">DECIDE</li>
+      <li style="border: 2px solid {{c.warn}}; background: {{c.att}}; border-radius: 6px; padding: 9px 4px; font-size: 12px; font-weight: 700; text-align: center">REVIEW</li>
+      <li style="border: 2px solid {{c.warn}}; background: {{c.att}}; border-radius: 6px; padding: 9px 4px; font-size: 12px; font-weight: 700; text-align: center">CALIBRATE<br><span style="font-weight: 400">LLM only</span></li>
+      <li style="border: 1px solid {{c.line}}; border-radius: 6px; padding: 10px 6px; font-size: 12px; font-weight: 600; text-align: center">PERSIST</li>
+    </ol>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; font-size: 14px; line-height: 1.45">
+      <div><strong>Authorize decisions.</strong> AUTHORIZE releases a hypothesis parked for a spend or a revelation. REVIEW signs off a merged change against the spec, or records a spec gap. CALIBRATE approves measurement changes an LLM researched; it exists only when a project assigns one, and anyone can still request a change in project settings.</div>
+      <div><strong>Observe progress.</strong> The stage running now, the experiments DISPATCH runs in isolated worktrees, and each hypothesis's posterior with its width as UPDATE folds results in.</div>
+      <div><strong>Review outputs.</strong> The reports <code>dk0 learn report</code> renders: cycle report, frontier map, scorecard, REVIEW reconciliation, explanation, window report. A run ends when DECIDE adopts a hypothesis.</div>
+    </div>
+  </div>
+
+  <div style="background: {{c.surf2}}; border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+    <div style="font-size: 16px; font-weight: 600">Decided, and still open</div>
+    <ul style="margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.55">
+      <li>Decided: cycles run back to back and stop at the next attended stage.</li>
+      <li>Decided: reports show as rendered Typst pages (SVG or PNG). dk0 writes .typ and spawns a Typst asset for other formats. On the web, Android and iOS, the app renders .typ to SVG itself (queued for dk-engine-opt).</li>
+      <li>Decided: the app uses the dk mark; fonts are Inter, Lato, Ubuntu Mono and Poppins, each shipped with its license text.</li>
+      <li>Decided: the app speaks as to a principal investigator, for software and science alike: "research question" for problem, "revelation" kept as the word for revelations, one New project form.</li>
+      <li>Decided: changes to how results are measured are requests, applied one at a time between cycles, undone automatically if they fail to apply or re-baseline, and left to you if their later check fails.</li>
+      <li>Decided: the human steers only through the named acts (pose a problem or hypothesis, add a revelation, authorize or keep parked, stop after a stage). No free-text box.</li>
+    </ul>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1200,"height":920}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const d = !!this.props.dark;
+    const c = d
+      ? { bg: '#000000', surf: '#1A1A1A', surf2: '#0F1D24', sel: '#2A174F', done: '#142F0E', att: '#2F2A0E', track: '#404040', wide: '#4D357D', ink: '#FFFFFF', mut: '#A6A6A6', line: '#404040', acc: '#9A82CA', accInk: '#000000', warn: '#D0BE62', ok: '#A9E19D', bad: '#D67686' }
+      : { bg: '#E6E6E6', surf: '#FFFFFF', surf2: '#DBE9F0', sel: '#E2DBF0', done: '#DDF3D8', att: '#F6F2E0', track: '#E6E6E6', wide: '#9A82CA', ink: '#000000', mut: '#595959', line: '#B3B3B3', acc: '#542F9D', accInk: '#FFFFFF', warn: '#766923', ok: '#2A621E', bad: '#B0354A' };
+    return { c };
+  }
+}
+</script>
+</body>
+</html>
